@@ -1,8 +1,9 @@
 import console
+
 class Canvas(object):
-    def __init__(self, height=30, width=40, background=' ', color='#'):
-        self.height = height
-        self.width = width
+    def __init__(self, size=(40, 30), background=' ', color='#'):
+        self.height = size[1]
+        self.width = size[0]
 
         self.OFF = background
         self.ON = color
@@ -10,8 +11,8 @@ class Canvas(object):
         self.sprites = []
 
     def __str__(self):
-        display = [[self.OFF for x in range(self.width)] 
-                   for y in range(self.height)]
+        display = [[self.OFF for x in range(self.width+1)] 
+                   for y in range(self.height+1)]
         for sprite in self.sprites:
             for y, row in enumerate(sprite.img):
                 for x, pixel in enumerate(row):
@@ -33,8 +34,11 @@ class Canvas(object):
         out += (int((console.HEIGHT-self.height)/2)-2)*'\n'
         return out
 
-    def addSprite(self, image):
-        self.sprites.append(image)
+    def addSprite(self, sprite):
+        self.sprites.append(sprite)
+
+    def removeSprite(self, sprite):
+        self.sprites.remove(sprite)
 
     def testPixel(self, testPixel):
         for sprite in self.sprites:
@@ -103,6 +107,12 @@ class Sprite(object):
             self.position[0] += 1
         elif dir_ == 3:
             self.position[1] -= 1
+
+    def setImage(self, image):
+        self.image = image
+
+    def setPos(self, pos):
+        self.position = pos
 
     @property
     def img(self):
@@ -187,3 +197,38 @@ class Sprite(object):
         if self.pos[1] <= 0:
             sides.append(3)
         return sides
+
+def main():
+    import shapes
+    import time
+
+    screen = Canvas(size=(20, 20))
+    sprite = Sprite(
+        shapes.circle(0),
+        (10, 10)
+    )
+    screen.addSprite(sprite)
+
+    while True:
+        for radius in range(0, 11, 1):
+            sprite.setImage(shapes.circle(radius))
+            sprite.setPos((10-radius, 10-radius))
+
+            print(screen)
+            time.sleep(.1)
+
+        for radius in range(11, 0, -1):
+            sprite.setImage(shapes.circle(radius))
+            sprite.setPos((10-radius, 10-radius))
+
+            print(screen)
+            time.sleep(.1)
+
+        sprite.setImage(shapes.pixel())
+        sprite.setPos((10, 10))
+
+        print(screen)
+        time.sleep(.1)
+
+if __name__ == '__main__':
+    main()
