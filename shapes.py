@@ -9,7 +9,7 @@ def vector(angle, length):
     """
     xLength = length * math.sin(math.radians(angle))
     yLength = length * math.cos(math.radians(angle))
-    image = [[False for x in range(int(xLength)+1)] for y in range(int(yLength)+1)]
+    image = [[False for x in range(abs(int(xLength))+1)] for y in range(abs(int(yLength))+1)]
 
     if (angle-45) % 180 < 90:
         if xLength <= 0:

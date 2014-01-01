@@ -203,29 +203,28 @@ def main():
     import time
 
     screen = Canvas(size=(20, 20))
-    sprite = Sprite(
+
+    circle = Sprite(
         shapes.circle(0),
         (10, 10)
     )
-    screen.addSprite(sprite)
+    screen.addSprite(circle)
+
+    circleDir = True
+    radius = 0
 
     while True:
-        for radius in range(0, 11, 1):
-            sprite.setImage(shapes.circle(radius))
-            sprite.setPos((10-radius, 10-radius))
+        if circleDir:
+            radius += 1
+        else:
+            radius -= 1
+        if radius == 10:
+            circleDir = False
+        elif radius == 1:
+            circleDir = True
 
-            print(screen)
-            time.sleep(.1)
-
-        for radius in range(11, 0, -1):
-            sprite.setImage(shapes.circle(radius))
-            sprite.setPos((10-radius, 10-radius))
-
-            print(screen)
-            time.sleep(.1)
-
-        sprite.setImage(shapes.pixel())
-        sprite.setPos((10, 10))
+        circle.setImage(shapes.circle(radius))
+        circle.setPos((10-radius, 10-radius))
 
         print(screen)
         time.sleep(.1)
