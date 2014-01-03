@@ -12,23 +12,30 @@ def vector(angle, length):
     image = [[False for x in range(abs(int(xLength))+1)] for y in range(abs(int(yLength))+1)]
 
     if (angle-45) % 180 < 90:
-        if xLength <= 0:
+
+        if xLength <= 0: # If -ve length --> go backwards
             for xOff in range(0, int(xLength), -1):
                 image[int((xLength - xOff) / math.tan(math.radians(angle)))]\
                      [int(xLength - xOff)] = True
+
         else:
-            for xOff in range(int(xLength)):
+            
+            for xOff in range(0, int(xLength), 1):
                 image[int((xLength - xOff) / math.tan(math.radians(angle)))]\
                      [int(xLength - xOff)] = True
+    
     else:
-        if yLength <= 0:
+
+        if yLength <= 0: # If -ve length --> go backwards
             for yOff in range(0, int(yLength), -1):
                 image[int(yLength - yOff)]\
                      [int((yLength - yOff) * math.tan(math.radians(angle)))] = True
+
         else:
-            for yOff in range(int(yLength)):
+            for yOff in range(0, int(yLength), 1):
                 image[int(yLength - yOff)]\
                      [int((yLength - yOff) * math.tan(math.radians(angle)))] = True
+    
     return image
 
 def square(size):
@@ -66,3 +73,18 @@ def circle(radius):
 
 def pixel():
     return ((True,),)
+
+def main():
+    import sys
+
+    for row in vector(int(sys.argv[1]), int(sys.argv[2])):
+        for pixle in row:
+            if pixle:
+                print('#', end='')
+            else:
+                print(' ', end='')
+            print(' ', end='')
+        print()
+
+if __name__ == '__main__':
+    main()
