@@ -79,7 +79,7 @@ class Sprite(object):
 
     def rotate(self, dir_):
         """ 
-            Rotate clockwise (dir_1), or anticlockwise (dir_=-1).
+            Rotate clockwise (dir_=1), or anticlockwise (dir_=-1).
         """
         rotImg = [[0 for x in range(len(self.image))] for y in range(len(self.image[0]))]
 
