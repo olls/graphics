@@ -14,7 +14,9 @@ class Canvas(object):
         display = [[self.OFF for x in range(self.width+1)] 
                    for y in range(self.height+1)]
         for sprite in self.sprites:
-            for y, row in enumerate(sprite.img):
+            
+            image = sprite.img.image()
+            for y, row in enumerate(image):
                 for x, pixel in enumerate(row):
                     if pixel:
                         try:
@@ -42,7 +44,7 @@ class Canvas(object):
 
     def testPixel(self, testPixel):
         for sprite in self.sprites:
-            for y, row in enumerate(sprite.img):
+            for y, row in enumerate(sprite.img.image()):
                 for x, pixel in enumerate(row):
                     if pixel:
                         if testPixel[0] == sprite.pos[0]+y and testPixel[1] == sprite.pos[1]+x:
@@ -77,27 +79,6 @@ class Sprite(object):
         self.image = image
         self.position = list(pos)
 
-    def rotate(self, dir_):
-        """ 
-            Rotate 90 deg. clockwise (dir_=1), or anticlockwise (dir_=-1).
-        """
-        rotImg = [[0 for x in range(len(self.image))] for y in range(len(self.image[0]))]
-
-        if dir_ == 1:
-            fImg = list(self.image)
-            fImg.reverse()
-        else:
-            fImg = self.image
-        
-        for y, row in enumerate(fImg):
-            if dir_ == -1:
-                row = list(row)
-                row.reverse()
-            for x, pixel in enumerate(row):
-                rotImg[x][y] = pixel
-
-        self.image = rotImg
-
     def move(self, dir_=0):
         if dir_ == 0:
             self.position[0] -= 1
@@ -122,58 +103,51 @@ class Sprite(object):
     def pos(self):
         return self.position
 
-    @property
-    def height(self):
-        return len(self.image)
-
-    @property
-    def width(self):
-        return len(self.image[0])
-
     def touching(self, canvas, side=None):
         # Find all edges of shape.
         edges = []
+        image = self.img.image()
         if side == 0 or side == None:
             # Find top edges
-            for x in range(len(self.image[0])):
-                if self.image[0][x] == 1:
+            for x in range(len(image[0])):
+                if image[0][x] == 1:
                     y = -1
                 else:
                     y = 0
-                    while self.image[y][x] == 0:
+                    while image[y][x] == 0:
                         y += 1
                     y -= 1
                 edges.append((y, x))
         if side == 1 or side == None:
             # Find right edges
-            for y in range(len(self.image)):
-                if self.image[y][-1] == 1:
-                    x = len(self.image[0])
+            for y in range(len(image)):
+                if image[y][-1] == 1:
+                    x = len(image[0])
                 else:
-                    x = len(self.image[0])-1
-                    while self.image[y][x] == 0:
+                    x = len(image[0])-1
+                    while image[y][x] == 0:
                         x -= 1
                     x += 1
                 edges.append((y, x))
         if side == 2 or side == None:
             # Find bottom edges
-            for x in range(len(self.image[0])):
-                if self.image[-1][x] == 1:
-                    y = len(self.image)
+            for x in range(len(image[0])):
+                if image[-1][x] == 1:
+                    y = len(image)
                 else:
-                    y = len(self.image)-1
-                    while self.image[y][x] == 0:
+                    y = len(image)-1
+                    while image[y][x] == 0:
                         y -= 1
                     y += 1
                 edges.append((y, x))
         if side == 3 or side == None:
             # Find left edges
-            for y in range(len(self.image)):
-                if self.image[y][0] == 1:
+            for y in range(len(image)):
+                if image[y][0] == 1:
                     x = -1
                 else:
                     x = 0
-                    while self.image[y][x] == 0:
+                    while image[y][x] == 0:
                         x += 1
                     x -= 1
                 edges.append((y, x))
@@ -205,7 +179,7 @@ def main():
     screen = Canvas(size=(20, 20))
 
     circle = Sprite(
-        shapes.circle(0),
+        shapes.Circle(0),
         (10, 10)
     )
     screen.addSprite(circle)
@@ -223,7 +197,7 @@ def main():
         elif radius == 1:
             circleDir = True
 
-        circle.setImage(shapes.circle(radius))
+        circle.img.setRadius(radius)
         circle.setPos((10-radius, 10-radius))
 
         print(screen)
