@@ -1,18 +1,24 @@
 import console
 
 class Canvas(object):
-    def __init__(self, size=(40, 30), background=' ', color='#'):
+    def __init__(self, size=(40, 30), background=' ', color='#', center=True, border=True):
         self.height = size[1]
         self.width = size[0]
 
         self.OFF = background
         self.ON = color
 
+        self.center = bool(center)
+        self.border = bool(border)
+
         self.sprites = []
 
     def __str__(self):
+        # Generate screen
         display = [[self.OFF for x in range(self.width+1)] 
                    for y in range(self.height+1)]
+
+        # Populate screen with sprites
         for sprite in self.sprites:
             
             image = sprite.img.image()
@@ -24,17 +30,57 @@ class Canvas(object):
                         except IndexError:
                             pass
 
-        out = (int((console.HEIGHT-self.height)/2)-2)*'\n'
-        out += (' ' * int((console.WIDTH-self.width)/2-15)) + '+-' + ('-' * len((display[0])*2)) + '+'
-        out += '\n'
-        for row in display:
-            out += (' ' * int((console.WIDTH-self.width)/2-15)) + '| '
-            for pixel in row:
-                out += pixel + ' '
-            out += '|\n'
-        out += (' ' * int((console.WIDTH-self.width)/2-15)) + '+-' + ('-' * len((display[0])*2)) + '+'
-        out += (int((console.HEIGHT-self.height)/2)-2)*'\n'
-        return out
+        # Generate string for screen
+        return (
+            # Top padding:
+            (self.center * (
+                '\n' * ( int((console.HEIGHT-self.height)/2)-(2*self.border) )
+            )) + 
+            
+            # Top border:
+            (self.border * (
+                self.center * (
+                    ' ' * int((console.WIDTH-self.width)/2-15)
+                ) + 
+                '+-' + 
+                ('-' * len((display[0])*2)) + 
+                '+\n'
+            )) + 
+
+            # First line padding
+            self.center * (' ' * int( (console.WIDTH-self.width)/2-15 )) + 
+            self.border * '| ' + 
+            (
+                (
+                    # Between each line
+                    (
+                        ( self.border * ' |' ) + 
+                        '\n' + 
+                        ( self.center * (' ' * int( (console.WIDTH-self.width)/2-15 )) ) + 
+                        ( self.border * '| ' )
+                    )
+                ).join(
+                    [' '.join(row) for row in display]
+                )
+            ) + 
+            ( self.border * ' |' ) + 
+            '\n' + 
+
+            # Bottom border:
+            (self.border * (
+                self.center * (
+                    ' ' * int((console.WIDTH-self.width)/2-15)
+                ) + 
+                '+-' + 
+                ('-' * len((display[0])*2)) + 
+                '+\n'
+            )) + 
+
+            # Bottom padding:
+            (self.center * (
+                '\n' * ( int((console.HEIGHT-self.height)/2)-(2*self.border) )
+            ))
+        )
 
     def addSprite(self, sprite):
         self.sprites.append(sprite)
@@ -63,11 +109,15 @@ class Canvas(object):
         overlap = False
         for testSprite in self.sprites:
             if not sprite == testSprite:
+
                 for testY, testRow in enumerate(testSprite.img):
                     for testX, testPixel in enumerate(testRow):
+                
                         if testPixel:
+                        
                             for y, row in enumerate(sprite.img):
                                 for x, pixel in enumerate(row):
+                        
                                     if pixel:
                                         if (sprite.pos[0]+y == testSprite.pos[0]+testY and 
                                             sprite.pos[1]+x == testSprite.pos[1]+testX):
@@ -77,7 +127,7 @@ class Canvas(object):
 class Sprite(object):
     def __init__(self, image, pos=(0, 0)):
         self.image = image
-        self.position = list(pos)
+        self.position = [int(p) for p in pos]
 
     def move(self, dir_=0):
         if dir_ == 0:
@@ -153,12 +203,11 @@ class Sprite(object):
                 edges.append((y, x))
 
         # Find if anything other sprites are in our edge coords.
-        touching = False
         for pixel in edges:
             pixel = (pixel[0]+self.pos[0], pixel[1]+self.pos[1])
             if canvas.testPixel(pixel):
-                touching = True
-        return touching
+                return True
+        return False
 
     def edge(self, canvas):
         sides = []
@@ -185,23 +234,24 @@ def main():
     screen.addSprite(circle)
 
     circleDir = True
-    radius = 0
 
     while True:
+
         if circleDir:
-            radius += 1
+            circle.img.incRadius(1)
         else:
-            radius -= 1
+            circle.img.incRadius(-1)
+
+        radius = circle.img.radius
         if radius == 10:
             circleDir = False
         elif radius == 1:
             circleDir = True
 
-        circle.img.setRadius(radius)
         circle.setPos((10-radius, 10-radius))
 
         print(screen)
-        time.sleep(.1)
+        time.sleep(.02)
 
 if __name__ == '__main__':
     main()

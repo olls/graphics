@@ -47,8 +47,8 @@ class Image(object):
 class Vector(Image):
     """ A Straight Line """
     def __init__(self, angle, length):
-        self._angle = angle
-        self._length = length
+        self._angle = int(angle)
+        self._length = int(length)
         self.direction = 0
 
     @property
@@ -59,13 +59,13 @@ class Vector(Image):
         """
             angle in degrees
         """
-        self._angle = angle
+        self._angle = int(angle)
 
     def incAngle(self, amount):
         """
             angle in degrees
         """
-        self._angle += amount
+        self._angle += int(amount)
 
     @property
     def length(self):
@@ -75,17 +75,17 @@ class Vector(Image):
         """
             length in pixels
         """
-        self._length = length
+        self._length = int(length)
 
     def incLength(self, amount):
         """
             length in pixels
         """
-        self._length += amount
+        self._length += int(amount)
 
     def image(self):
-        x = int(length * math.sin(math.radians(self._angle)))
-        y = int(length * math.cos(math.radians(self._angle)))
+        x = int(self._length * math.sin(math.radians(self._angle)))
+        y = int(self._length * math.cos(math.radians(self._angle)))
 
         image = [[False for xPos in range(abs(x)+1)] 
                  for yPos in range(abs(y)+1)]
@@ -145,7 +145,7 @@ class Square(Image):
         """
             size = (width, height) in pixels
         """
-        self._size = size
+        self._size = int(size)
         self.direction = 0
 
     @property
@@ -156,14 +156,14 @@ class Square(Image):
         """
             size = (width, height) in pixels
         """
-        self._size = size
+        self._size = int(size)
 
     def incSize(self, amount):
         """
             amount = (width, height) in pixels
         """
-        self._size = (size[0] + amount[0], 
-                      size[1] + amount[1])
+        self._size = (size[0] + int(amount[0]), 
+                      size[1] + int(amount[1]))
 
     def image(self):
         return self._rotate([[False for x in range(size[0])] for y in range(size[1])], self.direction)
@@ -174,7 +174,7 @@ class Box(Image):
         """
             size = (width, height) in pixels
         """
-        self._size = size
+        self._size = int(size)
         self.direction = 0
 
     @property
@@ -185,24 +185,24 @@ class Box(Image):
         """
             size = (width, height) in pixels
         """
-        self._size = size
+        self._size = int(size)
 
     def incSize(self, amount):
         """
             amount = (width, height) in pixels
         """
-        self._size = (size[0] + amount[0], 
-                      size[1] + amount[1])
+        self._size = (size[0] + int(amount[0]), 
+                      size[1] + int(amount[1]))
 
-    def image(size):
-        image = [[False for x in range(size[0])] for y in range(size[1])]
-        for xPos in range(0, size[0]):
+    def image(self):
+        image = [[False for x in range(self._size[0])] for y in range(self._size[1])]
+        for xPos in range(0, self._size[0]):
             image[0][xPos] = True
-            image[size[1]][xPos] = True
+            image[self._size[1]][xPos] = True
 
-        for yPos in range(0, size[1]):
+        for yPos in range(0, self._size[1]):
             image[yPos][0] = True
-            image[yPos][size[1]] = True
+            image[yPos][self._size[1]] = True
 
         return self._rotate(image, self.direction)
 
@@ -212,7 +212,7 @@ class Circle(Image):
         """
             radius in pixels
         """
-        self._radius = radius
+        self._radius = int(radius)
         self.direction = 0
 
     @property
@@ -223,13 +223,13 @@ class Circle(Image):
         """
             radius in pixels
         """
-        self._radius = radius
+        self._radius = int(radius)
 
     def incRadius(self, amount):
         """
             radius in pixels
         """
-        self._radius += amount
+        self._radius += int(amount)
 
     def image(self):
         image = [[False for x in range(self._radius*2+1)] 
@@ -260,7 +260,7 @@ class Pixle(Image):
 def main():
     import sys
 
-    for row in vector(int(sys.argv[1]), int(sys.argv[2])):
+    for row in Vector(int(sys.argv[1]), int(sys.argv[2])).image():
         for pixel in row:
             if pixel:
                 print('#', end='')
