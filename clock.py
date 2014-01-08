@@ -6,7 +6,9 @@ import shapes
 
 
 def main():
-    size = 30
+    size = int(min( graphics.console.WIDTH,
+                    graphics.console.WIDTH ) /3)
+    
     screen = graphics.Canvas(size=(size, size), border=True)#, color=chr(random.randint(0x25A0, 0x25FF)))
 
     center = size * .5
