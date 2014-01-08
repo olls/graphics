@@ -1,4 +1,5 @@
 import random
+import copy
 
 import console
 import colors
@@ -125,7 +126,7 @@ class Canvas(object):
 
 class Sprite(object):
     def __init__(self, image, pos=(0, 0), color=None, char=None):
-        self.image = image
+        self.image = copy.deepcopy(image)
         self.position = [int(p) for p in pos]
 
         self._color = color if color else random.randint(1, 8)
