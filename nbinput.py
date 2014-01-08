@@ -29,4 +29,4 @@ if __name__ == '__main__':
                 print('A')
             else:
                 print('B')
-                time.sleep(.1)
+            time.sleep(.1)
