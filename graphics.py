@@ -33,52 +33,48 @@ class Canvas(object):
         # Generate string for screen
         return (
             # Top padding:
-            (self.center * (
-                '\n' * ( int((console.HEIGHT-self.height)/2)-(2*self.border) )
-            )) + 
+            '\n' + 
             
             # Top border:
             (self.border * (
                 self.center * (
                     ' ' * int((console.WIDTH-self.width)/2-15)
                 ) + 
-                '+-' + 
-                ('-' * len((display[0])*2)) + 
-                '+\n'
+                '╭─' + 
+                ('─' * len((display[0])*2)) + 
+                '╮\n'
             )) + 
 
             # First line padding
             self.center * (' ' * int( (console.WIDTH-self.width)/2-15 )) + 
-            self.border * '| ' + 
+            self.border * '│ ' + 
             (
                 (
                     # Between each line
-                    (
-                        ( self.border * ' |' ) + 
-                        '\n' + 
-                        ( self.center * (' ' * int( (console.WIDTH-self.width)/2-15 )) ) + 
-                        ( self.border * '| ' )
-                    )
+                    ( self.border * ' │' ) + 
+                    '\n' + 
+                    ( self.center * (' ' * int( (console.WIDTH-self.width)/2-15 )) ) + 
+                    ( self.border * '│ ' )
                 ).join(
                     [' '.join(row) for row in display]
                 )
             ) + 
-            ( self.border * ' |' ) + 
-            '\n' + 
+            ( self.border * ' │' ) + 
 
             # Bottom border:
             (self.border * (
+                '\n' + 
                 self.center * (
                     ' ' * int((console.WIDTH-self.width)/2-15)
                 ) + 
-                '+-' + 
-                ('-' * len((display[0])*2)) + 
-                '+\n'
+                '╰─' + 
+                ('─' * len((display[0])*2)) + 
+                '╯'
             )) + 
 
             # Bottom padding:
             (self.center * (
-                '\n' * ( int((console.HEIGHT-self.height)/2)-(2*self.border) )
+                '\n' * int( ((console.HEIGHT-self.height) /2) - self.border)
             ))
         )
 
@@ -143,7 +139,7 @@ class Sprite(object):
         self.image = image
 
     def setPos(self, pos):
-        self.position = pos
+        self.position = [int(p) for p in pos]
 
     @property
     def img(self):
