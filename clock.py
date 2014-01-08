@@ -5,7 +5,6 @@ import random
 import graphics
 import shapes
 
-
 def main():
     size = int(min( graphics.console.WIDTH/2,
                     graphics.console.HEIGHT )-1)
