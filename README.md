@@ -4,7 +4,7 @@ Python Text Based Graphics Module
 This is a console based graphics engine for simple ASCII games or animations.
 
 Usage
-=====
+-----
 
 `clock.py` and `example.py` are example programs using the module.
 
@@ -41,7 +41,7 @@ sys.stdout.write(screen)
 Note: You have to use sys.stdout.write() to output the canvas to get the colors.
 
 Files
-=====
+-----
 
 `console.py` is a small script to determine the terminal size. Works in my gnome-terminal in Debian, probably wont work in all environments, was not written by me, I think it came off a stack overflow.
 
