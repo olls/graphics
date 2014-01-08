@@ -10,7 +10,7 @@ Usage
 
 Simple usage example:
 
-```
+```python
 import sys
 
 import graphics
