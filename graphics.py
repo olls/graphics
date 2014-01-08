@@ -30,6 +30,11 @@ class Canvas(object):
                         except IndexError:
                             pass
 
+        hPad = (
+            self.center * (
+                ' ' * int(( console.WIDTH - ( (self.width*2)-1 ) - ( 4*self.border ) ) /2)
+            )
+        )
         # Generate string for screen
         return (
             # Top padding:
@@ -37,23 +42,21 @@ class Canvas(object):
             
             # Top border:
             (self.border * (
-                self.center * (
-                    ' ' * int((console.WIDTH-self.width)/2-15)
-                ) + 
-                '╭─' + 
-                ('─' * len((display[0])*2)) + 
+                hPad + 
+                '╭' + 
+                ( '─' * ( (len(display[0]) *2) +1) ) + 
                 '╮\n'
             )) + 
 
             # First line padding
-            self.center * (' ' * int( (console.WIDTH-self.width)/2-15 )) + 
-            self.border * '│ ' + 
+            hPad + 
+            ( self.border * '│ ' ) + 
             (
                 (
                     # Between each line
                     ( self.border * ' │' ) + 
                     '\n' + 
-                    ( self.center * (' ' * int( (console.WIDTH-self.width)/2-15 )) ) + 
+                    hPad + 
                     ( self.border * '│ ' )
                 ).join(
                     [' '.join(row) for row in display]
@@ -64,11 +67,9 @@ class Canvas(object):
             # Bottom border:
             (self.border * (
                 '\n' + 
-                self.center * (
-                    ' ' * int((console.WIDTH-self.width)/2-15)
-                ) + 
-                '╰─' + 
-                ('─' * len((display[0])*2)) + 
+                hPad + 
+                '╰' + 
+                ('─' * ( (len(display[0]) *2) +1) ) + 
                 '╯'
             )) + 
 
