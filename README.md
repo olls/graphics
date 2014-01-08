@@ -35,10 +35,8 @@ print(screen)
 circleSprite.img.incRadius(2)
 
 # Output the canvas to the terminal.
-sys.stdout.write(str(screen))
+print(screen)
 ```
-
-Note: You have to use sys.stdout.write() to output the canvas to get the colors.
 
 Files
 -----
