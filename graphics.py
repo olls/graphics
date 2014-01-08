@@ -1,7 +1,7 @@
 import console
 
 class Canvas(object):
-    def __init__(self, size=(40, 30), background=' ', color='#', center=True, border=True):
+    def __init__(self, size=(40, 30), background=' ', color=chr(0x25CF), center=True, border=True):
         self.height = size[1]
         self.width = size[0]
 
