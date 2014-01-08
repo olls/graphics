@@ -1,6 +1,6 @@
 import sys
 import time
-# import random
+import random
 
 import graphics
 import shapes
@@ -10,7 +10,7 @@ def main():
     size = int(min( graphics.console.WIDTH/2,
                     graphics.console.HEIGHT )-1)
 
-    screen = graphics.Canvas(size=(size, size), border=False)#, color=chr(random.randint(0x25A0, 0x25FF)))
+    screen = graphics.Canvas(size=(size, size), border=False)
 
     center = size * .5
 
@@ -18,22 +18,23 @@ def main():
     screen.addSprite(
         graphics.Sprite(
             shapes.Circle(center),
-            (0, 0)
+            color = graphics.colors.CYAN
         )
     )
 
     # Hands
     second = graphics.Sprite(
         shapes.Vector(0, center*0.9),
-        (center, center)
+        color = graphics.colors.WHITE,
+        char = chr(0x25CB)
     )
     minute = graphics.Sprite(
         shapes.Vector(0, center*0.75),
-        (center, center)
+        color = graphics.colors.YELLOW
     )
     hour = graphics.Sprite(
         shapes.Vector(0, center*0.5),
-        (center, center)
+        color = graphics.colors.YELLOW
     )
     screen.addSprite(second)
     screen.addSprite(minute)

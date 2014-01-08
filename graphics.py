@@ -4,12 +4,11 @@ import console
 import colors
 
 class Canvas(object):
-    def __init__(self, size=(40, 30), background=' ', color=chr(0x25CF), center=True, border=True):
+    def __init__(self, size=(40, 30), background=' ', center=True, border=True):
         self.height = int(size[1])
         self.width = int(size[0])
 
-        self.OFF = background
-        self.ON = color
+        self.background = background
 
         self.center = bool(center)
         self.border = bool(border)
@@ -18,7 +17,7 @@ class Canvas(object):
 
     def __str__(self):
         # Generate screen
-        display = [[self.OFF for x in range(self.width+1)] 
+        display = [[self.background for x in range(self.width+1)] 
                    for y in range(self.height+1)]
 
         # Populate screen with sprites
@@ -29,7 +28,7 @@ class Canvas(object):
                 for x, pixel in enumerate(row):
                     if pixel:
                         try:
-                            display[sprite.pos[0]+y][sprite.pos[1]+x] = colors.colorStr(self.ON, sprite.color)
+                            display[sprite.pos[0]+y][sprite.pos[1]+x] = colors.colorStr(sprite.char, sprite.color)
                         except IndexError:
                             pass
 
@@ -125,10 +124,12 @@ class Canvas(object):
         return overlap
 
 class Sprite(object):
-    def __init__(self, image, pos=(0, 0), color=None):
+    def __init__(self, image, pos=(0, 0), color=None, char=None):
         self.image = image
         self.position = [int(p) for p in pos]
+
         self._color = color if color else random.randint(1, 8)
+        self._char = char[:1] if char else chr(0x25CF)
 
     def move(self, dir_=0):
         if dir_ == 0:
@@ -149,6 +150,9 @@ class Sprite(object):
     def setColor(self, color):
         self._color = color if color in range(8) else self._color
 
+    def setChar(self, char):
+        self._char = char[:1]
+
     @property
     def img(self):
         return self.image
@@ -160,6 +164,10 @@ class Sprite(object):
     @property
     def color(self):
         return self._color
+
+    @property
+    def char(self):
+        return self._char
 
     def touching(self, canvas, side=None):
         # Find all edges of shape.
