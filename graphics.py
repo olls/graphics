@@ -5,8 +5,8 @@ import colors
 
 class Canvas(object):
     def __init__(self, size=(40, 30), background=' ', center=True, border=True):
-        self.height = int(size[1])
         self.width = int(size[0])
+        self.height = int(size[1])
 
         self.background = background
 

@@ -61,7 +61,9 @@ def main():
                 elif angle > 360 and angle <= 450:
                     hand.setPos((center-height, center-width))
 
+            # Using this instead of print so colors work.
             sys.stdout.write(str(screen)[:-2])
+            
             time.sleep(0.1)
             frames += 1
     except KeyboardInterrupt:
