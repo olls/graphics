@@ -1,3 +1,4 @@
+import sys
 import time
 # import random
 
@@ -60,8 +61,8 @@ def main():
                 elif angle > 360 and angle <= 450:
                     hand.setPos((center-height, center-width))
 
-            print(screen, end='')
-            time.sleep(0.05)
+            sys.stdout.write(str(screen)[:-2])
+            time.sleep(0.1)
             frames += 1
     except KeyboardInterrupt:
         print('\nAvg FPS: '+ str( frames / (time.time()-start) ))

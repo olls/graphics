@@ -1,4 +1,7 @@
+import random
+
 import console
+import colors
 
 class Canvas(object):
     def __init__(self, size=(40, 30), background=' ', color=chr(0x25CF), center=True, border=True):
@@ -26,7 +29,7 @@ class Canvas(object):
                 for x, pixel in enumerate(row):
                     if pixel:
                         try:
-                            display[sprite.pos[0]+y][sprite.pos[1]+x] = self.ON
+                            display[sprite.pos[0]+y][sprite.pos[1]+x] = colors.colorStr(self.ON, sprite.color)
                         except IndexError:
                             pass
 
@@ -122,9 +125,10 @@ class Canvas(object):
         return overlap
 
 class Sprite(object):
-    def __init__(self, image, pos=(0, 0)):
+    def __init__(self, image, pos=(0, 0), color=None):
         self.image = image
         self.position = [int(p) for p in pos]
+        self._color = color if color else random.randint(1, 8)
 
     def move(self, dir_=0):
         if dir_ == 0:
@@ -142,6 +146,9 @@ class Sprite(object):
     def setPos(self, pos):
         self.position = [int(p) for p in pos]
 
+    def setColor(self, color):
+        self._color = color if color in range(8) else self._color
+
     @property
     def img(self):
         return self.image
@@ -149,6 +156,10 @@ class Sprite(object):
     @property
     def pos(self):
         return self.position
+
+    @property
+    def color(self):
+        return self._color
 
     def touching(self, canvas, side=None):
         # Find all edges of shape.
