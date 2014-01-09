@@ -111,12 +111,12 @@ class Canvas(object):
         for testSprite in self.sprites:
             if not sprite == testSprite:
 
-                for testY, testRow in enumerate(testSprite.img):
+                for testY, testRow in enumerate(testSprite.img.image()):
                     for testX, testPixel in enumerate(testRow):
                 
                         if testPixel:
                         
-                            for y, row in enumerate(sprite.img):
+                            for y, row in enumerate(sprite.img.image()):
                                 for x, pixel in enumerate(row):
                         
                                     if pixel:
@@ -239,12 +239,13 @@ class Sprite(object):
         return False
 
     def edge(self, canvas):
+        """ Returns a list of the sides of the sprite which are touching the edge of the canvas. """
         sides = []
         if self.pos[0] <= 0:
             sides.append(0)
-        if (self.pos[1] + self.width) >= canvas.getWidth:
+        if (self.pos[1] + self.img.width) >= canvas.getWidth:
             sides.append(1)
-        if (self.pos[0] + self.height) >= canvas.getHeight:
+        if (self.pos[0] + self.img.height) >= canvas.getHeight:
             sides.append(2)
         if self.pos[1] <= 0:
             sides.append(3)
