@@ -42,6 +42,7 @@ class Canvas(object):
         return (
             # Top padding:
             '\n' + 
+            ('\n' * self.border) + 
             
             # Top border:
             (self.border * (
@@ -78,7 +79,7 @@ class Canvas(object):
 
             # Bottom padding:
             (self.center * (
-                '\n' * int( ((console.HEIGHT-self.height) /2) - self.border)
+                '\n' * int( (( console.HEIGHT - self.height - 1 - (2*self.border) ) /2))
             ))
         )
 
