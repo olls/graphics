@@ -22,7 +22,7 @@ def main():
     screen = graphics.Canvas( size=(20, 10) )
 
     ground = graphics.Sprite(
-        shapes.Vector( 0, 21 ),
+        shapes.Vector( 0, 22 ),
         pos=(7, 0)
     )
     car = graphics.Sprite(
@@ -43,6 +43,10 @@ def main():
                 car.move( 1 )
             if ch == ',':
                 car.move( 3 )
+            if ch == '/':
+                car.img.length += 1
+            if ch == '\\':
+                car.img.length -= 1
                 
 
             print( screen )

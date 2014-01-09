@@ -279,7 +279,7 @@ def main():
             circleDir = True
 
         circle.setPos((10-radius, 10-radius))
-        circle.setColor(i%8)
+        circle.setColor(int(i/4)%8)
 
         print(screen)
         time.sleep(.02)
