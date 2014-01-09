@@ -133,6 +133,13 @@ class Sprite(object):
         self._color = color if color else random.randint(1, 8)
         self._char = char[:1] if char else chr(0x25CF)
 
+
+    def setImage(self, image):
+        self.image = image
+
+    def setPos(self, pos):
+        self.position = [int(p) for p in pos]
+
     def move(self, dir_=0):
         if dir_ == 0:
             self.position[0] -= 1
@@ -142,12 +149,15 @@ class Sprite(object):
             self.position[0] += 1
         elif dir_ == 3:
             self.position[1] -= 1
+            
+    def changePos(self, pos):
+        self.position[0] += int(pos[0])
+        self.position[1] += int(pos[1])
 
-    def setImage(self, image):
-        self.image = image
-
-    def setPos(self, pos):
-        self.position = [int(p) for p in pos]
+    def changeX(self, amount):
+        self.position[1] += int(amount)
+    def changeY(self, amount):
+        self.position[0] += int(amount)
 
     def setColor(self, color):
         self._color = color if color in range(8) else self._color
@@ -172,6 +182,7 @@ class Sprite(object):
         return self._char
 
     def touching(self, canvas, side=None):
+        """ Returns True if touching any pixels [on specified side]. """
         # Find all edges of shape.
         edges = []
         image = self.img.image()
