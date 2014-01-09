@@ -23,7 +23,7 @@ class Canvas(object):
 
         # Populate screen with sprites
         for sprite in self.sprites:
-            
+
             image = sprite.img.image()
             for y, row in enumerate(image):
                 for x, pixel in enumerate(row):
@@ -43,7 +43,7 @@ class Canvas(object):
             # Top padding:
             '\n' + 
             ('\n' * self.border) + 
-            
+
             # Top border:
             (self.border * (
                 hPad + 
@@ -252,6 +252,7 @@ def main():
     screen.addSprite(circle)
 
     circleDir = True
+    i = 0
 
     while True:
 
@@ -267,9 +268,12 @@ def main():
             circleDir = True
 
         circle.setPos((10-radius, 10-radius))
+        circle.setColor(i%8)
 
         print(screen)
         time.sleep(.02)
+
+        i += 1
 
 if __name__ == '__main__':
     main()
