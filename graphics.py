@@ -23,7 +23,7 @@ class Canvas(object):
 
         # Populate screen with sprites
         for sprite in self.sprites:
-            
+
             image = sprite.img.image()
             for y, row in enumerate(image):
                 for x, pixel in enumerate(row):
@@ -43,7 +43,7 @@ class Canvas(object):
             # Top padding:
             '\n' + 
             ('\n' * self.border) + 
-            
+
             # Top border:
             (self.border * (
                 hPad + 
@@ -148,6 +148,14 @@ class Sprite(object):
 
     def setPos(self, pos):
         self.position = [int(p) for p in pos]
+    def changePos(self, pos):
+        self.position[0] += int(pos[0])
+        self.position[1] += int(pos[1])
+
+    def changeX(self, amount):
+        self.position[1] += int(amount)
+    def changeY(self, amount):
+        self.position[0] += int(amount)
 
     def setColor(self, color):
         self._color = color if color in range(8) else self._color
@@ -172,6 +180,7 @@ class Sprite(object):
         return self._char
 
     def touching(self, canvas, side=None):
+        """ Returns True if touching any pixels [on specified side]. """
         # Find all edges of shape.
         edges = []
         image = self.img.image()
