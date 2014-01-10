@@ -47,34 +47,34 @@ class Canvas(object):
             # Top border:
             (self.border * (
                 hPad + 
-                '╭' + 
-                ( '─' * ( (len(display[0]) *2) +1) ) + 
-                '╮\n'
+                '+' + 
+                ( '-' * ( (len(display[0]) *2) +1) ) + 
+                '+\n'
             )) + 
 
             # First line padding
             hPad + 
-            ( self.border * '│ ' ) + 
+            ( self.border * '| ' ) + 
             (
                 (
                     # Between each line
-                    ( self.border * ' │' ) + 
+                    ( self.border * ' |' ) + 
                     '\n' + 
                     hPad + 
-                    ( self.border * '│ ' )
+                    ( self.border * '| ' )
                 ).join(
                     [' '.join(row) for row in display]
                 )
             ) + 
-            ( self.border * ' │' ) + 
+            ( self.border * ' |' ) + 
 
             # Bottom border:
             (self.border * (
                 '\n' + 
                 hPad + 
-                '╰' + 
-                ('─' * ( (len(display[0]) *2) +1) ) + 
-                '╯'
+                '+' + 
+                ('-' * ( (len(display[0]) *2) +1) ) + 
+                '+'
             )) + 
 
             # Bottom padding:
@@ -131,7 +131,7 @@ class Sprite(object):
         self.position = [int(p) for p in pos]
 
         self._color = color if color else random.randint(1, 8)
-        self._char = char[:1] if char else chr(0x25CF)
+        self._char = char[:1] if char else '#'
 
 
     def setImage(self, image):

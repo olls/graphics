@@ -22,7 +22,7 @@ def colorStr(text, color=WHITE):
 		return seq
 		sys.stdout.write(seq + '\n')
 	else:
-		return seq
+		return text
 		sys.stdout.write(text + '\n')
 
 if __name__ == '__main__':
