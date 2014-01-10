@@ -2,7 +2,6 @@
 
 import math
 
-
 class Image(object):
     def rotate(self, dir_):
         """
@@ -18,22 +17,20 @@ class Image(object):
             2 = 180 deg.
             3 = 90 deg. CCW
         """
-        rotImg = [[0 for x in range(len(image))] for y in range(len(image[0]))]
+        image = [list(row) for row in image]
 
-        if dir_ == 1:
-            fImg = list(image)
-            fImg.reverse()
-        else:
-            fImg = image
+        for n in range(dir_ % 4):
+            i = [[0 for x in range(len(image))] for y in range(len(image[0]))]
 
-        for y, row in enumerate(fImg):
-            if dir_ == -1:
-                row = list(row)
-                row.reverse()
-            for x, pixel in enumerate(row):
-                rotImg[x][y] = pixel
+            for y, row in enumerate(image):
+                for x, pixel in enumerate(row):
+                    i[x][y] = pixel
 
-        return rotImg
+            [i[y].reverse() for y, row in enumerate(i)]
+            image = i
+
+        return image
+
 
     @property
     def height(self):
