@@ -5,7 +5,7 @@ import math
 class Image(object):
     def rotate(self, dir_):
         """
-            Rotate CW (dir_=1), CCW (dir_=-1)
+            Rotate 90 deg. * CW (dir_=1), CCW (dir_=-1)
         """
         self.direction += dir_
 
