@@ -24,7 +24,7 @@ def main():
     second = graphics.Sprite(
         shapes.Vector(0, center*0.9),
         color = graphics.colors.WHITE,
-        char = '*'
+        char = chr(0x25CB)
     )
     minute = graphics.Sprite(
         shapes.Vector(0, center*0.75),
