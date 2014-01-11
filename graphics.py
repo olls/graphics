@@ -36,9 +36,10 @@ class Canvas(object):
 
         hPad = (
             self.center * (
-                ' ' * int( ( console.WIDTH - 
-                           ( (self.width*2)-1 ) - 
-                           ( 4*self.border )) /2)
+                int(( console.WIDTH - 
+                       ( (self.width*2) -1 ) - 
+                       (4*self.border) )
+                    /2 ) * ' '
             )
         )
         # Generate string for screen
