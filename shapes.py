@@ -163,7 +163,9 @@ class Square(Image):
                       size[1] + int(amount[1]))
 
     def image(self):
-        return self._rotate([[False for x in range(size[0])] for y in range(size[1])], self.direction)
+        return self._rotate( [ [False for x in range(size[0])]
+                               for y in range(size[1]) ], 
+                            self.direction )
 
 class Box(Image):
     """ A Solid Box """
@@ -192,7 +194,9 @@ class Box(Image):
                       size[1] + int(amount[1]))
 
     def image(self):
-        image = [[False for x in range(self._size[0])] for y in range(self._size[1])]
+        image = [ [False for x in range(self._size[0])] 
+                  for y in range(self._size[1]) ]
+                  
         for xPos in range(0, self._size[0]):
             image[0][xPos] = True
             image[self._size[1]][xPos] = True

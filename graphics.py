@@ -29,13 +29,17 @@ class Canvas(object):
                 for x, pixel in enumerate(row):
                     if pixel:
                         try:
-                            display[sprite.pos[0]+y][sprite.pos[1]+x] = colors.colorStr(sprite.char, sprite.color)
+                            display[sprite.pos[0]+y]
+                                   [sprite.pos[1]+x] = colors.colorStr(sprite.char, 
+                                                                       sprite.color)
                         except IndexError:
                             pass
 
         hPad = (
             self.center * (
-                ' ' * int(( console.WIDTH - ( (self.width*2)-1 ) - ( 4*self.border ) ) /2)
+                ' ' * int( ( console.WIDTH - 
+                           ( (self.width*2)-1 ) - 
+                           ( 4*self.border )) /2)
             )
         )
         # Generate string for screen
@@ -79,7 +83,9 @@ class Canvas(object):
 
             # Bottom padding:
             (self.center * (
-                '\n' * int( (( console.HEIGHT - self.height - 1 - (2*self.border) ) /2))
+                '\n' * int( (( console.HEIGHT - 
+                               self.height - 1 - 
+                               (2*self.border) ) /2))
             ))
         )
 
@@ -94,7 +100,8 @@ class Canvas(object):
             for y, row in enumerate(sprite.img.image()):
                 for x, pixel in enumerate(row):
                     if pixel:
-                        if testPixel[0] == sprite.pos[0]+y and testPixel[1] == sprite.pos[1]+x:
+                        if ( testPixel[0] == sprite.pos[0]+y and 
+                             testPixel[1] == sprite.pos[1]+x ):
                             return True
         return False
 
@@ -239,7 +246,8 @@ class Sprite(object):
         return False
 
     def edge(self, canvas):
-        """ Returns a list of the sides of the sprite which are touching the edge of the canvas. """
+        """ Returns a list of the sides of the sprite 
+            which are touching the edge of the canvas. """
         sides = []
         if self.pos[0] <= 0:
             sides.append(0)

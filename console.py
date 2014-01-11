@@ -4,7 +4,9 @@ def getTerminalSize():
     def ioctl_GWINSZ(fd):
         try:
             import fcntl, termios, struct, os
-            cr = struct.unpack('hh', fcntl.ioctl(fd, termios.TIOCGWINSZ, '1234'))
+            cr = struct.unpack( 'hh', fcntl.ioctl( fd, 
+                                                   termios.TIOCGWINSZ, 
+                                                   '1234') )
         except:
             return
         return cr
