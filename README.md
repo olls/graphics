@@ -6,7 +6,7 @@ This is a console based graphics engine for simple ASCII games or animations.
 Usage
 -----
 
-`clock.py` and `example.py` are example programs using the module.
+`clock.py`, `example.py` and `game.py` are example programs using the module.
 
 Simple usage example:
 
