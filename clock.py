@@ -44,9 +44,9 @@ def main():
         while True:
             t = int(time.time())
 
-            for ( hand, secPerRev in [(second, 60), 
-                                      (minute, 3600), 
-                                      (hour, 43200)] ):
+            for hand, secPerRev in [(second, 60), 
+                                    (minute, 3600), 
+                                    (hour, 43200)]:
 
                 angle = ((t * (360 / secPerRev)) % 360)+90
                 hand.img.setAngle(angle)

@@ -29,9 +29,8 @@ class Canvas(object):
                 for x, pixel in enumerate(row):
                     if pixel:
                         try:
-                            display[sprite.pos[0]+y]
-                                   [sprite.pos[1]+x] = colors.colorStr(sprite.char, 
-                                                                       sprite.color)
+                            display[sprite.pos[0]+y][sprite.pos[1]+x] = \
+                                colors.colorStr(sprite.char, sprite.color)
                         except IndexError:
                             pass
 
