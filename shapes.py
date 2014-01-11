@@ -53,15 +53,11 @@ class Vector(Image):
         return self._angle
 
     def setAngle(self, angle):
-        """
-            angle in degrees
-        """
+        """ angle in degrees """
         self._angle = int(angle)
 
     def incAngle(self, amount):
-        """
-            angle in degrees
-        """
+        """ angle in degrees """
         self._angle += int(amount)
 
     @property
@@ -69,15 +65,11 @@ class Vector(Image):
         return self._length
 
     def setLength(self, length):
-        """
-            length in pixels
-        """
+        """ length in pixels """
         self._length = int(length)
 
     def incLength(self, amount):
-        """
-            length in pixels
-        """
+        """ length in pixels """
         self._length += int(amount)
 
     def image(self):
@@ -139,9 +131,7 @@ class Vector(Image):
 class Square(Image):
     """ A Hollow Box """
     def __init__(self, size):
-        """
-            size = (width, height) in pixels
-        """
+        """ size = (width, height) in pixels """
         self._size = int(size)
         self.direction = 0
 
@@ -150,15 +140,11 @@ class Square(Image):
         return self._size
 
     def setSize(self, size):
-        """
-            size = (width, height) in pixels
-        """
+        """ size = (width, height) in pixels """
         self._size = int(size)
 
     def incSize(self, amount):
-        """
-            amount = (width, height) in pixels
-        """
+        """ amount = (width, height) in pixels """
         self._size = (size[0] + int(amount[0]), 
                       size[1] + int(amount[1]))
 
@@ -170,9 +156,7 @@ class Square(Image):
 class Box(Image):
     """ A Solid Box """
     def __init__(self, size):
-        """
-            size = (width, height) in pixels
-        """
+        """ size = (width, height) in pixels """
         self._size = int(size)
         self.direction = 0
 
@@ -181,15 +165,11 @@ class Box(Image):
         return self._size
 
     def setSize(self, size):
-        """
-            size = (width, height) in pixels
-        """
+        """ size = (width, height) in pixels """
         self._size = int(size)
 
     def incSize(self, amount):
-        """
-            amount = (width, height) in pixels
-        """
+        """ amount = (width, height) in pixels """
         self._size = (size[0] + int(amount[0]), 
                       size[1] + int(amount[1]))
 
@@ -210,9 +190,7 @@ class Box(Image):
 class Circle(Image):
     """ A Circle """
     def __init__(self, radius):
-        """
-            radius in pixels
-        """
+        """ radius in pixels """
         self._radius = int(radius)
         self.direction = 0
 
@@ -221,15 +199,11 @@ class Circle(Image):
         return self._radius
 
     def setRadius(self, radius):
-        """
-            radius in pixels
-        """
+        """ radius in pixels """
         self._radius = int(radius)
 
     def incRadius(self, amount):
-        """
-            radius in pixels
-        """
+        """ radius in pixels """
         self._radius += int(amount)
 
     def image(self):
