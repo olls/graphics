@@ -48,19 +48,19 @@ def main():
                                     (minute, 3600), 
                                     (hour, 43200)]:
 
-                angle = ((t * (360 / secPerRev)) % 360)+90
-                hand.img.setAngle(angle)
+                angle = (((t * (360 / secPerRev)) + 180) % 360)
+                hand.img.setAngle(-angle)
 
                 width, height = hand.img.width, hand.img.height
 
-                if angle > 90 and angle <= 180:
-                    hand.setPos((center-height, center))
-                elif angle > 180 and angle <= 270:
-                    hand.setPos((center, center))
-                elif angle > 270 and angle <= 360:
+                if angle > 0 and angle <= 90:
                     hand.setPos((center, center-width))
-                elif angle > 360 and angle <= 450:
+                elif angle > 90 and angle <= 180:
                     hand.setPos((center-height, center-width))
+                elif angle > 180 and angle <= 270:
+                    hand.setPos((center-height, center))
+                elif angle > 270 and angle <= 360:
+                    hand.setPos((center, center))
 
             print(screen, end='')
             time.sleep(0.1)
