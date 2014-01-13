@@ -176,15 +176,15 @@ class Box(Image):
     def image(self):
         image = []
 
-        image.append([True]*self._size[0])
-        for yPos in range(1, self._size[0]-2):
+        image.append([True]*self._size[1])
+        for yPos in range(1, self._size[0]-1):
             image.append([])
 
             image[yPos].append(True)
             for xPos in range(self._size[1]-2):
                 image[yPos].append(False)
             image[yPos].append(True)
-        image.append([True]*self._size[0])
+        image.append([True]*self._size[1])
 
         return self._rotate(image, self.direction)
 
