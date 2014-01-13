@@ -22,11 +22,13 @@ screen = graphics.Canvas(size=(20, 20))
 # Create a circle image, radius 5 pixels.
 circleImage = shapes.Circle(5)
 
-# Create a sprite with the circle image
-circleSprite = graphics.Sprite(circleImage)
+# Create a green sprite at position (7, 7) with the circle image.
+circleSprite = graphics.Sprite( circleImage, 
+                                pos=(7, 7), 
+                                color=graphics.colors.GREEN )
 
-# Add the sprite in green to the canvas at (7, 7).
-screen.addSprite(circleSprite, pos=(7, 7), color=graphics.colors.GREEN)
+# Add the sprite to the canvas.
+screen.addSprite(circleSprite)
 
 # Output the canvas to the terminal.
 print(screen)
