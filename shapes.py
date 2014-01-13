@@ -132,7 +132,7 @@ class Square(Image):
     """ A Hollow Box """
     def __init__(self, size):
         """ size = (width, height) in pixels """
-        self._size = int(size)
+        self._size = [int(size[0]), int(size[1])]
         self.direction = 0
 
     @property
@@ -149,15 +149,15 @@ class Square(Image):
                       size[1] + int(amount[1]))
 
     def image(self):
-        return self._rotate( [ [False for x in range(size[0])]
-                               for y in range(size[1]) ], 
+        return self._rotate( [ [False for x in range(self.size[0])]
+                               for y in range(self.size[1]) ], 
                             self.direction )
 
 class Box(Image):
     """ A Solid Box """
     def __init__(self, size):
         """ size = (width, height) in pixels """
-        self._size = int(size)
+        self._size = [int(size[0]), int(size[1])]
         self.direction = 0
 
     @property
