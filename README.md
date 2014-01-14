@@ -23,7 +23,7 @@ circleImage = g.shapes.Circle(5)
 # Create a green sprite at position (7, 7) with the circle image.
 circleSprite = g.Sprite( circleImage, 
                          pos=(7, 7), 
-                         color=graphics.colors.GREEN )
+                         color=g.colors.GREEN )
 
 # Add the sprite to the canvas.
 screen.addSprite(circleSprite)
