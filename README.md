@@ -13,19 +13,19 @@ Simple usage example:
 ```python
 import sys
 
-import graphics
-import shapes
+import graphics as g
+
 
 # Create the canvas 20x20 pixels (characters).
-screen = graphics.Canvas(size=(20, 20))
+screen = g.Canvas(size=(20, 20))
 
 # Create a circle image, radius 5 pixels.
-circleImage = shapes.Circle(5)
+circleImage = g.shapes.Circle(5)
 
 # Create a green sprite at position (7, 7) with the circle image.
-circleSprite = graphics.Sprite( circleImage, 
-                                pos=(7, 7), 
-                                color=graphics.colors.GREEN )
+circleSprite = g.Sprite( circleImage, 
+                         pos=(7, 7), 
+                         color=graphics.colors.GREEN )
 
 # Add the sprite to the canvas.
 screen.addSprite(circleSprite)
