@@ -1,19 +1,17 @@
 import time
 
-import graphics
-import shapes
-from nbinput import NonBlockingInput
+import graphics as g
 
 def main():
-    screen = graphics.Canvas(size=(20, 20))
+    screen = g.Canvas(size=(20, 20))
     
-    line = graphics.Sprite(
-        shapes.Vector(0, 10),
+    line = g.Sprite(
+        g.shapes.Vector(0, 10),
         (5, 5)
     )
     screen.addSprite(line)
 
-    with NonBlockingInput() as nbi:
+    with g.NonBlockingInput() as nbi:
         while True:
 
             if nbi.char() == ' ':

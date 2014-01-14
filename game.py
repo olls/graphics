@@ -1,11 +1,9 @@
 import time
 
-import graphics
-import shapes
-from nbinput import NonBlockingInput
+import graphics as g
 
 
-class Car(shapes.Image):
+class Car(g.shapes.Image):
     def __init__(self, length=5):
         self.length = length
 
@@ -19,20 +17,20 @@ def main():
 
     FPS = 30
 
-    screen = graphics.Canvas( size=(20, 10) )
+    screen = g.Canvas( size=(20, 10) )
 
-    ground = graphics.Sprite(
-        shapes.Vector( 90, 19 ),
+    ground = g.Sprite(
+        g.shapes.Vector( 90, 19 ),
         pos=(0, 7)
     )
-    car = graphics.Sprite(
+    car = g.Sprite(
         Car()
     )
 
     screen.addSprite(ground)
     screen.addSprite(car)
 
-    with NonBlockingInput() as nbi:
+    with g.NonBlockingInput() as nbi:
         while True:
 
             if not car.touching( screen, side=0 ):

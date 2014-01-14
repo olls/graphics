@@ -1,38 +1,37 @@
 import time
 import random
 
-import graphics
-import shapes
+import graphics as g
 
 def main():
-    size = int(min( graphics.console.WIDTH/2,
-                    graphics.console.HEIGHT )-1)
+    size = int(min( g.console.WIDTH/2,
+                    g.console.HEIGHT )-1)
 
-    screen = graphics.Canvas(size=(size, size), border=False)
+    screen = g.Canvas(size=(size, size), border=False)
 
     center = size * .5
 
     # Clock Face
     screen.addSprite(
-        graphics.Sprite(
-            shapes.Circle(center),
-            color = graphics.colors.CYAN
+        g.Sprite(
+            g.shapes.Circle(center),
+            color = g.colors.CYAN
         )
     )
 
     # Hands
-    second = graphics.Sprite(
-        shapes.Vector(0, center*0.9),
-        color = graphics.colors.WHITE,
+    second = g.Sprite(
+        g.shapes.Vector(0, center*0.9),
+        color = g.colors.WHITE,
         char = chr(0x25CB)
     )
-    minute = graphics.Sprite(
-        shapes.Vector(0, center*0.75),
-        color = graphics.colors.YELLOW
+    minute = g.Sprite(
+        g.shapes.Vector(0, center*0.75),
+        color = g.colors.YELLOW
     )
-    hour = graphics.Sprite(
-        shapes.Vector(0, center*0.5),
-        color = graphics.colors.YELLOW
+    hour = g.Sprite(
+        g.shapes.Vector(0, center*0.5),
+        color = g.colors.YELLOW
     )
     screen.addSprite(second)
     screen.addSprite(minute)

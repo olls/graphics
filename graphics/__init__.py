@@ -1,8 +1,12 @@
 import random
 import copy
 
-import console
-import colors
+from . import colors
+from . import console
+from . import nbinput
+from . import shapes
+
+NonBlockingInput = nbinput.NonBlockingInput
 
 class Canvas(object):
     """
