@@ -12,9 +12,7 @@ Simple usage example:
 
 ```python
 import sys
-
 import graphics as g
-
 
 # Create the canvas 20x20 pixels (characters).
 screen = g.Canvas(size=(20, 20))
