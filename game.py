@@ -22,7 +22,7 @@ def main():
     screen = graphics.Canvas( size=(20, 10) )
 
     ground = graphics.Sprite(
-        shapes.Vector( 90, 22 ),
+        shapes.Vector( 90, 19 ),
         pos=(0, 7)
     )
     car = graphics.Sprite(
