@@ -48,17 +48,19 @@ def main():
                                     (minute, 3600), 
                                     (hour, 43200)]:
 
+                # +180 and -angle are to compensate for 
+                #   flipped upside-down angles.
                 angle = (((t * (360 / secPerRev)) + 180) % 360)
                 hand.img.setAngle(-angle)
 
                 width, height = hand.img.width, hand.img.height
 
                 if angle > 0 and angle <= 90:
-                    hand.setPos((center, center-width))
+                    hand.setPos((center-width, center))
                 elif angle > 90 and angle <= 180:
-                    hand.setPos((center-height, center-width))
+                    hand.setPos((center-width, center-height))
                 elif angle > 180 and angle <= 270:
-                    hand.setPos((center-height, center))
+                    hand.setPos((center, center-height))
                 elif angle > 270 and angle <= 360:
                     hand.setPos((center, center))
 

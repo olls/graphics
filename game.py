@@ -22,8 +22,8 @@ def main():
     screen = graphics.Canvas( size=(20, 10) )
 
     ground = graphics.Sprite(
-        shapes.Vector( 0, 22 ),
-        pos=(7, 0)
+        shapes.Vector( 90, 22 ),
+        pos=(0, 7)
     )
     car = graphics.Sprite(
         Car()
@@ -35,14 +35,14 @@ def main():
     with NonBlockingInput() as nbi:
         while True:
 
-            if not car.touching( screen, side=2 ):
-                car.move( 2 )
+            if not car.touching( screen, side=0 ):
+                car.move( 0 )
 
             ch = nbi.char()
             if ch == '.':
-                car.move( 1 )
-            if ch == ',':
                 car.move( 3 )
+            if ch == ',':
+                car.move( 1 )
             if ch == '/':
                 car.img.length += 1
             if ch == '\\':

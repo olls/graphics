@@ -5,6 +5,12 @@ import console
 import colors
 
 class Canvas(object):
+    """
+        size = (int width, int height)
+        background = char
+        center = bool
+        border = bool
+    """
     def __init__(self, size=(40, 30), background=' ', center=True, border=True):
         self.width = int(size[0])
         self.height = int(size[1])
@@ -29,7 +35,7 @@ class Canvas(object):
                 for x, pixel in enumerate(row):
                     if pixel:
                         try:
-                            display[sprite.pos[0]+y][sprite.pos[1]+x] = \
+                            display[sprite.pos[1]+y][sprite.pos[0]+x] = \
                                 colors.colorStr(sprite.char, sprite.color)
                         except IndexError:
                             pass
@@ -52,7 +58,7 @@ class Canvas(object):
             (self.border * (
                 hPad + 
                 '╭' + 
-                ( '─' * ( (len(display[0]) *2) +1) ) + 
+                ( '─' * ( (self.width *2) +1) ) + 
                 '╮\n'
             )) + 
 
@@ -77,13 +83,13 @@ class Canvas(object):
                 '\n' + 
                 hPad + 
                 '╰' + 
-                ('─' * ( (len(display[0]) *2) +1) ) + 
+                ('─' * ( (self.width *2)+2) ) + 
                 '╯'
             )) + 
 
             # Bottom padding:
             (self.center * (
-                '\n' * int( (( console.HEIGHT - 
+                '\n' * int(( ( console.HEIGHT - 
                                self.height - 1 - 
                                (2*self.border) ) /2))
             ))
@@ -96,12 +102,15 @@ class Canvas(object):
         self.sprites.remove(sprite)
 
     def testPixel(self, testPixel):
+        """
+            testPixel = (int x, int y)
+        """
         for sprite in self.sprites:
             for y, row in enumerate(sprite.img.image()):
                 for x, pixel in enumerate(row):
                     if pixel:
-                        if ( testPixel[0] == sprite.pos[0]+y and 
-                             testPixel[1] == sprite.pos[1]+x ):
+                        if ( testPixel[0] == sprite.pos[0]+x and 
+                             testPixel[1] == sprite.pos[1]+y ):
                             return True
         return False
 
@@ -127,49 +136,76 @@ class Canvas(object):
                                 for x, pixel in enumerate(row):
                         
                                     if pixel:
-                                        if (sprite.pos[0]+y == testSprite.pos[0]+testY and 
-                                            sprite.pos[1]+x == testSprite.pos[1]+testX):
+                                        if (sprite.pos[0]+x == testSprite.pos[0]+testX and 
+                                            sprite.pos[1]+y == testSprite.pos[1]+testY):
                                             overlap = True
         return overlap
 
 class Sprite(object):
     def __init__(self, image, pos=(0, 0), color=None, char=None):
+        """
+            image = Image() instance
+            pos = (int x, int y)
+            color = int range(0, 8)
+            char = str char
+        """
         self.image = copy.deepcopy(image)
-        self.position = [int(p) for p in pos]
+        self.position = [int(pos[0]), int(pos[1])]
 
         self._color = color if color else random.randint(1, 8)
         self._char = char[:1] if char else chr(0x25CF)
 
 
     def setImage(self, image):
+        """
+            image = Image() instance
+        """
         self.image = image
 
     def setPos(self, pos):
-        self.position = [int(p) for p in pos]
+        """
+            pos = (int x, int y)
+        """
+        self.position = [int(pos[0]), int(pos[1])]
 
     def move(self, dir_=0):
+        """
+            dir_ = int range(0, 4)
+
+            0 = Down
+            1 = Left
+            2 = Up
+            3 = Right
+        """
         if dir_ == 0:
-            self.position[0] -= 1
-        elif dir_ == 1:
             self.position[1] += 1
+        elif dir_ == 1:
+            self.position[0] -= 1
         elif dir_ == 2:
-            self.position[0] += 1
-        elif dir_ == 3:
             self.position[1] -= 1
+        elif dir_ == 3:
+            self.position[0] += 1
             
     def changePos(self, pos):
+        """
+            pos = (int dx, int dy)
+        """
         self.position[0] += int(pos[0])
         self.position[1] += int(pos[1])
 
     def changeX(self, amount):
+        """ amount = int dx """
         self.position[1] += int(amount)
     def changeY(self, amount):
+        """ amount = int dy """
         self.position[0] += int(amount)
 
     def setColor(self, color):
+        """ color = int range(0, 8) """
         self._color = color if color in range(8) else self._color
 
     def setChar(self, char):
+        """ char = str char """
         self._char = char[:1]
 
     @property
@@ -189,56 +225,63 @@ class Sprite(object):
         return self._char
 
     def touching(self, canvas, side=None):
-        """ Returns True if touching any pixels [on specified side]. """
+        """
+            Returns True if touching any pixels [on specified side].
+
+            0 = Bottom
+            1 = Left
+            2 = Top
+            3 = Right
+        """
         # Find all edges of shape.
         edges = []
         image = self.img.image()
         if side == 0 or side == None:
-            # Find top edges
-            for x in range(len(image[0])):
-                if image[0][x] == 1:
-                    y = -1
-                else:
-                    y = 0
-                    while image[y][x] == 0:
-                        y += 1
-                    y -= 1
-                edges.append((y, x))
-        if side == 1 or side == None:
-            # Find right edges
-            for y in range(len(image)):
-                if image[y][-1] == 1:
-                    x = len(image[0])
-                else:
-                    x = len(image[0])-1
-                    while image[y][x] == 0:
-                        x -= 1
-                    x += 1
-                edges.append((y, x))
-        if side == 2 or side == None:
             # Find bottom edges
-            for x in range(len(image[0])):
-                if image[-1][x] == 1:
-                    y = len(image)
+            for x in range(self.img.width):
+                if image[-1][x] == True:
+                    y = self.img.height
                 else:
-                    y = len(image)-1
-                    while image[y][x] == 0:
+                    y = self.img.height-1
+                    while image[y][x] == False:
                         y -= 1
                     y += 1
-                edges.append((y, x))
-        if side == 3 or side == None:
+                edges.append((x, y))
+        if side == 1 or side == None:
             # Find left edges
-            for y in range(len(image)):
-                if image[y][0] == 1:
+            for y in range(self.img.height):
+                if image[y][0] == True:
                     x = -1
                 else:
                     x = 0
-                    while image[y][x] == 0:
+                    while image[y][x] == False:
                         x += 1
                     x -= 1
-                edges.append((y, x))
+                edges.append((x, y))
+        if side == 2 or side == None:
+            # Find top edges
+            for x in range(self.img.width):
+                if image[0][x] == True:
+                    y = -1
+                else:
+                    y = 0
+                    while image[y][x] == False:
+                        y += 1
+                    y -= 1
+                edges.append((x, y))
+        if side == 3 or side == None:
+            # Find right edges
+            for y in range(self.img.height):
+                if image[y][-1] == True:
+                    x = self.img.width
+                else:
+                    x = self.img.width-1
+                    while image[y][x] == False:
+                        x -= 1
+                    x += 1
+                edges.append((x, y))
 
-        # Find if anything other sprites are in our edge coords.
+        # Find if any other sprites are in our edge coords.
         for pixel in edges:
             pixel = (pixel[0]+self.pos[0], pixel[1]+self.pos[1])
             if canvas.testPixel(pixel):
@@ -246,17 +289,24 @@ class Sprite(object):
         return False
 
     def edge(self, canvas):
-        """ Returns a list of the sides of the sprite 
-            which are touching the edge of the canvas. """
+        """
+            Returns a list of the sides of the sprite 
+                which are touching the edge of the canvas.
+
+            0 = Bottom
+            1 = Left
+            2 = Top
+            3 = Right
+        """
         sides = []
         if self.pos[0] <= 0:
-            sides.append(0)
-        if (self.pos[1] + self.img.width) >= canvas.getWidth:
             sides.append(1)
-        if (self.pos[0] + self.img.height) >= canvas.getHeight:
-            sides.append(2)
-        if self.pos[1] <= 0:
+        if (self.pos[0] + self.img.width) >= canvas.getWidth:
             sides.append(3)
+        if self.pos[1] <= 0:
+            sides.append(2)
+        if (self.pos[1] + self.img.height) >= canvas.getHeight:
+            sides.append(0)
         return sides
 
 def main():
