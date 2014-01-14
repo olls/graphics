@@ -24,8 +24,8 @@ class Canvas(object):
 
     def __str__(self):
         # Generate screen
-        display = [[self.background for x in range(self.width+1)] 
-                   for y in range(self.height+1)]
+        display = [[self.background for x in range(self.width)] 
+                   for y in range(self.height)]
 
         # Populate screen with sprites
         for sprite in self.sprites:
@@ -83,7 +83,7 @@ class Canvas(object):
                 '\n' + 
                 hPad + 
                 '╰' + 
-                ('─' * ( (self.width *2)+2) ) + 
+                ('─' * ( (self.width *2)+1) ) + 
                 '╯'
             )) + 
 
