@@ -21,10 +21,23 @@ class Canvas(object):
                   center=True,
                   border=True ):
 
+        if ( ( size[0] + border ) *2 ) +1 > console.WIDTH:
+            raise Exception('Canvas to wide to fit on console.')
+        if ( size[1] + border ) +1 > console.HEIGHT:
+            raise Exception('Canvas to high to fit on console.')
+
+        if not isinstance(background, str):
+            raise Exception('Canvas attribute background must be a single character.')
+
+        if not isinstance(center, bool):
+            raise Exception('Canvas attribute center must be a boolean.')
+        if not isinstance(border, bool):
+            raise Exception('Canvas attribute border must be a boolean.')
+
         self.width = int( size[0] )
         self.height = int( size[1] )
 
-        self.background = background
+        self.background = background[:1]
 
         self.center = bool( center )
         self.border = bool( border )
