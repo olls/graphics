@@ -28,7 +28,7 @@ class Canvas(object):
 
     def __str__(self):
         # Generate screen
-        display = [[self.background for x in range(self.width)] 
+        display = [[self.background for x in range(self.width)]
                    for y in range(self.height)]
 
         # Populate screen with sprites
@@ -46,8 +46,8 @@ class Canvas(object):
 
         hPad = (
             self.center * (
-                int(( console.WIDTH - 
-                       ( (self.width*2) -1 ) - 
+                int(( console.WIDTH -
+                       ( (self.width*2) -1 ) -
                        (4*self.border) )
                     /2 ) * ' '
             )
@@ -55,46 +55,46 @@ class Canvas(object):
         # Generate string for screen
         return (
             # Top padding:
-            '\n' + 
-            ('\n' * self.border) + 
+            '\n' +
+            ('\n' * self.border) +
 
             # Top border:
             (self.border * (
-                hPad + 
-                '╭' + 
-                ( '─' * ( (self.width *2) +1) ) + 
+                hPad +
+                '╭' +
+                ( '─' * ( (self.width *2) +1) ) +
                 '╮\n'
-            )) + 
+            )) +
 
             # First line padding
-            hPad + 
-            ( self.border * '│ ' ) + 
+            hPad +
+            ( self.border * '│ ' ) +
             (
                 (
                     # Between each line
-                    ( self.border * ' │' ) + 
-                    '\n' + 
-                    hPad + 
+                    ( self.border * ' │' ) +
+                    '\n' +
+                    hPad +
                     ( self.border * '│ ' )
                 ).join(
                     [' '.join(row) for row in display]
                 )
-            ) + 
-            ( self.border * ' │' ) + 
+            ) +
+            ( self.border * ' │' ) +
 
             # Bottom border:
             (self.border * (
-                '\n' + 
-                hPad + 
-                '╰' + 
-                ('─' * ( (self.width *2)+1) ) + 
+                '\n' +
+                hPad +
+                '╰' +
+                ('─' * ( (self.width *2)+1) ) +
                 '╯'
-            )) + 
+            )) +
 
             # Bottom padding:
             (self.center * (
-                '\n' * int(( ( console.HEIGHT - 
-                               self.height - 1 - 
+                '\n' * int(( ( console.HEIGHT -
+                               self.height - 1 -
                                (2*self.border) ) /2))
             ))
         )
@@ -113,7 +113,7 @@ class Canvas(object):
             for y, row in enumerate(sprite.img.image()):
                 for x, pixel in enumerate(row):
                     if pixel:
-                        if ( testPixel[0] == sprite.pos[0]+x and 
+                        if ( testPixel[0] == sprite.pos[0]+x and
                              testPixel[1] == sprite.pos[1]+y ):
                             return True
         return False
@@ -133,14 +133,14 @@ class Canvas(object):
 
                 for testY, testRow in enumerate(testSprite.img.image()):
                     for testX, testPixel in enumerate(testRow):
-                
+
                         if testPixel:
-                        
+
                             for y, row in enumerate(sprite.img.image()):
                                 for x, pixel in enumerate(row):
-                        
+
                                     if pixel:
-                                        if (sprite.pos[0]+x == testSprite.pos[0]+testX and 
+                                        if (sprite.pos[0]+x == testSprite.pos[0]+testX and
                                             sprite.pos[1]+y == testSprite.pos[1]+testY):
                                             overlap = True
         return overlap
@@ -189,7 +189,7 @@ class Sprite(object):
             self.position[1] -= 1
         elif dir_ == 3:
             self.position[0] += 1
-            
+
     def changePos(self, pos):
         """
             pos = (int dx, int dy)
@@ -294,7 +294,7 @@ class Sprite(object):
 
     def edge(self, canvas):
         """
-            Returns a list of the sides of the sprite 
+            Returns a list of the sides of the sprite
                 which are touching the edge of the canvas.
 
             0 = Bottom

@@ -9,8 +9,8 @@ class Car(g.shapes.Image):
 
     def image(self):
         l = self.length
-        return [[0] + [ 1 for i in range(2, l) ] + [0], 
-                [ 1 for i in range(l) ], 
+        return [[0] + [ 1 for i in range(2, l) ] + [0],
+                [ 1 for i in range(l) ],
                 [ 0, 1 ] + [ 0 for i in range(4, l) ] + [ 1, 0 ]]
 
 def main():
@@ -45,7 +45,7 @@ def main():
                 car.img.length += 1
             if ch == '\\':
                 car.img.length -= 1
-                
+
 
             print( screen )
             time.sleep( 1/FPS )
