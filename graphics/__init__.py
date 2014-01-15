@@ -52,6 +52,7 @@ class Canvas(object):
                     /2 ) * ' '
             )
         )
+
         # Generate string for screen
         return (
             # Top padding:
