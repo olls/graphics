@@ -18,7 +18,7 @@ def main():
                 line.img.incAngle(5)
                 print(screen)
 
-            time.sleep(.05)
+            time.sleep(.01)
 
 if __name__ == '__main__':
     main()
