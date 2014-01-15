@@ -103,9 +103,9 @@ class Canvas(object):
 
             # Bottom padding:
             (self.center * (
-                '\n' * int(( ( console.HEIGHT -
-                               self.height - 1 -
-                               (2 * self.border) ) /2))
+                '\n' * int(( console.HEIGHT -
+                             ( self.height + (2 * self.border) )
+                           ) /2 )
             ))
         )
 
