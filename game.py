@@ -3,15 +3,15 @@ import time
 import graphics as g
 
 
-class Car(g.shapes.Image):
-    def __init__(self, length=5):
+class Car( g.shapes.Image ):
+    def __init__( self, length=5 ):
         self.length = length
 
-    def image(self):
+    def image( self ):
         l = self.length
-        return [[0] + [ 1 for i in range(2, l) ] + [0],
-                [ 1 for i in range(l) ],
-                [ 0, 1 ] + [ 0 for i in range(4, l) ] + [ 1, 0 ]]
+        return [ [ 0 ]+[ 1 for i in range( 2, l ) ]+[ 0 ],
+                 [ 1 for i in range( l ) ],
+                 [ 0, 1 ]+[ 0 for i in range( 4, l ) ]+[ 1, 0 ] ]
 
 def main():
 
@@ -27,8 +27,8 @@ def main():
         Car()
     )
 
-    screen.addSprite(ground)
-    screen.addSprite(car)
+    screen.addSprite( ground )
+    screen.addSprite( car )
 
     with g.NonBlockingInput() as nbi:
         while True:
