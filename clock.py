@@ -43,11 +43,11 @@ def main():
         while True:
             t = int(time.time())
 
-            for hand, secPerRev in [(second, 60), 
-                                    (minute, 3600), 
+            for hand, secPerRev in [(second, 60),
+                                    (minute, 3600),
                                     (hour, 43200)]:
 
-                # +180 and -angle are to compensate for 
+                # +180 and -angle are to compensate for
                 #   flipped upside-down angles.
                 angle = (((t * (360 / secPerRev)) + 180) % 360)
                 hand.img.setAngle(-angle)

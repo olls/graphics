@@ -21,8 +21,8 @@ screen = g.Canvas(size=(20, 20))
 circleImage = g.shapes.Circle(5)
 
 # Create a green sprite at position (7, 7) with the circle image.
-circleSprite = g.Sprite( circleImage, 
-                         pos=(7, 7), 
+circleSprite = g.Sprite( circleImage,
+                         pos=(7, 7),
                          color=g.colors.GREEN )
 
 # Add the sprite to the canvas.
@@ -41,7 +41,7 @@ print(screen)
 Compatibility
 -------------
 
-This module was written and tested on Debian with gnome-terminal. It should work with most Linux terminals, but some things might be off. 
+This module was written and tested on Debian with gnome-terminal. It should work with most Linux terminals, but some things might be off.
 - Colors should work if your terminal supports them, otherwise they wont cause any problems.
 - The input module is definitely restricted to Linux.
 - In the windows CMD it doesn't center properly, colors don't work, it was slow and input doesn't work.

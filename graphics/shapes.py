@@ -10,7 +10,7 @@ class Image(object):
         self.direction += dir_
 
     def _rotate(self, image, dir_):
-        """ 
+        """
             Rotate to a multiple of 90 deg.
             0 = default
             1 = 90 deg. CW
@@ -76,7 +76,7 @@ class Vector(Image):
         x = int(self._length * math.sin(math.radians(self._angle)))
         y = int(self._length * math.cos(math.radians(self._angle)))
 
-        image = [[False for xPos in range(abs(x)+1)] 
+        image = [[False for xPos in range(abs(x)+1)]
                  for yPos in range(abs(y)+1)]
 
         yMirror = False
@@ -91,7 +91,7 @@ class Vector(Image):
         y1 = abs(y)
         x1 = abs(x)
 
-        dy = abs(y1-y0) 
+        dy = abs(y1-y0)
         dx = abs(x1-x0)
 
         if y0 < y1:
@@ -145,12 +145,12 @@ class Square(Image):
 
     def incSize(self, amount):
         """ amount = (width, height) in pixels """
-        self._size = (size[0] + int(amount[0]), 
+        self._size = (size[0] + int(amount[0]),
                       size[1] + int(amount[1]))
 
     def image(self):
         return self._rotate( [ [False for x in range(self.size[0])]
-                               for y in range(self.size[1]) ], 
+                               for y in range(self.size[1]) ],
                             self.direction )
 
 class Box(Image):
@@ -170,7 +170,7 @@ class Box(Image):
 
     def incSize(self, amount):
         """ amount = (width, height) in pixels """
-        self._size = (size[0] + int(amount[0]), 
+        self._size = (size[0] + int(amount[0]),
                       size[1] + int(amount[1]))
 
     def image(self):
@@ -208,7 +208,7 @@ class Circle(Image):
         self._radius += int(amount)
 
     def image(self):
-        image = [[False for x in range(self._radius*2+1)] 
+        image = [[False for x in range(self._radius*2+1)]
                  for y in range(self._radius*2+1)]
 
         for x in range(self._radius):
@@ -229,7 +229,7 @@ class Pixle(Image):
     """ A Single Pixel """
     def __init__(self):
         self.direction = 0
-        
+
     def image(self):
         return ((True,),)
 
