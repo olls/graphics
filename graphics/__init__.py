@@ -32,6 +32,10 @@ class Canvas(object):
         self.sprites = []
 
     def __str__( self ):
+        """
+            Returns the screen as a string, taking
+                the Canvas attributes into account.
+        """
         # Generate screen
         display = [[ self.background for x in range( self.width ) ]
                      for y in range( self.height )]
@@ -133,6 +137,9 @@ class Canvas(object):
         return self.width
 
     def overlaps( self, sprite ):
+        """
+            Returns True if sprite is touching any other sprite.
+        """
         overlap = False
         for testSprite in self.sprites:
             if not sprite == testSprite:
@@ -324,7 +331,7 @@ class Sprite( object ):
 
         return sides
 
-def main():
+def example():
     import shapes
     import time
 
@@ -361,4 +368,4 @@ def main():
         i += 1
 
 if __name__ == '__main__':
-    main()
+    example()
