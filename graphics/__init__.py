@@ -8,6 +8,13 @@ from . import shapes
 
 NonBlockingInput = nbinput.NonBlockingInput
 
+def doubleInt(test):
+    return not ( not isinstance( test, list ) or
+                 not isinstance( test, tuple ) ) or
+           not len( test ) == 2 or
+           not isinstance( test[0], int ) or
+           not isinstance( test[1], int )
+
 class Canvas(object):
     """
         size = (int width, int height)
@@ -21,18 +28,20 @@ class Canvas(object):
                   center=True,
                   border=True ):
 
+        if not doubleInt(size):
+            raise TypeError( 'Invalid size attribute for Canvas: \'{}\''.format(str( size )) )
         if ( ( size[0] + border ) *2 ) +1 > console.WIDTH:
-            raise Exception('Canvas to wide to fit on console.')
+            raise Exception( 'Canvas to wide to fit on console.' )
         if ( size[1] + border ) +1 > console.HEIGHT:
-            raise Exception('Canvas to high to fit on console.')
+            raise Exception( 'Canvas to high to fit on console.' )
 
         if not isinstance(background, str) or not len(background) == 1:
-            raise TypeError('Canvas attribute background must be a single character.')
+            raise TypeError( 'Canvas attribute background must be a single character: \'{}\''.format(str( background )) )
 
         if not isinstance(center, bool):
-            raise TypeError('Canvas attribute center must be a boolean.')
+            raise TypeError( 'Canvas attribute center must be a boolean: \'{}\''.format(str( center )) )
         if not isinstance(border, bool):
-            raise TypeError('Canvas attribute border must be a boolean.')
+            raise TypeError( 'Canvas attribute border must be a boolean: \'{}\''.format(str( border )) )
 
         self.width = int( size[0] )
         self.height = int( size[1] )
@@ -140,9 +149,10 @@ class Canvas(object):
             testPixel = ( int x, int y )
         """
         if not ( not isinstance( testPixel, list ) or
-                 not isinstance( testPixel, tuple ) ):
-            raise TypeError( 'Invalid pixel for Canvas.testPixel(): \'{}\''.format(str( testPixel )) )
-        if not len( testPixel ) == 2:
+                 not isinstance( testPixel, tuple ) ) or
+           not len( testPixel ) == 2
+           not isinstance( testPixel[0], int ) or
+           not isinstance( testPixel[1], int ):
             raise TypeError( 'Invalid pixel for Canvas.testPixel(): \'{}\''.format(str( testPixel )) )
 
         for sprite in self.sprites:
@@ -195,6 +205,21 @@ class Sprite( object ):
             color = int range( 0, 8 )
             char = str char
         """
+        if  not isinstance( image, shapes.Image ):
+            raise TypeError( 'Invalid image for Sprite(): \'{}\''.format(str( image )) )
+
+        if not doubleInt( pos ):
+            raise TypeError( 'Invalid pos for Sprite(): \'{}\''.format(str( testPixel )) )
+
+        if not color == None:
+            if not color in range( 0, 8 ):
+                raise TypeError( 'Invalid color for Sprite(), must be in range( 0, 8 ): \'{}\''.format(str( color )) )
+
+        if not char == None:
+            if not isinstance( char, str ) or\
+               not len( char ) == 1:
+                raise TypeError( 'Invalid char for Sprite(): \'{}\''.format(str( char )) )
+
         self.image = copy.deepcopy( image )
         self.position = [ int( pos[0] ), int( pos[1] ) ]
 
@@ -206,12 +231,18 @@ class Sprite( object ):
         """
             image = Image() instance
         """
+        if  not isinstance( image, shapes.Image ):
+            raise TypeError( 'Invalid image for Sprite.setImage(): \'{}\''.format(str( image )) )
+
         self.image = image
 
     def setPos( self, pos ):
         """
             pos = ( int x, int y )
         """
+        if not doubleInt( pos ):
+            raise TypeError( 'Invalid pos for Sprite.setPos(): \'{}\''.format(str( pos )) )
+
         self.position = [ int( pos[0] ), int( pos[1] ) ]
 
     def move( self, dir_=0 ):
@@ -223,6 +254,10 @@ class Sprite( object ):
             2 = Up
             3 = Right
         """
+        if not isinstance( dir_, int ) or\
+           not dir_ in range(0, 4):
+            raise TypeError( 'Invalid direction for Sprite.move(): \'{}\''.format(str( dir_ )) )
+
         if dir_ == 0:
             self.position[1] += 1
         elif dir_ == 1:
@@ -236,22 +271,39 @@ class Sprite( object ):
         """
             pos = ( int dx, int dy )
         """
+        if not doubleInt( pos ):
+            raise TypeError( 'Invalid pos increment for Sprite.changePos(): \'{}\''.format(str( pos )) )
+
         self.position[0] += int( pos[0] )
         self.position[1] += int( pos[1] )
 
-    def changeX( self, amount ):
-        """ amount = int dx """
-        self.position[1] += int( amount )
-    def changeY( self, amount ):
-        """ amount = int dy """
+    def changeX( self, increment ):
+        """ increment = int dx """
+        if not isinstance( increment, int ):
+            raise TypeError( 'Invalid increment for Sprite.changeX(): \'{}\''.format(str( increment )) )
+
+        self.position[1] += int( increment )
+
+    def changeY( self, increment ):
+        """ increment = int dy """
+        if not isinstance( increment, int ):
+            raise TypeError( 'Invalid increment for Sprite.changeY(): \'{}\''.format(str( increment )) )
+
         self.position[0] += int( amount )
 
     def setColor( self, color ):
         """ color = int range( 0, 8 ) """
-        self._color = color if color in range( 8 ) else self._color
+        if not color in range( 0, 8 ):
+            raise TypeError( 'Invalid color for Sprite.setColor(), must be in range( 0, 8 ): \'{}\''.format(str( color )) )
+
+        self._color = color
 
     def setChar( self, char ):
         """ char = str char """
+        if not isinstance( char, str ) or\
+           not len( char ) == 1:
+            raise TypeError( 'Invalid char for Sprite.setChar(): \'{}\''.format(str( char )) )
+
         self._char = char[:1]
 
     @property
@@ -279,6 +331,13 @@ class Sprite( object ):
             2 = Top
             3 = Right
         """
+        if not isinstance( canvas, Canvas ):
+            raise TypeError( 'Invalid canvas for Sprite.touching(): \'{}\''.format(str( canvas )) )
+
+        if not side == None:
+            if not side in range( 0, 4 ):
+                raise TypeError( 'Invalid side number for Sprite.touching(), must be in range( 0, 4 ): \'{}\''.format(str( side )) )
+
         # Find all edges of shape.
         edges = []
         image = self.img.image()
@@ -345,6 +404,9 @@ class Sprite( object ):
             2 = Top
             3 = Right
         """
+        if not isinstance( canvas, Canvas ):
+            raise TypeError( 'Invalid canvas for Sprite.edge(): \'{}\''.format(str( canvas )) )
+
         sides = []
         if self.pos[0] <= 0:
             sides.append( 1 )
