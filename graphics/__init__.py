@@ -123,7 +123,6 @@ class Canvas(object):
         )
 
     def addSprite( self, sprite ):
-
         if not isinstance(sprite, Sprite):
             raise TypeError('Canvas.addSprite method, sprite must be an instance of Sprite class.')
         self.sprites.append( sprite )
