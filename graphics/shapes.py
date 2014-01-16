@@ -141,7 +141,7 @@ class Square( Image ):
 
     def setSize( self, size ):
         """ size = (width, height) in pixels """
-        self._size = int( size )
+        self._size = [ int( size[0] ), int( size[1] ) ]
 
     def incSize( self, amount ):
         """ amount = (width, height) in pixels """
@@ -168,7 +168,7 @@ class Box( Image ):
 
     def setSize( self, size ):
         """ size = (width, height) in pixels """
-        self._size = int( size )
+        self._size = [ int( size[0] ), int( size[1] ) ]
 
     def incSize( self, amount ):
         """ amount = (width, height) in pixels """
