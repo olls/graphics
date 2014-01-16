@@ -26,7 +26,7 @@ circleSprite = g.Sprite( circleImage,
                          color=g.colors.GREEN )
 
 # Add the sprite to the canvas.
-screen.addSprite(circleSprite)
+screen.sprites.append(circleSprite)
 
 # Output the canvas to the terminal.
 print(screen)
