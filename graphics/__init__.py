@@ -26,13 +26,13 @@ class Canvas(object):
         if ( size[1] + border ) +1 > console.HEIGHT:
             raise Exception('Canvas to high to fit on console.')
 
-        if not isinstance(background, str):
-            raise Exception('Canvas attribute background must be a single character.')
+        if not isinstance(background, str) or not len(background) == 1:
+            raise TypeError('Canvas attribute background must be a single character.')
 
         if not isinstance(center, bool):
-            raise Exception('Canvas attribute center must be a boolean.')
+            raise TypeError('Canvas attribute center must be a boolean.')
         if not isinstance(border, bool):
-            raise Exception('Canvas attribute border must be a boolean.')
+            raise TypeError('Canvas attribute border must be a boolean.')
 
         self.width = int( size[0] )
         self.height = int( size[1] )
