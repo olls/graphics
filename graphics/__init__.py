@@ -8,12 +8,15 @@ from . import shapes
 
 NonBlockingInput = nbinput.NonBlockingInput
 
-def doubleInt(test):
-    return not ( not isinstance( test, list ) or
-                 not isinstance( test, tuple ) ) or
-           not len( test ) == 2 or
-           not isinstance( test[0], int ) or
-           not isinstance( test[1], int )
+def doubleIntFloat(test):
+    return ( isinstance( test, list ) or
+             isinstance( test, tuple )
+           ) and\
+           len( test ) == 2 and\
+           ( isinstance( test[0], int ) or
+             isinstance( test[0], float ) ) and\
+           ( isinstance( test[1], int ) or
+             isinstance( test[1], float ) )
 
 class Canvas(object):
     """
@@ -28,7 +31,7 @@ class Canvas(object):
                   center=True,
                   border=True ):
 
-        if not doubleInt(size):
+        if not doubleIntFloat(size):
             raise TypeError( 'Invalid size attribute for Canvas: \'{}\''.format(str( size )) )
         if ( ( size[0] + border ) *2 ) +1 > console.WIDTH:
             raise Exception( 'Canvas to wide to fit on console.' )
@@ -148,11 +151,7 @@ class Canvas(object):
         """
             testPixel = ( int x, int y )
         """
-        if not ( not isinstance( testPixel, list ) or
-                 not isinstance( testPixel, tuple ) ) or
-           not len( testPixel ) == 2
-           not isinstance( testPixel[0], int ) or
-           not isinstance( testPixel[1], int ):
+        if not doubleIntFloat( testPixel ):
             raise TypeError( 'Invalid pixel for Canvas.testPixel(): \'{}\''.format(str( testPixel )) )
 
         for sprite in self.sprites:
@@ -208,7 +207,7 @@ class Sprite( object ):
         if  not isinstance( image, shapes.Image ):
             raise TypeError( 'Invalid image for Sprite(): \'{}\''.format(str( image )) )
 
-        if not doubleInt( pos ):
+        if not doubleIntFloat( pos ):
             raise TypeError( 'Invalid pos for Sprite(): \'{}\''.format(str( testPixel )) )
 
         if not color == None:
@@ -240,7 +239,7 @@ class Sprite( object ):
         """
             pos = ( int x, int y )
         """
-        if not doubleInt( pos ):
+        if not doubleIntFloat( pos ):
             raise TypeError( 'Invalid pos for Sprite.setPos(): \'{}\''.format(str( pos )) )
 
         self.position = [ int( pos[0] ), int( pos[1] ) ]
@@ -271,7 +270,7 @@ class Sprite( object ):
         """
             pos = ( int dx, int dy )
         """
-        if not doubleInt( pos ):
+        if not doubleIntFloat( pos ):
             raise TypeError( 'Invalid pos increment for Sprite.changePos(): \'{}\''.format(str( pos )) )
 
         self.position[0] += int( pos[0] )
