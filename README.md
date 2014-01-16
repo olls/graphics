@@ -42,12 +42,12 @@ Compatibility
 -------------
 
 This module was written and tested on Debian with gnome-terminal. It should work with most Linux terminals, but some things might be off.
-- Colors should work if your terminal supports them, otherwise they wont cause any problems.
+- Colours should work if your terminal supports them, otherwise they wont cause any problems.
 - The input module is definitely restricted to Linux.
-- In the windows CMD it doesn't center properly, colors don't work, it was slow and input doesn't work.
+- In the Windows CMD it doesn't centre properly, colours don't work, it was slow and input doesn't work.
 
-`console.py` is a small script to determine the terminal size. Works in my gnome-terminal in Debian, probably wont work in all environments, was not written by me, I think it came off a stack overflow.
+`console.py` is a small script to determine the terminal size. Works in my gnome-terminal in Debian, probably wont work in all environments, was not written by me, I think it came from a Stack Overflow.
 
-`colors.py` has functions for adding the correct escapes to strings to color them, also off stack overflow, also not sure about environment support.
+`colors.py` has functions for adding the correct escapes to strings to color them, also from Stack Overflow, also not sure about environment support.
 
 `nbinput.py` an object to get non blocking input in the terminal, this only works in Linux terminals.
