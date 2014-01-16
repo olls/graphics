@@ -9,13 +9,13 @@ def main():
         g.shapes.Vector( 0, 10 ),
         (5, 5)
     )
-    screen.addSprite( line )
+    screen.sprites.append( line )
 
     with g.NonBlockingInput() as nbi:
         while True:
 
             if nbi.char() == ' ':
-                line.image.incAngle( 5 )
+                line.image.angle += 5
                 print( screen )
 
             time.sleep( .01 )

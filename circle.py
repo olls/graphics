@@ -7,7 +7,7 @@ circle = g.Sprite(
     g.shapes.Circle( 0 ),
     (10, 10)
 )
-screen.addSprite( circle )
+screen.sprites.append( circle )
 
 circleDir = True
 i = 0
@@ -15,9 +15,9 @@ i = 0
 while True:
 
     if circleDir:
-        circle.image.incRadius( 1 )
+        circle.image.radius += 1
     else:
-        circle.image.incRadius( -1 )
+        circle.image.radius -= 1
 
     radius = circle.image.radius
     if radius == 10:

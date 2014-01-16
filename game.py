@@ -4,7 +4,7 @@ import graphics as g
 
 
 class Car( g.shapes.Image ):
-    def __init__( self, length=5 ):
+    def __init__( self, length = 5 ):
         self.length = length
 
     def image( self ):
@@ -17,18 +17,18 @@ def main():
 
     FPS = 30
 
-    screen = g.Canvas( size=(20, 10) )
+    screen = g.Canvas( size = (20, 10) )
 
     ground = g.Sprite(
         g.shapes.Vector( 90, 19 ),
-        pos=(0, 7)
+        position = (0, 7)
     )
     car = g.Sprite(
         Car()
     )
 
-    screen.addSprite( ground )
-    screen.addSprite( car )
+    screen.sprites.append( ground )
+    screen.sprites.append( car )
 
     with g.NonBlockingInput() as nbi:
         while True:

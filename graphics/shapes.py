@@ -3,13 +3,13 @@
 import math
 
 class Image( object ):
-    def rotate( self, dir_ ):
+    def rotate( self, direction ):
         """
-            Rotate 90 deg. * CW (dir_=1), CCW (dir_=-1)
+            Rotate 90 deg. * CW (direction=1), CCW (direction=-1)
         """
-        self.direction += dir_
+        self.direction += direction
 
-    def _rotate( self, image, dir_ ):
+    def _rotate( self, image, direction ):
         """
             Rotate to a multiple of 90 deg.
             0 = default
@@ -19,7 +19,7 @@ class Image( object ):
         """
         image = [ list( row ) for row in image ]
 
-        for n in range( dir_ % 4 ):
+        for n in range( direction % 4 ):
             i = [ [ 0 for x in range(len( image )) ] for y in range(len( image[0] )) ]
 
             for y, row in enumerate( image ):
@@ -44,37 +44,13 @@ class Image( object ):
 class Vector(Image):
     """ A Straight Line """
     def __init__( self, angle, length ):
-        self._angle = int( angle )
-        self._length = int( length )
+        self.angle = int( angle )
+        self.length = int( length )
         self.direction = 0
 
-    @property
-    def angle( self ):
-        return self._angle
-
-    def setAngle( self, angle ):
-        """ angle in degrees """
-        self._angle = int( angle )
-
-    def incAngle( self, amount ):
-        """ angle in degrees """
-        self._angle += int( amount )
-
-    @property
-    def length( self ):
-        return self._length
-
-    def setLength( self, length ):
-        """ length in pixels """
-        self._length = int( length )
-
-    def incLength( self, amount ):
-        """ length in pixels """
-        self._length += int( amount )
-
     def image( self ):
-        x = int( self._length * math.sin(math.radians( self._angle )) )
-        y = int( self._length * math.cos(math.radians( self._angle )) )
+        x = int( self.length * math.sin(math.radians( self.angle )) )
+        y = int( self.length * math.cos(math.radians( self.angle )) )
 
         image = [ [ False for xPos in range(abs( x ) +1) ]
                     for yPos in range(abs( y ) +1) ]
@@ -132,26 +108,13 @@ class Square( Image ):
     """ A Hollow Box """
     def __init__( self, size ):
         """ size = (width, height) in pixels """
-        self._size = [ int( size[0] ), int( size[1] ) ]
+        self.size = [ int( size[0] ), int( size[1] ) ]
         self.direction = 0
-
-    @property
-    def size( self ):
-        return self._size
-
-    def setSize( self, size ):
-        """ size = (width, height) in pixels """
-        self._size = [ int( size[0] ), int( size[1] ) ]
-
-    def incSize( self, amount ):
-        """ amount = (width, height) in pixels """
-        self._size = ( size[0] + int( amount[0] ),
-                       size[1] + int( amount[1] ) )
 
     def image( self ):
         return self._rotate(
-            [[ False for x in range( self.size[0] )]
-               for y in range( self.size[1] ) ],
+            [[ False for x in range(int( self.size[0] )) ]
+               for y in range(int( self.size[1] )) ],
             self.direction
         )
 
@@ -159,36 +122,23 @@ class Box( Image ):
     """ A Solid Box """
     def __init__( self, size ):
         """ size = (width, height) in pixels """
-        self._size = [ int( size[0] ), int( size[1] ) ]
+        self.size = [ int( size[0] ), int( size[1] ) ]
         self.direction = 0
-
-    @property
-    def size( self ):
-        return self._size
-
-    def setSize( self, size ):
-        """ size = (width, height) in pixels """
-        self._size = [ int( size[0] ), int( size[1] ) ]
-
-    def incSize( self, amount ):
-        """ amount = (width, height) in pixels """
-        self._size = ( size[0] + int( amount[0] ),
-                       size[1] + int( amount[1] ) )
 
     def image( self ):
         image = []
 
-        image.append( [True] * self._size[1] )
+        image.append( [True] * self.size[1] )
 
-        for yPos in range( 1, self._size[0] -1 ):
+        for yPos in range( 1, self.size[0] -1 ):
             image.append( [] )
 
             image[yPos].append( True )
-            for xPos in range( self._size[1] -2 ):
+            for xPos in range( self.size[1] -2 ):
                 image[yPos].append( False )
             image[yPos].append( True )
 
-        image.append( [True] * self._size[1] )
+        image.append( [True] * self.size[1] )
 
         return self._rotate( image, self.direction )
 
@@ -196,37 +146,28 @@ class Circle( Image ):
     """ A Circle """
     def __init__( self, radius ):
         """ radius in pixels """
-        self._radius = int( radius )
+        self.radius = int( radius )
         self.direction = 0
 
-    @property
-    def radius( self ):
-        return self._radius
-
-    def setRadius( self, radius ):
-        """ radius in pixels """
-        self._radius = int( radius )
-
-    def incRadius( self, amount ):
-        """ radius in pixels """
-        self._radius += int( amount )
-
     def image( self ):
-        image = [[ False for x in range( ( self._radius *2) +1 ) ]
-                   for y in range( ( self._radius *2 ) +1 ) ]
+        image = [[ False for x in range( ( self.radius *2) +1 ) ]
+                   for y in range( ( self.radius *2 ) +1 ) ]
 
-        for x in range( self._radius ):
-            y = int(math.sqrt( (self._radius*self._radius) - (x*x) ))
+        r = int( self.radius )
 
-            image[ self._radius + y ][ self._radius + x ] = True
-            image[ self._radius - y ][ self._radius + x ] = True
-            image[ self._radius + y ][ self._radius - x ] = True
-            image[ self._radius - y ][ self._radius - x ] = True
+        for x in range( r ):
 
-            image[ self._radius + x ][ self._radius + y ] = True
-            image[ self._radius + x ][ self._radius - y ] = True
-            image[ self._radius - x ][ self._radius + y ] = True
-            image[ self._radius - x ][ self._radius - y ] = True
+            y = int( math.sqrt( (r*r) - (x*x) ) )
+
+            image[ r + y ][ r + x ] = True
+            image[ r - y ][ r + x ] = True
+            image[ r + y ][ r - x ] = True
+            image[ r - y ][ r - x ] = True
+
+            image[ r + x ][ r + y ] = True
+            image[ r + x ][ r - y ] = True
+            image[ r - x ][ r + y ] = True
+            image[ r - x ][ r - y ] = True
 
         return self._rotate( image, self.direction )
 

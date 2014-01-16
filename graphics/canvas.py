@@ -54,7 +54,7 @@ class Canvas:
             self.center * (
                 int(( console.WIDTH -
                        ( (self.width * 2) -1 ) -
-                       ( 4*self.border )
+                       ( 4* self.border )
                     )/2 ) * ' '
             )
         )

@@ -50,7 +50,7 @@ def main():
                 # +180 and -angle are to compensate for
                 #   flipped upside-down angles.
                 angle = (( ( t * (360 / secPerRev) ) +180 ) %360)
-                hand.image.setAngle(-angle)
+                hand.image.angle = -angle
 
                 width, height = hand.image.width, hand.image.height
 
