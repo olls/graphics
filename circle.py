@@ -15,18 +15,18 @@ i = 0
 while True:
 
     if circleDir:
-        circle.img.incRadius( 1 )
+        circle.image.incRadius( 1 )
     else:
-        circle.img.incRadius( -1 )
+        circle.image.incRadius( -1 )
 
-    radius = circle.img.radius
+    radius = circle.image.radius
     if radius == 10:
         circleDir = False
     elif radius == 1:
         circleDir = True
 
-    circle.setPos( (10 - radius, 10 - radius) )
-    circle.setColor( int( i /4 ) %8 )
+    circle.position = (10 - radius, 10 - radius)
+    circle.color = int( i /4 ) %8
 
     print( screen )
     time.sleep( .02 )

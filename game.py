@@ -42,9 +42,9 @@ def main():
             if ch == ',':
                 car.move( 1 )
             if ch == '/':
-                car.img.length += 1
+                car.image.length += 1
             if ch == '\\':
-                car.img.length -= 1
+                car.image.length -= 1
 
 
             print( screen )

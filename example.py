@@ -15,7 +15,7 @@ def main():
         while True:
 
             if nbi.char() == ' ':
-                line.img.incAngle( 5 )
+                line.image.incAngle( 5 )
                 print( screen )
 
             time.sleep( .01 )

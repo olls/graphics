@@ -32,7 +32,7 @@ screen.addSprite(circleSprite)
 print(screen)
 
 # Increase the circles radius by two.
-circleSprite.img.incRadius(2)
+circleSprite.image.incRadius(2)
 
 # Output the canvas to the terminal.
 print(screen)
