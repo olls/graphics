@@ -123,17 +123,28 @@ class Canvas(object):
         )
 
     def addSprite( self, sprite ):
-        if not isinstance(sprite, Sprite):
-            raise TypeError('Canvas.addSprite method, sprite must be an instance of Sprite class.')
+        if not isinstance( sprite, Sprite ):
+            raise TypeError( 'Invalid sprite for Canvas.addSprite(): \'{}\''.format(str( sprite )) )
         self.sprites.append( sprite )
 
     def removeSprite( self, sprite ):
-        self.sprites.remove( sprite )
+        if not isinstance( sprite, Sprite ):
+            raise TypeError( 'Invalid sprite for Canvas.removeSprite(): \'{}\''.format(str( sprite )) )
+        try:
+            self.sprites.remove( sprite )
+        except ValueError:
+            raise ValueError( 'Sprite not in canvas: \'{}\''.format(str( sprite )) )
 
     def testPixel( self, testPixel ):
         """
             testPixel = ( int x, int y )
         """
+        if not ( not isinstance( testPixel, list ) or
+                 not isinstance( testPixel, tuple ) ):
+            raise TypeError( 'Invalid pixel for Canvas.testPixel(): \'{}\''.format(str( testPixel )) )
+        if not len( testPixel ) == 2:
+            raise TypeError( 'Invalid pixel for Canvas.testPixel(): \'{}\''.format(str( testPixel )) )
+
         for sprite in self.sprites:
             for y, row in enumerate( sprite.img.image() ):
                 for x, pixel in enumerate( row ):
@@ -155,6 +166,9 @@ class Canvas(object):
         """
             Returns True if sprite is touching any other sprite.
         """
+        if not isinstance( sprite, Sprite ):
+            raise TypeError( 'Invalid sprite for Canvas.overlaps(): \'{}\''.format(str( sprite )) )
+
         overlap = False
         for testSprite in self.sprites:
             if not sprite == testSprite:
