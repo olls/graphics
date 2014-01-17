@@ -44,6 +44,10 @@ class Image( object ):
 class Vector(Image):
     """ A Straight Line """
     def __init__( self, angle, length ):
+        """
+            angle = float range( 0, 360 )
+            length = float
+        """
         self.angle = int( angle )
         self.length = int( length )
         self.direction = 0
@@ -107,7 +111,9 @@ class Vector(Image):
 class Square( Image ):
     """ A Hollow Box """
     def __init__( self, size ):
-        """ size = (width, height) in pixels """
+        """
+            size = ( int width, int height )
+        """
         self.size = [ int( size[0] ), int( size[1] ) ]
         self.direction = 0
 
@@ -121,39 +127,48 @@ class Square( Image ):
 class Box( Image ):
     """ A Solid Box """
     def __init__( self, size ):
-        """ size = (width, height) in pixels """
+        """
+            size = ( int width, int height )
+        """
         self.size = [ int( size[0] ), int( size[1] ) ]
         self.direction = 0
 
     def image( self ):
         image = []
 
-        image.append( [True] * self.size[1] )
+        width = int( self.size[0] )
+        height = int( self.size[1] )
 
-        for yPos in range( 1, self.size[0] -1 ):
+        image.append( [True] * height )
+
+        for yPos in range( 1, width -1 ):
             image.append( [] )
 
             image[yPos].append( True )
-            for xPos in range( self.size[1] -2 ):
+
+            for xPos in range( height -2 ):
                 image[yPos].append( False )
+
             image[yPos].append( True )
 
-        image.append( [True] * self.size[1] )
+        image.append( [True] * height )
 
         return self._rotate( image, self.direction )
 
 class Circle( Image ):
     """ A Circle """
     def __init__( self, radius ):
-        """ radius in pixels """
+        """
+            radius = int
+        """
         self.radius = int( radius )
         self.direction = 0
 
     def image( self ):
-        image = [[ False for x in range( ( self.radius *2) +1 ) ]
-                   for y in range( ( self.radius *2 ) +1 ) ]
-
         r = int( self.radius )
+
+        image = [[ False for x in range( ( r*2 ) +1 ) ]
+                   for y in range( ( r*2 ) +1 ) ]
 
         for x in range( r ):
 
