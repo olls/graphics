@@ -29,15 +29,18 @@ class Sprite( object ):
             3 = Right
         """
         direction = int(direction)
+        p = self.position
 
         if direction == 0:
-            self.position[1] += 1
+            p = (p[0], p[1]+1)
         elif direction == 1:
-            self.position[0] -= 1
+            p = (p[0]-1, p[1])
         elif direction == 2:
-            self.position[1] -= 1
+            p = (p[0], p[1]-1)
         elif direction == 3:
-            self.position[0] += 1
+            p = (p[0]+1, p[1])
+
+        self.position = p
 
     def touching( self, canvas, side=None ):
         """
