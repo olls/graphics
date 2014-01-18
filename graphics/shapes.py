@@ -2,7 +2,7 @@
 
 import math
 
-class Image( object ):
+class Image:
     def __init__( self ):
         self.direction = 0
 

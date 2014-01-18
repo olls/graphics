@@ -4,7 +4,7 @@ import copy
 from . import colors
 from . import shapes
 
-class Sprite( object ):
+class Sprite:
     def __init__( self, image, position=(0, 0), color=None, char=None ):
         """
             image = Image() instance
