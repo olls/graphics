@@ -38,9 +38,9 @@ def main():
 
             ch = nbi.char()
             if ch == '.':
-                car.move( 3 )
+                car.move( g.RIGHT )
             if ch == ',':
-                car.move( 1 )
+                car.move( g.LEFT )
             if ch == '/':
                 car.image.length += 1
             if ch == '\\':
