@@ -186,7 +186,7 @@ class Circle( Image ):
 
         return self._rotate( image, self.direction )
 
-class Pixle( Image ):
+class Pixel( Image ):
     """ A Single Pixel """
     def __init__( self ):
         self.direction = 0
