@@ -119,28 +119,6 @@ class Canvas:
                             return True
         return False
 
-    def overlaps( self, sprite ):
-        """
-            Returns True if sprite is touching any other sprite.
-        """
-        overlap = False
-        for testSprite in self.sprites:
-            if not sprite == testSprite:
-
-                for testY, testRow in enumerate( testSprite.image.image() ):
-                    for testX, testPixel in enumerate( testRow ):
-
-                        if testPixel:
-
-                            for y, row in enumerate( sprite.image.image() ):
-                                for x, pixel in enumerate( row ):
-
-                                    if pixel:
-                                        if ( sprite.position[0]+x == testSprite.position[0]+testX and
-                                             sprite.position[1]+y == testSprite.position[1]+testY ):
-                                            overlap = True
-        return overlap
-
     @property
     def height( self ):
         return self._height
