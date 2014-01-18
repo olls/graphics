@@ -7,7 +7,7 @@ class Car( g.shapes.Image ):
     def __init__( self, length = 5 ):
         self.length = length
 
-    def image( self ):
+    def genImage( self ):
         l = self.length
         return [ [ 0 ]+[ 1 for i in range( 2, l ) ]+[ 0 ],
                  [ 1 for i in range( l ) ],

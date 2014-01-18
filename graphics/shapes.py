@@ -3,13 +3,21 @@
 import math
 
 class Image( object ):
+    def __init__( self ):
+        self.direction = 0
+
+    def image( self ):
+        self._image = self.genImage()
+        self._rotate()
+        return self._image
+
     def rotate( self, direction ):
         """
             Rotate 90 deg. * CW (direction=1), CCW (direction=-1)
         """
         self.direction += direction
 
-    def _rotate( self, image, direction ):
+    def _rotate( self ):
         """
             Rotate to a multiple of 90 deg.
             0 = default
@@ -17,9 +25,9 @@ class Image( object ):
             2 = 180 deg.
             3 = 90 deg. CCW
         """
-        image = [ list( row ) for row in image ]
+        image = [ list( row ) for row in self._image ]
 
-        for n in range( direction % 4 ):
+        for n in range( self.direction % 4 ):
             i = [ [ 0 for x in range(len( image )) ] for y in range(len( image[0] )) ]
 
             for y, row in enumerate( image ):
@@ -29,7 +37,7 @@ class Image( object ):
             [ i[y].reverse() for y, row in enumerate( i ) ]
             image = i
 
-        return image
+        self._image = image
 
 
     @property
@@ -48,11 +56,12 @@ class Vector(Image):
             angle = float range( 0, 360 )
             length = float
         """
+        super( Vector, self ).__init__()
+
         self.angle = int( angle )
         self.length = int( length )
-        self.direction = 0
 
-    def image( self ):
+    def genImage( self ):
         x = int( self.length * math.sin(math.radians( self.angle )) )
         y = int( self.length * math.cos(math.radians( self.angle )) )
 
@@ -106,7 +115,7 @@ class Vector(Image):
             for row in image:
                 row.reverse()
 
-        return self._rotate( image, self.direction )
+        return image
 
 class Square( Image ):
     """ A Hollow Box """
@@ -114,15 +123,13 @@ class Square( Image ):
         """
             size = ( int width, int height )
         """
-        self.size = [ int( size[0] ), int( size[1] ) ]
-        self.direction = 0
+        super( Square, self ).__init__()
 
-    def image( self ):
-        return self._rotate(
-            [[ False for x in range(int( self.size[0] )) ]
-               for y in range(int( self.size[1] )) ],
-            self.direction
-        )
+        self.size = [ int( size[0] ), int( size[1] ) ]
+
+    def genImage( self ):
+        return [[ False for x in range(int( self.size[0] )) ]
+                for y in range(int( self.size[1] )) ]
 
 class Box( Image ):
     """ A Solid Box """
@@ -130,10 +137,11 @@ class Box( Image ):
         """
             size = ( int width, int height )
         """
-        self.size = [ int( size[0] ), int( size[1] ) ]
-        self.direction = 0
+        super( Box, self ).__init__()
 
-    def image( self ):
+        self.size = [ int( size[0] ), int( size[1] ) ]
+
+    def genImage( self ):
         image = []
 
         width = int( self.size[0] )
@@ -153,7 +161,7 @@ class Box( Image ):
 
         image.append( [True] * height )
 
-        return self._rotate( image, self.direction )
+        return image
 
 class Circle( Image ):
     """ A Circle """
@@ -161,10 +169,11 @@ class Circle( Image ):
         """
             radius = int
         """
-        self.radius = int( radius )
-        self.direction = 0
+        super( Circle, self ).__init__()
 
-    def image( self ):
+        self.radius = int( radius )
+
+    def genImage( self ):
         r = int( self.radius )
 
         image = [[ False for x in range( ( r*2 ) +1 ) ]
@@ -184,14 +193,14 @@ class Circle( Image ):
             image[ r - x ][ r + y ] = True
             image[ r - x ][ r - y ] = True
 
-        return self._rotate( image, self.direction )
+        return image
 
 class Pixel( Image ):
     """ A Single Pixel """
     def __init__( self ):
-        self.direction = 0
+        super( Pixel, self ).__init__()
 
-    def image( self ):
+    def genImage( self ):
         return ((True,),)
 
 def main():
