@@ -29,6 +29,7 @@ class Sprite( object ):
             3 = Right
         """
         direction = int(direction)
+        self.position = list(self.position)
 
         if direction == 0:
             self.position[1] += 1

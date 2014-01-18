@@ -195,7 +195,7 @@ class Circle( Image ):
 
         return image
 
-class Pixle( Image ):
+class Pixel( Image ):
     """ A Single Pixel """
     def __init__( self ):
         super( Pixel, self ).__init__()
