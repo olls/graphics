@@ -14,7 +14,7 @@ class Sprite( object ):
         """
 
         self.image = copy.deepcopy( image )
-        self.position = ( int( position[0] ), int( position[1] ) )
+        self.position = [ int( position[0] ), int( position[1] ) ]
 
         self.color = color if color else random.randint( 1, 8 )
         self.char = char[:1] if char else chr( 0x25CF )
