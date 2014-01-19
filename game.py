@@ -17,9 +17,9 @@ class Car( g.shapes.Image ):
 
 def main():
 
-    FPS = 30
+    FPS = 10
 
-    screen = g.Canvas( size = (20, 10) )
+    screen = g.Canvas( fullscreen=True )
 
     car = g.Sprite(
         Car()
@@ -35,7 +35,7 @@ def main():
 
         tmp = ulimit+1
         while tmp+r <= llimit or tmp+r >= ulimit:
-            tmp = random.randint(-1, 1)
+            tmp = random.randint(-2, 2)
         r += tmp
 
         for y, row in enumerate(image):
@@ -54,6 +54,7 @@ def main():
     screen.sprites.append( ground )
     screen.sprites.append( car )
 
+    t = time.time()
     with g.NonBlockingInput() as nbi:
         while True:
 
@@ -71,8 +72,10 @@ def main():
             while not car.touching( screen, side=0 ):
                 car.move( 0 )
 
-            print( screen )
-            time.sleep( 1/FPS )
+            if time.time() >= t+(1/FPS):
+                t = time.time()
+                print( screen )
+            time.sleep( .01 )
 
 if __name__ == '__main__':
     main()

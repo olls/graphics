@@ -25,8 +25,7 @@ class Canvas:
         self.size = console.Size()
         self.fullscreen = bool(fullscreen)
         if self.fullscreen:
-            s = self.size.getSize()
-            self.width, self.height = (s[0]/2)-5, s[1]-5
+            self.width, self.height = self.updateSize()
         else:
             self.width, self.height = size[0], size[1]
 
@@ -43,7 +42,7 @@ class Canvas:
         # Get new size if fullscreen
         s = self.size.getSize()
         if self.fullscreen:
-            self.width, self.height = (s[0]/2)-5, s[1]-5
+            self.width, self.height = self.updateSize()
 
         # Generate screen
         if isinstance(self.background, str):
@@ -133,6 +132,10 @@ class Canvas:
                              testPixel[1] == sprite.position[1]+y ):
                             return True
         return False
+
+    def updateSize( self ):
+        s = self.size.getSize()
+        return int((s[0]/2)-5), int(s[1]-5)
 
     @property
     def border( self ):
