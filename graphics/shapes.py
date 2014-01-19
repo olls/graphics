@@ -217,6 +217,18 @@ class Text( Image ):
     def text( self, value ):
         self._text = str(value)
 
+class CustImage( Image ):
+    def __init__( self, image=None):
+        super( CustImage, self ).__init__()
+        self.custImage = image
+
+    def genImage( self ):
+        return self.custImage
+
+    def char( self, pos ):
+        return self.custImage[pos[1]][pos[0]]
+
+
 def main():
     import sys
 
