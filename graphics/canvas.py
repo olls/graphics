@@ -66,7 +66,7 @@ class Canvas:
         # Generate string for screen
         return (
             # Top padding:
-            '\n' +
+            '\n\n' +
             ( '\n' * self.border ) +
 
             # Top border:
