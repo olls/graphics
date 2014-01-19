@@ -75,7 +75,6 @@ def main():
             if time.time() >= t+(1/FPS):
                 t = time.time()
                 print( screen )
-            time.sleep( .01 )
 
 if __name__ == '__main__':
     main()
