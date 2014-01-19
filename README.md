@@ -52,3 +52,7 @@ This module was written and tested on Debian with gnome-terminal. It should work
 [`colors.py`](http://github.com/olls/graphics/blob/master/graphics/colors.py) has functions for adding the correct escapes to strings to color them, from [a blog](http://blog.mathieu-leplatre.info/colored-output-in-console-with-python.html), also not sure about environment support.
 
 [`nbinput.py`](http://github.com/olls/graphics/blob/master/graphics/nbinput.py) an object to get non blocking input in the terminal, this only works in Linux terminals. This was from [Stack Overflow](https://stackoverflow.com/questions/2408560/python-nonblocking-console-input) too.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/olls/graphics/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
