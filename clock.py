@@ -1,5 +1,5 @@
 import time
-import random
+import random as r
 
 import graphics as g
 
@@ -7,7 +7,9 @@ def main():
     size = int( min( g.console.WIDTH /2,
                      g.console.HEIGHT ) -1 )
 
-    screen = g.Canvas( size=(size, size), border=False )
+    background = [['~' if r.randint(0, 1) else '-' for x in range(size)] for y in range(size)]
+
+    screen = g.Canvas( size=(size, size), border=False, background=background )
 
     center = size * .5
 

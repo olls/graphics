@@ -34,8 +34,12 @@ class Canvas:
                 the Canvas attributes into account.
         """
         # Generate screen
-        display = [[ self.background for x in range( self.width ) ]
-                     for y in range( self.height )]
+        if isinstance(self.background, str):
+            display = [[ self.background[0] for x in range( self.width ) ]
+                         for y in range( self.height )]
+        else:
+            display = [[ self.background[y][x] for x in range( self.width ) ]
+                         for y in range( self.height )]
 
         # Populate screen with sprites
         for sprite in self.sprites:
@@ -158,13 +162,6 @@ class Canvas:
         if ( ( w + self.border ) *2 ) >= console.WIDTH:
             raise Exception( 'Canvas too wide to fit on console.' )
         self._width = int( w )
-
-    @property
-    def background( self ):
-        return self._background
-    @background.setter
-    def background( self, b ):
-        self._background = str( b )[:1]
 
     @property
     def border( self ):
