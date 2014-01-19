@@ -67,20 +67,22 @@ class Sprite:
         # Find all edges of shape.
         edges = []
         image = self.image.image()
+        width = len(image[0])
+        height = len(image)
         if 0 in side:
             # Find bottom edges
-            for x in range( self.image.width ):
+            for x in range( width ):
                 if image[-1][x] is True:
-                    y = self.image.height
+                    y = height
                 else:
-                    y = self.image.height-1
+                    y = height-1
                     while image[y][x] is False:
                         y -= 1
                     y += 1
                 edges.append( (x, y) )
         if 1 in side:
             # Find left edges
-            for y in range( self.image.height ):
+            for y in range( height ):
                 if image[y][0] is True:
                     x = -1
                 else:
@@ -91,7 +93,7 @@ class Sprite:
                 edges.append( (x, y) )
         if 2 in side:
             # Find top edges
-            for x in range( self.image.width ):
+            for x in range( width ):
                 if image[0][x] is True:
                     y = -1
                 else:
@@ -102,11 +104,11 @@ class Sprite:
                 edges.append( (x, y) )
         if 3 in side:
             # Find right edges
-            for y in range( self.image.height ):
+            for y in range( height ):
                 if image[y][-1] is True:
-                    x = self.image.width
+                    x = width
                 else:
-                    x = self.image.width-1
+                    x = width-1
                     while image[y][x] is False:
                         x -= 1
                     x += 1
