@@ -195,13 +195,15 @@ class Circle( Image ):
 
         return image
 
-class Pixel( Image ):
-    """ A Single Pixel """
+class Text( Image ):
+    """ A text string """
     def __init__( self, text='' ):
-        super( Pixel, self ).__init__()
+        super( Text, self ).__init__()
         self.text = text
 
     def genImage( self ):
+        if len(self.text) == 0:
+            return [[True],]
         return [[False if char == ' ' else True for char in self.text],]
 
     def char( self, pos ):

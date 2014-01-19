@@ -17,13 +17,13 @@ class Sprite:
         self.position = [ int( position[0] ), int( position[1] ) ]
 
         self.color = color if color else random.randint( 1, 8 )
-        self.char = str(char)[0] if char else chr( 0x25CF )
+        self._char = str(char)[0] if char else chr( 0x25CF )
 
     def char(self, pos):
         try:
             char = self.image.char(pos)
         except AttributeError:
-            char = self.char
+            char = self._char
         return char
 
     def move( self, direction=0 ):

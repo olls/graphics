@@ -15,7 +15,7 @@ def main():
         color = g.colors.CYAN
     )
     textTime = g.Sprite(
-        g.shapes.Pixel()
+        g.shapes.Text()
     )
     screen.sprites.append( circle )
     screen.sprites.append( textTime )
