@@ -72,44 +72,44 @@ class Sprite:
         if 0 in side:
             # Find bottom edges
             for x in range( width ):
-                if image[-1][x] is True:
+                if image[-1][x] == True:
                     y = height
                 else:
                     y = height-1
-                    while image[y][x] is False:
+                    while image[y][x] == False:
                         y -= 1
                     y += 1
                 edges.append( (x, y) )
         if 1 in side:
             # Find left edges
             for y in range( height ):
-                if image[y][0] is True:
+                if image[y][0] == True:
                     x = -1
                 else:
                     x = 0
-                    while image[y][x] is False:
+                    while image[y][x] == False:
                         x += 1
                     x -= 1
                 edges.append( (x, y) )
         if 2 in side:
             # Find top edges
             for x in range( width ):
-                if image[0][x] is True:
+                if image[0][x] == True:
                     y = -1
                 else:
                     y = 0
-                    while image[y][x] is False:
+                    while image[y][x] == False:
                         y += 1
                     y -= 1
                 edges.append( (x, y) )
         if 3 in side:
             # Find right edges
             for y in range( height ):
-                if image[y][-1] is True:
+                if image[y][-1] == True:
                     x = width
                 else:
                     x = width-1
-                    while image[y][x] is False:
+                    while image[y][x] == False:
                         x -= 1
                     x += 1
                 edges.append( (x, y) )
