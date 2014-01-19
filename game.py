@@ -21,10 +21,10 @@ def main():
     screen = g.Canvas( size = (20, 10) )
 
     ground = g.Sprite(
-        g.shapes.CustImage( ['####################',
-                             ' # # # # # # # # # #',
-                             '# # # # # # # # # # ',
-                             ' # # # # # # # # # #'] ),
+        g.shapes.CustImage( ['##' * int(screen.width /2),
+                             ' #' * int(screen.width /2),
+                             '# ' * int(screen.width /2),
+                             ' #' * int(screen.width /2)] ),
         position = (0, 6)
     )
     car = g.Sprite(
