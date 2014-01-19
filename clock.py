@@ -1,6 +1,6 @@
 import time
 import random as r
-import math as m
+import math
 
 import graphics as g
 
@@ -14,7 +14,11 @@ def main():
         g.shapes.Circle( 0 ),
         color = g.colors.CYAN
     )
+    textTime = g.Sprite(
+        g.shapes.Text()
+    )
     screen.sprites.append( circle )
+    screen.sprites.append( textTime )
 
     # Hands
     second = g.Sprite(
@@ -54,10 +58,10 @@ def main():
 
             hours = 12
             for n in range(1, hours+1):
-                angle = n * ( 2*m.pi / hours )
+                angle = n * ( 2*math.pi / hours )
 
-                x = 0.8 * center * m.sin( angle )
-                y = 0.8 * center * m.cos( angle )
+                x = 0.8 * center * math.sin( angle )
+                y = 0.8 * center * math.cos( angle )
 
                 for offset, char in enumerate(list(str(n))):
                     background[int( center - y )][int( center + x + offset )] = g.colors.colorStr(char, n%8)
@@ -66,6 +70,13 @@ def main():
 
             # Generate hands
             t = int( time.time() )
+
+            h = int( (t /3600) %12 )
+            h = 12 if h == 0 else h
+            m = int( (t /60  ) %60 )
+            s = int( (t /1   ) %60 )
+            textTime.image.text = '{:02}:{:02}:{:02}'.format(h, m, s)
+            textTime.position = (center - (len(textTime.image.text)/2), (3/4) * size)
 
             for hand, secPerRev, length in [ ( second, 60, 0.9 ),
                                      ( minute, 3600, 0.75 ),

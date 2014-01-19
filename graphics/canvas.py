@@ -61,7 +61,7 @@ class Canvas:
                     if pixel:
                         try:
                             display[ int( sprite.position[1] + y ) ][ int( sprite.position[0] + x ) ] = \
-                                colors.colorStr( sprite.char, sprite.color )
+                                colors.colorStr( sprite.char((x, y)), sprite.color )
                         except IndexError:
                             pass
 

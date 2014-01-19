@@ -203,6 +203,25 @@ class Pixel( Image ):
     def genImage( self ):
         return ((True,),)
 
+class Text( Image ):
+    def __init__( self, text=' ' ):
+        super( Text, self ).__init__()
+        self.text = text
+
+    def genImage( self ):
+        return [[False if char == ' ' else True for char in self.text],]
+
+    def char( self, pos ):
+        return self.text[pos[0]]
+
+    @property
+    def text( self ):
+        return self._text
+
+    @text.setter
+    def text( self, value ):
+        self._text = str(value)
+
 def main():
     import sys
 
