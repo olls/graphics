@@ -197,15 +197,8 @@ class Circle( Image ):
 
 class Pixel( Image ):
     """ A Single Pixel """
-    def __init__( self ):
+    def __init__( self, text='' ):
         super( Pixel, self ).__init__()
-
-    def genImage( self ):
-        return ((True,),)
-
-class Text( Image ):
-    def __init__( self, text=' ' ):
-        super( Text, self ).__init__()
         self.text = text
 
     def genImage( self ):
