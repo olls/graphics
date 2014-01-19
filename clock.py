@@ -1,5 +1,6 @@
 import time
 import random as r
+import math as m
 
 import graphics as g
 
@@ -7,11 +8,23 @@ def main():
     size = int( min( g.console.WIDTH /2,
                      g.console.HEIGHT ) -1 )
 
-    background = [['~' if r.randint(0, 1) else '-' for x in range(size)] for y in range(size)]
+    center = size * .5
+
+    # Generate background
+    background = [[' ' for x in range(size)] for y in range(size)]
+
+    hours = 12
+    for n in range(1, hours+1):
+        angle = n * ( 2*m.pi / hours )
+
+        x = 0.75 * center * m.sin( angle )
+        y = 0.75 * center * m.cos( angle )
+
+        for offset, char in enumerate(list(str(n))):
+            background[int( center - y )][int( center + x + offset )] = char
+
 
     screen = g.Canvas( size=(size, size), border=False, background=background )
-
-    center = size * .5
 
     # Clock Face
     screen.sprites.append(
