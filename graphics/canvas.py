@@ -35,11 +35,10 @@ class Canvas:
         """
         # Generate screen
         if isinstance(self.background, str):
-            display = [[ str(self.background[0]) for x in range( self.width ) ]
+            display = [[ str(self.background) for x in range( self.width ) ]
                          for y in range( self.height )]
         else:
-            display = [[ str(self.background[y][x][0]) for x in range( self.width ) ]
-                         for y in range( self.height )]
+            display = copy.deepcopy(self.background)
 
         # Populate screen with sprites
         for sprite in self.sprites:

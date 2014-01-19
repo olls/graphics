@@ -17,11 +17,11 @@ def main():
     for n in range(1, hours+1):
         angle = n * ( 2*m.pi / hours )
 
-        x = 0.75 * center * m.sin( angle )
-        y = 0.75 * center * m.cos( angle )
+        x = 0.8 * center * m.sin( angle )
+        y = 0.8 * center * m.cos( angle )
 
         for offset, char in enumerate(list(str(n))):
-            background[int( center - y )][int( center + x + offset )] = char
+            background[int( center - y )][int( center + x + offset )] = g.colors.colorStr(char, n%8)
 
 
     screen = g.Canvas( size=(size, size), border=False, background=background )
@@ -37,7 +37,7 @@ def main():
     # Hands
     second = g.Sprite(
         g.shapes.Vector( 0, center *0.9 ),
-        color = g.colors.WHITE,
+        color = g.colors.RED,
         char = chr( 0x25CB )
     )
     minute = g.Sprite(
