@@ -2,20 +2,17 @@ import os
 
 class Size:
     def __init__(self):
-        self.env = os.environ
-        cr = Size.ioctl_GWINSZ( 0 ) or Size.ioctl_GWINSZ( 1 ) or Size.ioctl_GWINSZ( 2 )
         self.method = 1
+        cr = self.getSize()
         if not cr:
+            self.method = 2
             try:
-                fd = os.open( os.ctermid(), os.O_RDONLY )
-                cr = Size.ioctl_GWINSZ( fd )
-                os.close( fd )
+                cr = self.getSize()
             except:
                 pass
-            self.method = 2
         if not cr:
-            cr = ( self.env.get( 'LINES', 25 ), self.env.get( 'COLUMNS', 80 ) )
             self.method = 3
+            self.getSize()
 
     def getSize(self):
         if self.method == 1:
