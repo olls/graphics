@@ -5,47 +5,29 @@ import math as m
 import graphics as g
 
 def main():
-    size = int( min( g.console.WIDTH /2,
-                     g.console.HEIGHT ) -1 )
 
-    center = size * .5
-
-    # Generate background
-    background = [[' ' for x in range(size)] for y in range(size)]
-
-    hours = 12
-    for n in range(1, hours+1):
-        angle = n * ( 2*m.pi / hours )
-
-        x = 0.8 * center * m.sin( angle )
-        y = 0.8 * center * m.cos( angle )
-
-        for offset, char in enumerate(list(str(n))):
-            background[int( center - y )][int( center + x + offset )] = g.colors.colorStr(char, n%8)
-
-
-    screen = g.Canvas( size=(size, size), border=False, background=background )
+    termSize = g.console.Size()
+    screen = g.Canvas( border=False )
 
     # Clock Face
-    screen.sprites.append(
-        g.Sprite(
-            g.shapes.Circle( center ),
-            color = g.colors.CYAN
-        )
+    circle = g.Sprite(
+        g.shapes.Circle( 0 ),
+        color = g.colors.CYAN
     )
+    screen.sprites.append( circle )
 
     # Hands
     second = g.Sprite(
-        g.shapes.Vector( 0, center *0.9 ),
+        g.shapes.Vector( 0, 0 ),
         color = g.colors.RED,
         char = chr( 0x25CB )
     )
     minute = g.Sprite(
-        g.shapes.Vector( 0, center *0.75 ),
+        g.shapes.Vector( 0, 0 ),
         color = g.colors.YELLOW
     )
     hour = g.Sprite(
-        g.shapes.Vector( 0, center *0.5 ),
+        g.shapes.Vector( 0, 0 ),
         color = g.colors.YELLOW
     )
     screen.sprites.append( second )
@@ -56,11 +38,39 @@ def main():
     start = time.time()
     try:
         while True:
+
+            # Update sizes
+            termS = termSize.getSize()
+            size = int( min( termS[0] /2,
+                             termS[1] ) -1 )
+            center = size * .5
+
+            screen.width = size
+            screen.height = size
+            circle.image.radius = center
+
+            # Generate background
+            background = [[' ' for x in range(size)] for y in range(size)]
+
+            hours = 12
+            for n in range(1, hours+1):
+                angle = n * ( 2*m.pi / hours )
+
+                x = 0.8 * center * m.sin( angle )
+                y = 0.8 * center * m.cos( angle )
+
+                for offset, char in enumerate(list(str(n))):
+                    background[int( center - y )][int( center + x + offset )] = g.colors.colorStr(char, n%8)
+
+            screen.background = background
+
+            # Generate hands
             t = int( time.time() )
 
-            for hand, secPerRev in [ ( second, 60 ),
-                                     ( minute, 3600 ),
-                                     ( hour, 43200 ) ]:
+            for hand, secPerRev, length in [ ( second, 60, 0.9 ),
+                                     ( minute, 3600, 0.75 ),
+                                     ( hour, 43200, 0.5 ) ]:
+                hand.image.length = center*length
 
                 # +180 and -angle are to compensate for
                 #   flipped upside-down angles.

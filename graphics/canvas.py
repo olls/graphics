@@ -13,26 +13,38 @@ class Canvas:
         border = bool
     """
     def __init__( self,
-                  size=(40, 30),
-                  background=' ',
-                  center=True,
-                  border=True ):
+                  size = (40, 30),
+                  fullscreen = False,
+                  background = ' ',
+                  center = True,
+                  border = True ):
 
         self.center = center
         self.border = border
 
-        self.width = size[0]
-        self.height = size[1]
+        self.size = console.Size()
+        self.fullscreen = bool(fullscreen)
+        if self.fullscreen:
+            s = self.size.getSize()
+            self.width, self.height = (s[0]/2)-5, s[1]-5
+        else:
+            self.width, self.height = size[0], size[1]
 
         self.background = background
 
         self.sprites = []
+
 
     def __str__( self ):
         """
             Returns the screen as a string, taking
                 the Canvas attributes into account.
         """
+        # Get new size if fullscreen
+        s = self.size.getSize()
+        if self.fullscreen:
+            self.width, self.height = (s[0]/2)-5, s[1]-5
+
         # Generate screen
         if isinstance(self.background, str):
             display = [[ str(self.background) for x in range( self.width ) ]
@@ -55,7 +67,7 @@ class Canvas:
 
         hPad = (
             self.center * (
-                int(( console.WIDTH -
+                int(( s[0] -
                        ( (self.width * 2) -1 ) -
                        ( 4* self.border )
                     )/2 ) * ' '
@@ -103,7 +115,7 @@ class Canvas:
 
             # Bottom padding:
             (self.center * (
-                '\n' * int(( console.HEIGHT -
+                '\n' * int(( s[1] -
                              ( self.height + (2 * self.border) )
                            ) /2 )
             ))
@@ -121,24 +133,6 @@ class Canvas:
                              testPixel[1] == sprite.position[1]+y ):
                             return True
         return False
-
-    @property
-    def height( self ):
-        return self._height
-    @height.setter
-    def height( self, h ):
-        if ( h + (self.border *2) ) >= console.HEIGHT:
-            raise Exception( 'Canvas too high to fit on console.' )
-        self._height = int( h )
-
-    @property
-    def width( self ):
-        return self._width
-    @width.setter
-    def width( self, w ):
-        if ( ( w + self.border ) *2 ) >= console.WIDTH:
-            raise Exception( 'Canvas too wide to fit on console.' )
-        self._width = int( w )
 
     @property
     def border( self ):
