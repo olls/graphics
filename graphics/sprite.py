@@ -49,50 +49,58 @@ class Sprite:
             2 = Top
             3 = Right
         """
+        try:
+            side = list(side)
+        except TypeError:
+            if side is None:
+                side = list(range(4))
+            else:
+                side = [side]
+
         # Find all edges of shape.
         edges = []
         image = self.image.image()
-        if side == 0 or side == None:
+        if 0 in side:
             # Find bottom edges
-            for x in range( self.image.width):
-                if image[-1][x] == True:
+            for x in range( self.image.width ):
+                if image[-1][x] is True:
                     y = self.image.height
                 else:
                     y = self.image.height-1
-                    while image[y][x] == False:
+                    while image[y][x] is False:
                         y -= 1
                     y += 1
                 edges.append( (x, y) )
-        if side == 1 or side == None:
+        if 1 in side:
             # Find left edges
             for y in range( self.image.height ):
-                if image[y][0] == True:
+                if image[y][0] is True:
                     x = -1
                 else:
                     x = 0
-                    while image[y][x] == False:
+                    while image[y][x] is False:
                         x += 1
                     x -= 1
                 edges.append( (x, y) )
-        if side == 2 or side == None:
+        if 2 in side:
             # Find top edges
             for x in range( self.image.width ):
-                if image[0][x] == True:
+                if image[0][x] is True:
                     y = -1
                 else:
                     y = 0
-                    while image[y][x] == False:
+                    while image[y][x] is False:
                         y += 1
                     y -= 1
                 edges.append( (x, y) )
-        if side == 3 or side == None:
+        if 3 in side:
             # Find right edges
             for y in range( self.image.height ):
-                if image[y][-1] == True:
+                if image[y][-1] is True:
                     x = self.image.width
                 else:
                     x = self.image.width-1
-                    while image[y][x] == False:
+                    while image[y][x] is False:
                         x -= 1
                     x += 1
                 edges.append( (x, y) )
