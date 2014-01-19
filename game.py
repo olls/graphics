@@ -1,4 +1,5 @@
 import time
+import random
 
 import graphics as g
 
@@ -20,15 +21,34 @@ def main():
 
     screen = g.Canvas( size = (20, 10) )
 
-    ground = g.Sprite(
-        g.shapes.CustImage( ['##' * int(screen.width /2),
-                             ' #' * int(screen.width /2),
-                             '# ' * int(screen.width /2),
-                             ' #' * int(screen.width /2)] ),
-        position = (0, 6)
-    )
     car = g.Sprite(
         Car()
+    )
+
+    image = [[] for i in range(screen.height)]
+
+    llimit = car.image.height
+    ulimit = screen.height
+    r = ulimit
+
+    for i in range(screen.width):
+
+        tmp = ulimit+1
+        while tmp+r <= llimit or tmp+r >= ulimit:
+            tmp = random.randint(-1, 1)
+        r += tmp
+
+        for y, row in enumerate(image):
+            if y == r:
+                image[y].append( '@' )
+            elif y > r:
+                image[y].append( '~' )
+            else:
+                image[y].append( False )
+
+    ground = g.Sprite(
+        g.shapes.CustImage( image ),
+        position = (0, 0)
     )
 
     screen.sprites.append( ground )
@@ -36,9 +56,6 @@ def main():
 
     with g.NonBlockingInput() as nbi:
         while True:
-
-            if not car.touching( screen, side=0 ):
-                car.move( 0 )
 
             ch = nbi.char()
             if ch == '.':
@@ -50,6 +67,9 @@ def main():
             if ch == '\\':
                 car.image.length -= 1
 
+            car.move( 2 )
+            while not car.touching( screen, side=0 ):
+                car.move( 0 )
 
             print( screen )
             time.sleep( 1/FPS )
