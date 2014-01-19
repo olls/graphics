@@ -5,6 +5,7 @@ import graphics as g
 
 class Car( g.shapes.Image ):
     def __init__( self, length = 5 ):
+        super(Car, self).__init__()
         self.length = length
 
     def genImage( self ):
