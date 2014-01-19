@@ -3,13 +3,12 @@ Python Text Based Graphics Module
 
 This is a console based graphics engine for simple ASCII games or animations.
 
-One example use is [clock.py](http://github.com/olls/graphics/blob/master.clock.py):
+`[clock.py](http://github.com/olls/graphics/blob/master/clock.py)`, `[example.py](http://github.com/olls/graphics/blob/master/example.py)`, `[circle.py](http://github.com/olls/graphics/blob/master/circle.py)` and `[game.py](http://github.com/olls/graphics/blob/master/game.py)` are example programs using the module.
+
 ![clock.py](https://raw2.github.com/olls/graphics/master/clock.png)
 
 Usage
 -----
-
-`clock.py`, `example.py` and `game.py` are example programs using the module.
 
 Simple usage example:
 
