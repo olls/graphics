@@ -19,17 +19,25 @@ class Car( g.shapes.Image ):
 def genGround(width, height, llimit, ulimit):
     image = [[] for i in range(height)]
 
-    groundPos = (ulimit + llimit) /2
+    groundPos = int((ulimit + llimit) /2)
 
     for i in range(width):
 
         change = ulimit + 1 # Be sure the first iteration of the while will run.
         while change + groundPos <= llimit or change + groundPos >= ulimit:
             change = random.randint( -2, 2 )
+
+        if change > 0:
+            yDiff = list(range( groundPos, groundPos + change ))
+        elif change < 0:
+            yDiff = list(range( groundPos + change, groundPos ))
+        else:
+            yDiff = []
+
         groundPos += change
 
-        for y, row in enumerate(image):
-            if y == groundPos:
+        for y, row in enumerate( image ):
+            if y == groundPos or y in yDiff:
                 image[y].append( True )
             else:
                 image[y].append( False )
@@ -39,12 +47,13 @@ def genGround(width, height, llimit, ulimit):
 
 def main():
 
-    FPS = 10
+    FPS = 15
 
     screen = g.Canvas( fullscreen=True )
 
     car = g.Sprite(
-        Car()
+        Car(),
+        color = g.colors.WHITE
     )
 
     llimit = screen.height
@@ -56,7 +65,8 @@ def main():
 
     ground = g.Sprite(
         g.shapes.CustImage( grndTerrain ),
-        position = (0, 0)
+        position = (0, 0),
+        color = g.colors.GREEN
     )
 
     screen.sprites.append( ground )
@@ -76,9 +86,12 @@ def main():
             if ch == '\\':
                 car.image.length -= 1
 
-            car.move( 2 )
+            car.move( g.UP )
             while not car.touching( screen, side=0 ):
-                car.move( 0 )
+                car.move( g.DOWN )
+            while car.touching( screen, side=0 ):
+                car.move( g.UP )
+            car.move( g.DOWN )
 
             if time.time() >= t+(1/FPS):
                 t = time.time()
