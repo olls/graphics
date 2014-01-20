@@ -64,7 +64,7 @@ def main():
         color = g.colors.WHITE
     )
 
-    frameCount = g.Sprite(g.shapes.Text('T'))
+    frameCount = g.Sprite(g.shapes.Text('T'), color = g.colors.RED)
 
     llimit = screen.height
     ulimit = car.image.height
