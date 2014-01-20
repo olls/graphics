@@ -19,7 +19,7 @@ class Car( g.shapes.Image ):
 def genGround(width, height, llimit, ulimit):
     image = [[] for i in range(height)]
 
-    groundPos = int((ulimit + llimit) /2)
+    groundPos = int((ulimit + llimit) /3)*2
 
     for i in range(width):
 
@@ -49,7 +49,7 @@ def main():
 
     FPS = 15
 
-    screen = g.Canvas( fullscreen=True )
+    screen = g.Canvas( size = ( 36, 20 ) )
 
     car = g.Sprite(
         Car(),
