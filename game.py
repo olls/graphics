@@ -29,7 +29,7 @@ def main():
 
     llimit = car.image.height
     ulimit = screen.height
-    r = ulimit
+    r = (ulimit + llimit) /2
 
     for i in range(screen.width):
 
