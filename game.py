@@ -39,7 +39,14 @@ def genGround(width, height, llimit, ulimit):
             if y == groundPos:
                 image[y].append( chr(0x25EF) )
             elif y in yDiff:
-                image[y].append( chr(0x25DD) if change > 0 else chr(0x25DC) )
+                if change < 0:
+                    try:
+                        image[y][-1] = chr(0x25FF)
+                    except IndexError:
+                        pass
+                    image[y].append( ' ' )
+                else:
+                    image[y].append( chr(0x25FA) )
             else:
                 image[y].append( False )
 
