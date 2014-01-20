@@ -127,9 +127,8 @@ class Canvas:
         for sprite in self.sprites:
             for y, row in enumerate( sprite.image.image() ):
                 for x, pixel in enumerate( row ):
-                    if pixel:
-                        if ( testPixel[0] == sprite.position[0]+x and
-                             testPixel[1] == sprite.position[1]+y ):
+                    if pixel and testPixel[0] == sprite.position[0]+x and\
+                                  testPixel[1] == sprite.position[1]+y:
                             return True
         return False
 

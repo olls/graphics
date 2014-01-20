@@ -27,18 +27,19 @@ def genGround(width, height, llimit, ulimit):
         while change + groundPos <= llimit or change + groundPos >= ulimit:
             change = random.randint( -2, 2 )
 
+        yDiff = []
         if change > 0:
-            yDiff = list(range( groundPos, groundPos + change ))
+            yDiff = list(range( groundPos+1, groundPos + change ))
         elif change < 0:
             yDiff = list(range( groundPos + change, groundPos ))
-        else:
-            yDiff = []
 
         groundPos += change
 
         for y, row in enumerate( image ):
-            if y == groundPos or y in yDiff:
-                image[y].append( True )
+            if y == groundPos:
+                image[y].append( chr(0x25EF) )
+            elif y in yDiff:
+                image[y].append( chr(0x25DD) if change > 0 else chr(0x25DC) )
             else:
                 image[y].append( False )
 
@@ -56,6 +57,8 @@ def main():
         color = g.colors.WHITE
     )
 
+    frameCount = g.Sprite(g.shapes.Text('T'))
+
     llimit = screen.height
     ulimit = car.image.height
     grndTerrain = genGround(screen.width,
@@ -65,16 +68,20 @@ def main():
 
     ground = g.Sprite(
         g.shapes.CustImage( grndTerrain ),
-        position = (0, 0),
         color = g.colors.GREEN
     )
 
-    screen.sprites.append( ground )
     screen.sprites.append( car )
+    screen.sprites.append( frameCount )
+    screen.sprites.append( ground )
 
+    frame = 0
+    frame1 = 0
     t = time.time()
     with g.NonBlockingInput() as nbi:
         while True:
+            frame += 1
+            frameCount.image.text = str(frame) + ':' + str(frame1)
 
             ch = nbi.char()
             if ch == '.':
@@ -94,6 +101,7 @@ def main():
             car.move( g.DOWN )
 
             if time.time() >= t+(1/FPS):
+                frame1 += 1
                 t = time.time()
                 print( screen )
 
