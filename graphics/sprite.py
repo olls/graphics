@@ -22,6 +22,8 @@ class Sprite:
     def char(self, pos):
         try:
             char = self.image.char(pos)
+            if char is True or char is False:
+                raise AttributeError
         except AttributeError:
             char = self._char
         return char

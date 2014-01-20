@@ -15,6 +15,28 @@ class Car( g.shapes.Image ):
                  [ 1 for i in range( l ) ],
                  [ 0, 1 ]+[ 0 for i in range( 4, l ) ]+[ 1, 0 ] ]
 
+
+def genGround(width, height, llimit, ulimit):
+    image = [[] for i in range(height)]
+
+    groundPos = (ulimit + llimit) /2
+
+    for i in range(width):
+
+        change = ulimit + 1 # Be sure the first iteration of the while will run.
+        while change + groundPos <= llimit or change + groundPos >= ulimit:
+            change = random.randint( -2, 2 )
+        groundPos += change
+
+        for y, row in enumerate(image):
+            if y == groundPos:
+                image[y].append( True )
+            else:
+                image[y].append( False )
+
+    return image
+
+
 def main():
 
     FPS = 10
@@ -25,29 +47,15 @@ def main():
         Car()
     )
 
-    image = [[] for i in range(screen.height)]
-
-    llimit = car.image.height
-    ulimit = screen.height
-    r = (ulimit + llimit) /2
-
-    for i in range(screen.width):
-
-        tmp = ulimit+1
-        while tmp+r <= llimit or tmp+r >= ulimit:
-            tmp = random.randint(-2, 2)
-        r += tmp
-
-        for y, row in enumerate(image):
-            if y == r:
-                image[y].append( '@' )
-            elif y > r:
-                image[y].append( '~' )
-            else:
-                image[y].append( False )
+    llimit = screen.height
+    ulimit = car.image.height
+    grndTerrain = genGround(screen.width,
+                            screen.height,
+                            car.image.height,
+                            screen.height)
 
     ground = g.Sprite(
-        g.shapes.CustImage( image ),
+        g.shapes.CustImage( grndTerrain ),
         position = (0, 0)
     )
 
