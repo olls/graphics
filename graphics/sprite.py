@@ -57,6 +57,7 @@ class Sprite:
             1 = Left
             2 = Top
             3 = Right
+            None = All
         """
         try:
             side = list(side)
