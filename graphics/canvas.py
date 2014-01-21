@@ -58,11 +58,19 @@ class Canvas:
             for y, row in enumerate( image ):
                 for x, pixel in enumerate( row ):
                     if pixel:
+                        pixelPos = [ int( sprite.position[1] + y ), int( sprite.position[0] + x ) ]
+
+                        # Test if pixel position is on canvas.
+                        visible = True
                         try:
-                            display[ int( sprite.position[1] + y ) ][ int( sprite.position[0] + x ) ] = \
-                                colors.colorStr( sprite.char((x, y)), sprite.color )
+                            display[ pixelPos[0] ][ pixelPos[1] ]
                         except IndexError:
+                            visible = False
                             pass
+
+                        if visible:
+                            char = colors.colorStr( sprite.char((x, y)), sprite.color )
+                            display[ pixelPos[0] ][ pixelPos[1] ] = char
 
         hPad = (
             self.center * (
