@@ -165,13 +165,14 @@ class Box( Image ):
 
 class Circle( Image ):
     """ A Circle """
-    def __init__( self, radius ):
+    def __init__( self, radius, filled = False ):
         """
             radius = int
         """
         super( Circle, self ).__init__()
 
         self.radius = int( radius )
+        self.filled = filled
 
     def genImage( self ):
         r = int( self.radius )
@@ -183,15 +184,25 @@ class Circle( Image ):
 
             y = int( math.sqrt( (r*r) - (x*x) ) )
 
-            image[ r + y ][ r + x ] = True
-            image[ r - y ][ r + x ] = True
-            image[ r + y ][ r - x ] = True
-            image[ r - y ][ r - x ] = True
+            if self.filled:
 
-            image[ r + x ][ r + y ] = True
-            image[ r + x ][ r - y ] = True
-            image[ r - x ][ r + y ] = True
-            image[ r - x ][ r - y ] = True
+                for dy in range( -y, y+1 ):
+                    image[ r + dy ][ r + x ] = True
+                    image[ r + dy ][ r - x ] = True
+                    image[ r + x ][ r - dy ] = True
+                    image[ r - x ][ r - dy ] = True
+
+            else:
+
+                image[ r + y ][ r + x ] = True
+                image[ r - y ][ r + x ] = True
+                image[ r + y ][ r - x ] = True
+                image[ r - y ][ r - x ] = True
+
+                image[ r + x ][ r + y ] = True
+                image[ r + x ][ r - y ] = True
+                image[ r - x ][ r + y ] = True
+                image[ r - x ][ r - y ] = True
 
         return image
 
