@@ -26,7 +26,7 @@ while True:
         circleDir = True
 
     circle.position = (10 - radius, 10 - radius)
-    circle.color = int( i /4 ) %8
+    circle.color = int( i /4 ) %6
 
     print( screen )
     time.sleep( .04 )
