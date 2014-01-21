@@ -15,7 +15,7 @@ def main():
             canvas.sprites.remove( circle )
         while not ( circle.edge( canvas ) or circle.touching( canvas ) ):
             circle.image.radius += 1
-        # circle.image.radius -=1
+        circle.image.radius -=1
 
     print(canvas)
 
