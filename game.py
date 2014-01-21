@@ -59,12 +59,12 @@ def main():
 
     screen = g.Canvas( size = ( 36, 20 ) )
 
+    frameCount = g.Sprite(g.shapes.Text('T'), color = g.colors.RED)
+
     car = g.Sprite(
         Car(),
         color = g.colors.WHITE
     )
-
-    frameCount = g.Sprite(g.shapes.Text('T'), color = g.colors.RED)
 
     llimit = screen.height
     ulimit = car.image.height
@@ -78,9 +78,9 @@ def main():
         color = g.colors.GREEN
     )
 
-    screen.sprites.append( car )
     screen.sprites.append( frameCount )
     screen.sprites.append( ground )
+    screen.sprites.append( car )
 
     frame = 0
     frame1 = 0
