@@ -207,7 +207,10 @@ class Text( Image ):
         return [[False if char == ' ' else True for char in self.text],]
 
     def char( self, pos ):
-        return self.text[pos[0]]
+        if len(self.text) == 0:
+            return True
+        else:
+            return self.text[pos[0]]
 
     @property
     def text( self ):
