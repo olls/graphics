@@ -4,7 +4,7 @@ import time
 screen = g.Canvas( size=(21, 21) )
 
 circle = g.Sprite(
-    g.shapes.Circle( 0 ),
+    g.shapes.Circle( 0, filled = True ),
     (10, 10)
 )
 screen.sprites.append( circle )
@@ -29,6 +29,6 @@ while True:
     circle.color = int( i /4 ) %8
 
     print( screen )
-    time.sleep( .02 )
+    time.sleep( .04 )
 
     i += 1
