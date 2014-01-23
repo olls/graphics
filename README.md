@@ -1,7 +1,7 @@
 Python Text Based Graphics Module
 =================================
 
-This is a console based graphics engine for simple ASCII games or animations.
+This is a console based **python3** graphics engine for simple ASCII games or animations.
 
 [`clock.py`](http://github.com/olls/graphics/blob/master/clock.py), [`example.py`](http://github.com/olls/graphics/blob/master/example.py), [`circle.py`](http://github.com/olls/graphics/blob/master/circle.py) and [`game.py`](http://github.com/olls/graphics/blob/master/game.py) are example programs using the module, also see [grit96](http://github.com/grit96)'s [Physics Engine](http://github.com/grit96/physics-engine) which uses this module.
 
@@ -43,7 +43,7 @@ print(screen)
 Compatibility
 -------------
 
-This module was written and tested on Debian with gnome-terminal. It should work with most Linux terminals, but some things might be off.
+This module was written and tested with python3 on Debian with gnome-terminal. It should work with most Linux terminals, but some things might be off.
 - Colours should work if your terminal supports them, otherwise they won't cause any problems.
 - The input module is definitely restricted to Linux.
 - In the Windows CMD it doesn't centre properly, colours don't work, it was slow and input doesn't work.
