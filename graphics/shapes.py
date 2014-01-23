@@ -2,22 +2,23 @@
 
 import math
 
+
 class Image:
-    def __init__( self ):
+    def __init__(self):
         self.direction = 0
 
-    def image( self ):
+    def image(self):
         self._image = self.genImage()
         self._rotate()
         return self._image
 
-    def rotate( self, direction ):
+    def rotate(self, direction):
         """
             Rotate 90 deg. * CW (direction=1), CCW (direction=-1)
         """
         self.direction += direction
 
-    def _rotate( self ):
+    def _rotate(self):
         """
             Rotate to a multiple of 90 deg.
             0 = default
@@ -25,48 +26,47 @@ class Image:
             2 = 180 deg.
             3 = 90 deg. CCW
         """
-        image = [ list( row ) for row in self._image ]
+        image = [list(row) for row in self._image]
 
-        for n in range( self.direction % 4 ):
-            i = [ [ 0 for x in range(len( image )) ] for y in range(len( image[0] )) ]
+        for n in range(self.direction % 4):
+            i = [[0 for x in range(len(image))] for y in range(len(image[0]))]
 
-            for y, row in enumerate( image ):
-                for x, pixel in enumerate( row ):
+            for y, row in enumerate(image):
+                for x, pixel in enumerate(row):
                     i[x][y] = pixel
 
-            [ i[y].reverse() for y, row in enumerate( i ) ]
+            [i[y].reverse() for y, row in enumerate(i)]
             image = i
 
         self._image = image
 
+    @property
+    def height(self):
+        return len(self.image())
 
     @property
-    def height( self ):
-        return len( self.image() )
-
-    @property
-    def width( self ):
-        return len( self.image()[0] )
+    def width(self):
+        return len(self.image()[0])
 
 
 class Vector(Image):
     """ A Straight Line """
-    def __init__( self, angle, length ):
+    def __init__(self, angle, length):
         """
-            angle = float range( 0, 360 )
+            angle = float range(0, 360)
             length = float
         """
-        super( Vector, self ).__init__()
+        super(Vector, self).__init__()
 
-        self.angle = int( angle )
-        self.length = int( length )
+        self.angle = int(angle)
+        self.length = int(length)
 
-    def genImage( self ):
-        x = int( self.length * math.sin(math.radians( self.angle )) )
-        y = int( self.length * math.cos(math.radians( self.angle )) )
+    def genImage(self):
+        x = int(self.length * math.sin(math.radians(self.angle)))
+        y = int(self.length * math.cos(math.radians(self.angle)))
 
-        image = [ [ False for xPos in range(abs( x ) +1) ]
-                    for yPos in range(abs( y ) +1) ]
+        image = [[False for xPos in range(abs(x) + 1)]
+                        for yPos in range(abs(y) + 1)]
 
         yMirror = False
         xMirror = False
@@ -77,11 +77,11 @@ class Vector(Image):
 
         y0 = 0
         x0 = 0
-        y1 = abs( y )
-        x1 = abs( x )
+        y1 = abs(y)
+        x1 = abs(x)
 
-        dy = abs( y1 - y0 )
-        dx = abs( x1 - x0 )
+        dy = abs(y1 - y0)
+        dx = abs(x1 - x0)
 
         if y0 < y1:
             sy = 1
@@ -93,7 +93,7 @@ class Vector(Image):
             sx = -1
 
         err = dx - dy
-        while not ( y0 == y1 and x0 == x1 ):
+        while not (y0 == y1 and x0 == x1):
             image[y0][x0] = True
             e2 = 2 * err
 
@@ -117,142 +117,147 @@ class Vector(Image):
 
         return image
 
-class Square( Image ):
+
+class Square(Image):
     """ A Hollow Box """
-    def __init__( self, size ):
+    def __init__(self, size):
         """
-            size = ( int width, int height )
+            size = (int width, int height)
         """
-        super( Square, self ).__init__()
+        super(Square, self).__init__()
 
-        self.size = [ int( size[0] ), int( size[1] ) ]
+        self.size = [int(size[0]), int(size[1])]
 
-    def genImage( self ):
-        return [[ False for x in range(int( self.size[0] )) ]
-                for y in range(int( self.size[1] )) ]
+    def genImage(self):
+        return [[False for x in range(int(self.size[0]))]
+                for y in range(int(self.size[1]))]
 
-class Box( Image ):
+
+class Box(Image):
     """ A Solid Box """
-    def __init__( self, size ):
+    def __init__(self, size):
         """
-            size = ( int width, int height )
+            size = (int width, int height)
         """
-        super( Box, self ).__init__()
+        super(Box, self).__init__()
 
-        self.size = [ int( size[0] ), int( size[1] ) ]
+        self.size = [int(size[0]), int(size[1])]
 
-    def genImage( self ):
+    def genImage(self):
         image = []
 
-        width = int( self.size[0] )
-        height = int( self.size[1] )
+        width = int(self.size[0])
+        height = int(self.size[1])
 
-        image.append( [True] * height )
+        image.append([True] * height)
 
-        for yPos in range( 1, width -1 ):
-            image.append( [] )
+        for yPos in range(1, width - 1):
+            image.append([])
 
-            image[yPos].append( True )
+            image[yPos].append(True)
 
-            for xPos in range( height -2 ):
-                image[yPos].append( False )
+            for xPos in range(height - 2):
+                image[yPos].append(False)
 
-            image[yPos].append( True )
+            image[yPos].append(True)
 
-        image.append( [True] * height )
+        image.append([True] * height)
 
         return image
 
-class Circle( Image ):
+
+class Circle(Image):
     """ A Circle """
-    def __init__( self, radius, filled = False ):
+    def __init__(self, radius, filled=False):
         """
             radius = int
         """
-        super( Circle, self ).__init__()
+        super(Circle, self).__init__()
 
-        self.radius = int( radius )
+        self.radius = int(radius)
         self.filled = filled
 
-    def genImage( self ):
-        r = int( self.radius )
+    def genImage(self):
+        r = int(self.radius)
 
-        image = [[ False for x in range( ( r*2 ) +1 ) ]
-                   for y in range( ( r*2 ) +1 ) ]
+        image = [[False for x in range((r * 2) + 1)]
+                  for y in range((r * 2) + 1)]
 
-        for x in range( r ):
+        for x in range(r):
 
-            y = int( math.sqrt( (r*r) - (x*x) ) )
+            y = int(math.sqrt((r * r) - (x * x)))
 
             if self.filled:
 
-                for dy in range( -y, y+1 ):
-                    image[ r + dy ][ r + x ] = True
-                    image[ r + dy ][ r - x ] = True
-                    image[ r + x ][ r - dy ] = True
-                    image[ r - x ][ r - dy ] = True
+                for dy in range(-y, y + 1):
+                    image[r + dy][r + x] = True
+                    image[r + dy][r - x] = True
+                    image[r + x][r - dy] = True
+                    image[r - x][r - dy] = True
 
             else:
 
-                image[ r + y ][ r + x ] = True
-                image[ r - y ][ r + x ] = True
-                image[ r + y ][ r - x ] = True
-                image[ r - y ][ r - x ] = True
+                image[r + y][r + x] = True
+                image[r - y][r + x] = True
+                image[r + y][r - x] = True
+                image[r - y][r - x] = True
 
-                image[ r + x ][ r + y ] = True
-                image[ r + x ][ r - y ] = True
-                image[ r - x ][ r + y ] = True
-                image[ r - x ][ r - y ] = True
+                image[r + x][r + y] = True
+                image[r + x][r - y] = True
+                image[r - x][r + y] = True
+                image[r - x][r - y] = True
 
         return image
 
-class Text( Image ):
+
+class Text(Image):
     """ A text string """
-    def __init__( self, text='' ):
-        super( Text, self ).__init__()
+    def __init__(self, text=''):
+        super(Text, self).__init__()
         self.text = text
 
-    def genImage( self ):
+    def genImage(self):
         if len(self.text) == 0:
-            return [[True],]
-        return [[False if char == ' ' else True for char in self.text],]
+            return [[True], ]
+        return [[False if char == ' ' else True for char in self.text], ]
 
-    def char( self, pos ):
+    def char(self, pos):
         if len(self.text) == 0:
             return True
         else:
             return self.text[pos[0]]
 
     @property
-    def text( self ):
+    def text(self):
         return self._text
 
     @text.setter
-    def text( self, value ):
+    def text(self, value):
         self._text = str(value)
 
-class CustImage( Image ):
-    def __init__( self, image=None):
-        super( CustImage, self ).__init__()
+
+class CustImage(Image):
+    def __init__(self, image=None):
+        super(CustImage, self).__init__()
         self.custImage = image
 
-    def genImage( self ):
+    def genImage(self):
         return self.custImage
 
-    def char( self, pos ):
+    def char(self, pos):
         return self.custImage[pos[1]][pos[0]]
 
 
 def main():
     import sys
 
-    for row in Vector( int( sys.argv[1] ), int( sys.argv[2] ) ).image():
+    for row in Vector(int(sys.argv[1]), int(sys.argv[2])).image():
         for pixel in row:
             if pixel:
-                print( '#', end='' )
+                print('#', end='')
             else:
-                print( ' ', end='' )
-            print( ' ', end='' )
+                print(' ', end='')
+            print(' ', end='')
         print()
 
 if __name__ == '__main__':
