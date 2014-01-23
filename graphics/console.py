@@ -46,6 +46,9 @@ class Size:
             return
         return cr
 
+    def __repr__(self):
+        return 'Size{!r}'.format(self.getSize())
+
 
 def main():
     size = Size()

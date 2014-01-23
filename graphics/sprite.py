@@ -20,6 +20,10 @@ class Sprite:
         self.color = color if color else random.randint(1, 8)
         self._char = str(char)[0] if char else chr(0x25CF)
 
+    def __repr__(self):
+        return 'Sprite({!r}, position={!r}, color={!r}, char={!r})'\
+            .format(self.image, self.position, self.color, self._char)
+
     def char(self, pos):
         try:
             char = self.image.char(pos)
