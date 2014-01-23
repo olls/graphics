@@ -21,8 +21,9 @@ while True:
         radius = 10
         while screen.sprites:
             screen.sprites.pop()
-            print( screen )
-            time.sleep( .04 )
+            if len( screen.sprites ) > 0:
+                print( screen )
+                time.sleep( .04 )
     else:
         radius -= 1
 
