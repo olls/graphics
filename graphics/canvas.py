@@ -35,11 +35,11 @@ class Canvas:
         self.sprites = []
 
     def __repr__(self):
-        return """\
-Canvas(size={!r}, fullscreen={!r}, background={!r}, \
-center={!r}, border={!r})""".format(self.size, self.fullscreen,
-                                    self.background, self.center,
-                                    self.border)
+        return ('Canvas(size={!r}, fullscreen={!r}, background={!r}, '
+                'center={!r}, border={!r})'
+               ).format(self.size, self.fullscreen,
+                        self.background, self.center,
+                        self.border)
 
     def __str__(self):
         """
