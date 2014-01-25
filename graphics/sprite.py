@@ -3,6 +3,7 @@ import copy
 
 from . import colors
 from . import shapes
+from . import funcs
 
 
 class Sprite:
@@ -63,69 +64,57 @@ class Sprite:
             2 = Top
             3 = Right
             None = All
+
+            This works by creating a list of the image rotated so all the
+                requested sizes are facing up, then it finds the top edge for
+                each image and rotates the coordinates back to the original
+                image.
         """
         try:
-            side = list(side)
+            sides = list(side)
         except TypeError:
             if side is None:
-                side = list(range(4))
+                sides = list(range(4))
             else:
-                side = [side]
+                sides = [side]
 
-        # Find all edges of shape.
-        edges = []
+        # Generate rotated images for each direction.
+        images = {}
         image = self.image.image()
-        width = len(image[0])
-        height = len(image)
-        if 0 in side:
-            # Find bottom edges
-            for x in range(width):
-                if image[-1][x]:
-                    y = height
-                else:
-                    y = height - 1
-                    while not image[y][x]:
-                        y -= 1
-                    y += 1
-                edges.append((x, y))
-        if 1 in side:
-            # Find left edges
-            for y in range(height):
-                if image[y][0]:
-                    x = -1
-                else:
-                    x = 0
-                    while not image[y][x]:
-                        x += 1
-                    x -= 1
-                edges.append((x, y))
-        if 2 in side:
-            # Find top edges
-            for x in range(width):
+        for side in sides:
+            images.update( {(side+2)%4: funcs.rotateImage(image, (side+2)%4)} )
+
+        # Go through each image finding top edge,
+        #   then rotate coordinates to match original image.
+        edges = []
+        for side, image in images.items():
+
+            for x in range(len(image[0])):
                 if image[0][x]:
                     y = -1
                 else:
                     y = 0
                     while not image[y][x]:
                         y += 1
+                        if y >= len(image):
+                            # Fallen off bottom of image, therefore no edge.
+                            y = None
+                            break
                     y -= 1
-                edges.append((x, y))
-        if 3 in side:
-            # Find right edges
-            for y in range(height):
-                if image[y][-1]:
-                    x = width
-                else:
-                    x = width - 1
-                    while not image[y][x]:
-                        x -= 1
-                    x += 1
-                edges.append((x, y))
 
-        # Find if any other sprites are in our edge coords.
+                if not y is None:
+                    pos = (x, y)
+                    size = [len(image), len(image[0])]
+                    for i in range(4-side):
+                        size.reverse()
+                        pos = funcs.rotatePosition(pos, size)
+                    edges.append(pos)
+
+
+        # Find if any other sprites are in our edge coordinates.
         for pixel in edges:
-            pixel = (pixel[0] + int(self.position[0]),
-                     pixel[1] + int(self.position[1]))
+            pixel = (int(self.position[0] + pixel[0]),
+                     int(self.position[1] + pixel[1]))
             if canvas.testPixel(pixel):
                 return True
         return False
