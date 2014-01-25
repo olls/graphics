@@ -2,6 +2,8 @@
 
 import math
 
+from . import funcs
+
 
 class Image:
     def __init__(self):
@@ -20,7 +22,7 @@ class Image:
             then rotates it to self.direction and returns it.
         """
         self._image = self.genImage()
-        self._rotate()
+        self._image = funcs.rotateImage(self._image, self.direction)
         return self._image
 
     def rotate(self, direction):
@@ -28,21 +30,6 @@ class Image:
             Rotate 90 deg. * CW (direction=1), CCW (direction=-1)
         """
         self.direction += direction
-
-    def _rotate(self):
-        """
-            Rotate to a multiple of 90 deg.
-            0 = default
-            1 = 90 deg. CW
-            2 = 180 deg.
-            3 = 90 deg. CCW
-        """
-        image = [list(row) for row in self._image]
-
-        for n in range(self.direction % 4):
-            image = list(zip(*image[::-1]))
-
-        self._image = image
 
     @property
     def height(self):
