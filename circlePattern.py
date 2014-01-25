@@ -14,7 +14,7 @@ def main():
                         rand.randint(0, canvas.height - 1))
         )
         canvas.sprites.append(circle)
-        if circle.edge(canvas) or circle.touching(canvas):
+        if circle.onEdge(canvas) or circle.touching(canvas):
             canvas.sprites.remove(circle)
 
     print(canvas)

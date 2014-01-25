@@ -121,7 +121,7 @@ class Sprite:
                 return True
         return False
 
-    def edge(self, canvas):
+    def onEdge(self, canvas):
         """
             Returns a list of the sides of the sprite
                 which are touching the edge of the canvas.
