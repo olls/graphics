@@ -36,14 +36,7 @@ class Image:
         image = [list(row) for row in self._image]
 
         for n in range(self.direction % 4):
-            i = [[0 for x in range(len(image))] for y in range(len(image[0]))]
-
-            for y, row in enumerate(image):
-                for x, pixel in enumerate(row):
-                    i[x][y] = pixel
-
-            [i[y].reverse() for y, row in enumerate(i)]
-            image = i
+            image = list(zip(*image[::-1]))
 
         self._image = image
 
