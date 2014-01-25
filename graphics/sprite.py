@@ -121,6 +121,39 @@ class Sprite:
                 return True
         return False
 
+
+    def overlaps(self, canvas, exclude=None):
+        """
+            Returns True if sprite is touching any other sprite.
+        """
+        if exclude is None:
+            exclude = []
+        else:
+            try:
+                exclude = list(exclude)
+            except TypeError:
+                exclude = [exclude]
+
+        exclude.append(self)
+
+        overlap = False
+        for testSprite in canvas.sprites:
+            if not testSprite in exclude:
+
+                for testY, testRow in enumerate( testSprite.image.image() ):
+                    for testX, testPixel in enumerate( testRow ):
+
+                        if testPixel:
+
+                            for y, row in enumerate( self.image.image() ):
+                                for x, pixel in enumerate( row ):
+
+                                    if pixel:
+                                        if ( self.position[0]+x == testSprite.position[0]+testX and
+                                             self.position[1]+y == testSprite.position[1]+testY ):
+                                            overlap = True
+        return overlap
+
     def onEdge(self, canvas):
         """
             Returns a list of the sides of the sprite
