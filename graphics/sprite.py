@@ -90,19 +90,20 @@ class Sprite:
         for side, image in images.items():
 
             for x in range(len(image[0])):
-                if image[0][x]:
-                    y = -1
-                else:
-                    y = 0
+                y = 0
+                # If the first pixel is True, no look any further.
+                if not image[0][x]:
                     while not image[y][x]:
                         y += 1
                         if y >= len(image):
                             # Fallen off bottom of image, therefore no edge.
                             y = None
                             break
-                    y -= 1
 
+                # Don't do anything if no pixels in column.
                 if not y is None:
+                    y -= 1  # To get pixel next to pixel which is on.
+
                     pos = (x, y)
                     size = [len(image), len(image[0])]
                     for i in range(4-side):
