@@ -58,7 +58,7 @@ def main():
     FPS = 15
     screen = g.Canvas(size=(36, 20))
 
-    frameCount = g.Sprite(g.shapes.Text('T'), color=g.colors.RED)
+    frameCount = g.Sprite(g.shapes.Text(''), color=g.colors.RED)
     car = g.Sprite(
         Car(),
         color = g.colors.WHITE
