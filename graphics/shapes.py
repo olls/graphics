@@ -7,6 +7,13 @@ class Image:
     def __init__(self):
         self.direction = 0
 
+    def __repr__(self):
+        return self.__class__.__name__ + \
+               '(' + \
+                ', '.join(key + '=' + repr(value) \
+                          for key, value in self.__dict__.items()) + \
+                ')'
+
     def image(self):
         self._image = self.genImage()
         self._rotate()
