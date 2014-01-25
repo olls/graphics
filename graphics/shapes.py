@@ -15,6 +15,10 @@ class Image:
                 ')'
 
     def image(self):
+        """
+            Generates the image using self.genImage(),
+            then rotates it to self.direction and returns it.
+        """
         self._image = self.genImage()
         self._rotate()
         return self._image
