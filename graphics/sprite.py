@@ -104,6 +104,7 @@ class Sprite:
                 if not y is None:
                     y -= 1  # To get pixel next to pixel which is on.
 
+                    # Get coordinates the right way around.
                     pos = (x, y)
                     size = [len(image), len(image[0])]
                     for i in range(4-side):

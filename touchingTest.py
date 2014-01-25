@@ -9,7 +9,7 @@ class Car(g.shapes.Image):
         super(Car, self).__init__()
 
     def genImage(self):
-        return [[0, 1, 0], [1, 1, 1], [0, 1, 0]]
+        return [[0, 1, 0], [0, 0, 0], [0, 1, 0]]
 
 
 def main():
@@ -57,6 +57,8 @@ def main():
                 str_ += str(2)
             if mover.touching(screen, 3):
                 str_ += str(3)
+            if mover.touching(screen):
+                str_ += 'T'
 
             touchMeter.image.text = str_
 
