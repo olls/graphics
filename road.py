@@ -55,7 +55,7 @@ def main():
 
     player = g.Sprite(
         g.shapes.Circle(1),
-        position=(int(screen.width / 2), 0)
+        position=(int(screen.width / 2), 1)
     )
     road = g.Sprite(
         Road(screen.width, screen.height, int(screen.width/3))
