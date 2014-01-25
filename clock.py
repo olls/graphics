@@ -78,7 +78,7 @@ def main():
             h = 12 if h == 0 else h
             m = int((t / 60) % 60)
             s = int((t / 1) % 60)
-            textTime.image.text = '{:02}:{:02}:{:02}'.format(h, m, s)
+            textTime.image.text = '{:2}:{:02}:{:02}'.format(h, m, s)
             textTime.position = (center - (len(textTime.image.text) / 2),
                                 (3 / 4) * size)
 
