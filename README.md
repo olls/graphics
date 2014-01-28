@@ -49,7 +49,7 @@ This module was written and tested with python3 on Debian with gnome-terminal. I
 - The input module is definitely restricted to Linux.
 - In the Windows CMD it doesn't centre properly, colours don't work, it was slow and input doesn't work.
 
-[`console.py`](http://github.com/olls/graphics/blob/master/graphics/console.py) is a small script to determine the terminal size. Works in my gnome-terminal in Debian, probably wont work in all environment. It came from [Stack Overflow](https://stackoverflow.com/questions/566746/how-to-get-console-window-width-in-python).
+[`console.py`](http://github.com/olls/graphics/blob/master/graphics/console.py) is a small script to determine the terminal size. Works in my gnome-terminal in Debian, probably wont work in all environment. It came from [Stack Overflow](http://stackoverflow.com/a/3051350/1841416).
 
 [`colors.py`](http://github.com/olls/graphics/blob/master/graphics/colors.py) has functions for adding the correct escapes to strings to color them, from [a blog](http://blog.mathieu-leplatre.info/colored-output-in-console-with-python.html), also not sure about environment support.
 

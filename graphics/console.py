@@ -1,50 +1,65 @@
 import os
+import struct
+import fcntl
+import termios
 
 
 class Size:
     def __init__(self):
-        self.method = 1
-        cr = self.getSize()
-        if not cr:
-            self.method = 2
+        # Try each method, the first not to fail
+        #   is saved to be used in later requests.
+        for method in range(5):
+            s = self.getSize(method)
+            print(method, ': ', s)
+            if s:
+                self.method = method
+                break
+
+    def getSize(self, method=None):
+        if method is None:
+            method = self.method
+
+        if method == 0:
+            # Try stdin, stdout, stderr
+            for fd in (0, 1, 2):
+                try:
+                    s = list(struct.unpack("hh", fcntl.ioctl(fd, termios.TIOCGWINSZ, "1234")))
+                    s.reverse()
+                    return tuple(s)
+                except:
+                    return False
+        elif method == 1:
+            # Try os.ctermid()
             try:
-                cr = self.getSize()
+                fd = os.open(os.ctermid(), os.O_RDONLY)
+                try:
+                    s = list(struct.unpack("hh", fcntl.ioctl(fd, termios.TIOCGWINSZ, "1234")))
+                    s.reverse()
+                    return tuple(s)
+                finally:
+                    os.close(fd)
             except:
-                pass
-        if not cr:
-            self.method = 3
-            self.getSize()
-
-    def getSize(self):
-        if self.method == 1:
-            cr = Size.ioctl_GWINSZ(0) or \
-                 Size.ioctl_GWINSZ(1) or \
-                 Size.ioctl_GWINSZ(2)
-        elif self.method == 2:
-            fd = os.open(os.ctermid(), os.O_RDONLY)
-            cr = Size.ioctl_GWINSZ(fd)
-            os.close(fd)
-        elif self.method == 3:
-            cr = (self.env.get('LINES', 25), self.env.get('COLUMNS', 80))
-
-        return int(cr[1]), int(cr[0])
-
-    def ioctl_GWINSZ(fd):
-        try:
-            import fcntl
-            import termios
-            import struct
-            cr = struct.unpack(
-                'hh',
-                fcntl.ioctl(
-                    fd,
-                    termios.TIOCGWINSZ,
-                    '1234'
-                )
-            )
-        except:
-            return
-        return cr
+                return False
+        elif method == 2:
+            # Try `stty size`
+            try:
+                s = list(int(x) for x in os.popen("stty size", "r").read().split())
+                s.reverse()
+                return tuple(s)
+            except:
+                return False
+        elif method == 3:
+            # Try environment variables
+            try:
+                s = list(int(os.getenv(var)) for var in ("LINES", "COLUMNS"))
+                s.reverse()
+                return tuple(s)
+            except:
+                return False
+        elif method == 4:
+            # I give up. Return default
+            return (80, 25)
+        return None
 
     def __repr__(self):
         return 'Size{!r}'.format(self.getSize())
