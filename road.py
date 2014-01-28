@@ -5,6 +5,7 @@ import graphics as g
 
 
 class Road(g.shapes.Image):
+
     def __init__(self, width, height, gap):
         super(Road, self).__init__()
 
@@ -50,6 +51,7 @@ class Road(g.shapes.Image):
         self.road = self.road[1:]
         return self.road
 
+
 def main():
     screen = g.Canvas(fullscreen=True)
 
@@ -58,7 +60,7 @@ def main():
         position=(int(screen.width / 2), 1)
     )
     road = g.Sprite(
-        Road(screen.width, screen.height, int(screen.width/3))
+        Road(screen.width, screen.height, int(screen.width / 3))
     )
     score = g.Sprite(
         g.shapes.Text('Score: 0')
@@ -78,7 +80,8 @@ def main():
                 player.move(g.RIGHT)
 
             if time.time() - lastFrame >= .05:
-                score.image.text = score.image.text[:7] + str(int(score.image.text[7:]) + 1)
+                score.image.text = score.image.text[:7] + \
+                    str(int(score.image.text[7:]) + 1)
                 road.image.move()
                 print(screen, end='')
                 lastFrame = time.time()
