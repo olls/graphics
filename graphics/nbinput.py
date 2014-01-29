@@ -12,7 +12,7 @@ import time
 
 class NonBlockingInput:
     """
-    Gets a single character from standard input.  Does not echo to the
+    Gets a single character from standard input. Does not echo to the
         screen.
     """
     def __init__(self):
