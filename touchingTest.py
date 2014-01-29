@@ -23,8 +23,9 @@ def main():
         color = g.colors.WHITE
     )
 
+    gridImg = ([[False, True, False, False] * 9] + ([[False] * 36]) * 3) * 5
     grid = g.Sprite(
-        g.shapes.CustImage(([[False, True, False, False] * 9] + ([[False] * 36])*3)*5),
+        g.shapes.CustImage(gridImg),
         color = g.colors.GREEN,
         position = (0, 1)
     )

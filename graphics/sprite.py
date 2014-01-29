@@ -144,7 +144,6 @@ class Sprite:
                     return True
         return False
 
-
     def onEdge(self, canvas):
         """
             Returns a list of the sides of the sprite

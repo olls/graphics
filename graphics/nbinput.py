@@ -24,18 +24,28 @@ class NonBlockingInput:
             except (AttributeError, ImportError):
                 self.impl = _GetchUnix()
 
-    def char(self): return self.impl.char()
-    def __enter__(self): return self.impl.enter()
+    def char(self):
+        return self.impl.char()
+
+    def __enter__(self):
+        return self.impl.enter()
+
     def __exit__(self, type_, value, traceback):
         return self.impl.exit(type_, value, traceback)
+
 
 class _GetchUnix:
     def __init__(self):
         # Import termios now or else you'll get the Unix version on the Mac.
-        import tty, sys, termios
+        import tty
+        import sys
+        import termios
 
     def enter(self):
-        import sys, tty, termios
+        import sys
+        import tty
+        import termios
+
         self.old_settings = termios.tcgetattr(sys.stdin)
         tty.setcbreak(sys.stdin.fileno())
         return self
@@ -63,6 +73,7 @@ class _GetchWindows:
     def char(self):
         return msvcrt.getch()
 
+
 class _GetchMacCarbon:
     """
     A function which returns the current ASCII key that is down;
@@ -83,7 +94,7 @@ class _GetchMacCarbon:
         pass
 
     def char(self):
-        if Carbon.Evt.EventAvail(0x0008)[0]==0:  # 0x0008 is the keyDownMask
+        if Carbon.Evt.EventAvail(0x0008)[0] == 0:  # 0x0008 is the keyDownMask
             return ''
         else:
             # The event contains the following info:
@@ -94,12 +105,11 @@ class _GetchMacCarbon:
             # number is converted to an ASCII character with chr() and
             # returned.
 
-            (what,msg,when,where,mod)=Carbon.Evt.GetNextEvent(0x0008)[1]
+            (what, msg, when, where, mod) = Carbon.Evt.GetNextEvent(0x0008)[1]
             return chr(msg & 0x000000FF)
 
 
-
-if __name__ == '__main__':
+def main():
     # Use like this
     with NonBlockingInput() as nbi:
         while True:
@@ -109,3 +119,7 @@ if __name__ == '__main__':
             else:
                 print('B')
             time.sleep(.1)
+
+
+if __name__ == '__main__':
+    main()

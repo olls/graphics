@@ -23,7 +23,9 @@ class Size:
             # Try stdin, stdout, stderr
             for fd in (0, 1, 2):
                 try:
-                    s = list(struct.unpack("hh", fcntl.ioctl(fd, termios.TIOCGWINSZ, "1234")))
+                    s = list(struct.unpack("hh",
+                        fcntl.ioctl(fd, termios.TIOCGWINSZ, "1234")
+                    ))
                     s.reverse()
                     return tuple(s)
                 except:
@@ -33,7 +35,9 @@ class Size:
             try:
                 fd = os.open(os.ctermid(), os.O_RDONLY)
                 try:
-                    s = list(struct.unpack("hh", fcntl.ioctl(fd, termios.TIOCGWINSZ, "1234")))
+                    s = list(struct.unpack("hh",
+                        fcntl.ioctl(fd, termios.TIOCGWINSZ, "1234")
+                    ))
                     s.reverse()
                     return tuple(s)
                 finally:
@@ -43,7 +47,8 @@ class Size:
         elif method == 2:
             # Try `stty size`
             try:
-                s = list(int(x) for x in os.popen("stty size", "r").read().split())
+                size = os.popen("stty size", "r").read().split()
+                s = list(int(x) for x in size)
                 s.reverse()
                 return tuple(s)
             except:
@@ -51,7 +56,9 @@ class Size:
         elif method == 3:
             # Try environment variables
             try:
-                return tuple(int(os.getenv(var)) for var in ("COLUMNS", "LINES"))
+                return tuple(
+                    int(os.getenv(var)) for var in ("COLUMNS", "LINES")
+                )
             except:
                 return False
         elif method == 4:
@@ -61,6 +68,7 @@ class Size:
 
     def __repr__(self):
         return 'Size{!r}'.format(self.getSize())
+
 
 def supportedChars(*tests):
     """
