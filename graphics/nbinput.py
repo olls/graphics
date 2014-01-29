@@ -36,18 +36,16 @@ class _GetchUnix:
         # Import termios now or else you'll get the Unix version on the Mac.
         import tty
         import termios
+        self.tty = tty
+        self.termios = termios
 
     def enter(self):
-        import tty
-        import termios
-
-        self.old_settings = termios.tcgetattr(sys.stdin)
-        tty.setcbreak(sys.stdin.fileno())
+        self.old_settings = self.termios.tcgetattr(sys.stdin)
+        self.tty.setcbreak(sys.stdin.fileno())
         return self
 
     def exit(self, type_, value, traceback):
-        import termios
-        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, self.old_settings)
+        self.termios.tcsetattr(sys.stdin, self.termios.TCSADRAIN, self.old_settings)
 
     def char(self):
         if select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], []):
@@ -58,16 +56,16 @@ class _GetchUnix:
 class _GetchWindows:
     def __init__(self):
         import msvcrt
+        self.msvcrt = msvcrt
 
     def enter(self):
-        import msvcrt
         return self
 
     def exit(self, type_, value, traceback):
         pass
 
     def char(self):
-        return msvcrt.getch()
+        return self.msvcrt.getch()
 
 
 class _GetchMacCarbon:
@@ -80,18 +78,17 @@ class _GetchMacCarbon:
     def __init__(self):
         # See if teminal has this (in Unix, it doesn't)
         import Carbon
-        Carbon.Evt
+        self.Carbon = Carbon
+        self.Carbon.Evt
 
     def enter(self):
-        import Carbon
         return self
 
     def exit(self, type_, value, traceback):
         pass
 
     def char(self):
-        import Carbon
-        if Carbon.Evt.EventAvail(0x0008)[0] == 0:  # 0x0008 is the keyDownMask
+        if self.Carbon.Evt.EventAvail(0x0008)[0] == 0:  # 0x0008 is the keyDownMask
             return ''
         else:
             # The event contains the following info:
@@ -102,7 +99,7 @@ class _GetchMacCarbon:
             # number is converted to an ASCII character with chr() and
             # returned.
 
-            _, msg, _, _, _ = Carbon.Evt.GetNextEvent(0x0008)[1]
+            _, msg, _, _, _ = self.Carbon.Evt.GetNextEvent(0x0008)[1]
             return chr(msg & 0x000000FF)
 
 
