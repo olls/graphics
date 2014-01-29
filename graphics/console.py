@@ -1,8 +1,6 @@
 import os
 import sys
 import struct
-import fcntl
-import termios
 
 
 class Size:
@@ -23,6 +21,8 @@ class Size:
             # Try stdin, stdout, stderr
             for fd in (0, 1, 2):
                 try:
+                    import termios
+                    import fcntl
                     s = list(struct.unpack("hh",
                         fcntl.ioctl(fd, termios.TIOCGWINSZ, "1234")
                     ))
@@ -33,6 +33,8 @@ class Size:
         elif method == 1:
             # Try os.ctermid()
             try:
+                import termios
+                import fcntl
                 fd = os.open(os.ctermid(), os.O_RDONLY)
                 try:
                     s = list(struct.unpack("hh",
