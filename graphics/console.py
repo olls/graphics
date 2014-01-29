@@ -1,4 +1,5 @@
 import os
+import sys
 import struct
 import fcntl
 import termios
@@ -61,6 +62,15 @@ class Size:
 
     def __repr__(self):
         return 'Size{!r}'.format(self.getSize())
+
+def supportedChars(*tests):
+    for test in tests:
+        try:
+            test.encode(sys.stdout.encoding)
+            return test
+        except UnicodeDecodeError:
+            pass
+    return '?' * len(tests[0])
 
 
 def main():

@@ -22,6 +22,7 @@ class Canvas:
 
         self.center = center
         self.border = border
+        self.bChars = console.supportedChars('╭─╮│╰╯', '┌─┐│└┘', '+-+|++')
 
         self.size = console.Size()
         self.fullscreen = bool(fullscreen)
@@ -99,34 +100,34 @@ class Canvas:
             # Top border:
             (self.border * (
                 hPad +
-                '╭' +
-                ('─' * ((self.width * 2) + 1)) +
-                '╮\n'
+                self.bChars[0] +
+                (self.bChars[1] * ((self.width * 2) + 1)) +
+                self.bChars[2] + '\n'
             )) +
 
             # First line padding
             hPad +
-            (self.border * '│ ') +
+            (self.border * (self.bChars[3] + ' ')) +
             (
                 (
                     # Between each line
-                    (self.border * ' │') +
+                    (self.border * (' ' + self.bChars[3])) +
                     '\n' +
                     hPad +
-                    (self.border * '│ ')
+                    (self.border * (self.bChars[3] + ' '))
                 ).join(
                     [' '.join(row) for row in display]
                 )
             ) +
-            (self.border * ' │') +
+            (self.border * (' ' + self.bChars[3])) +
 
             # Bottom border:
             (self.border * (
                 '\n' +
                 hPad +
-                '╰' +
-                ('─' * ((self.width * 2) + 1)) +
-                '╯'
+                self.bChars[4] +
+                (self.bChars[1] * ((self.width * 2) + 1)) +
+                self.bChars[5]
             )) +
 
             # Bottom padding:

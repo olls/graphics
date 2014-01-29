@@ -2,6 +2,7 @@ import random
 import copy
 
 from . import colors
+from . import console
 from . import shapes
 from . import funcs
 
@@ -19,7 +20,7 @@ class Sprite:
         self.position = [int(position[0]), int(position[1])]
 
         self.color = color if color else random.randint(1, 8)
-        self._char = str(char)[0] if char else chr(0x25CF)
+        self._char = str(char)[0] if char else console.supportedChars('●', 'O')
 
     def __repr__(self):
         return 'Sprite({!r}, position={!r}, color={!r}, char={!r})'\
