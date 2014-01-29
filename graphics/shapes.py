@@ -12,7 +12,7 @@ class Image:
     def __repr__(self):
         return self.__class__.__name__ + \
                '(' + \
-                ', '.join(key + '=' + repr(value) \
+                ', '.join(key + '=' + repr(value)
                           for key, value in self.__dict__.items()) + \
                 ')'
 

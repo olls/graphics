@@ -1,6 +1,8 @@
 
+
 def rotatePosition(pos, size):
     return [pos[1], size[0] - pos[0] - 1]
+
 
 def rotateImage(image, angle):
     """

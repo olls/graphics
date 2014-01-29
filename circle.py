@@ -1,5 +1,7 @@
-import graphics as g
 import time
+import copy
+
+import graphics as g
 
 screen = g.Canvas(size=(21, 21))
 
@@ -9,24 +11,27 @@ circle = g.Sprite(
 )
 screen.sprites.append(circle)
 
-circleDir = True
 i = 0
 
 while True:
 
-    if circleDir:
-        circle.image.radius += 1
-    else:
-        circle.image.radius -= 1
-
     radius = circle.image.radius
-    if radius == 10:
-        circleDir = False
-    elif radius == 1:
-        circleDir = True
+    if radius == 0:
+        radius = 10
+        while screen.sprites:
+            screen.sprites.pop()
+            if len(screen.sprites) > 0:
+                print(screen)
+                time.sleep(.04)
+    else:
+        radius -= 1
 
+    circle = copy.deepcopy(circle)
+    circle.image.radius = radius
     circle.position = (10 - radius, 10 - radius)
-    circle.color = int(i / 4) % 6
+    circle.color += 1
+    circle.color %= 8
+    screen.sprites.append(circle)
 
     print(screen)
     time.sleep(.04)
