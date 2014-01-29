@@ -63,6 +63,11 @@ class Size:
         return 'Size{!r}'.format(self.getSize())
 
 def supportedChars(*tests):
+    """
+        Takes any number of strings, and returns the first one
+            the terminal encoding supports. If none are supported
+            it returns '?' the length of the first string.
+    """
     for test in tests:
         try:
             test.encode(sys.stdout.encoding)
