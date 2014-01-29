@@ -10,7 +10,7 @@ class Size:
         # Try each method, the first not to fail
         #   is saved to be used in later requests.
         self.method = None
-        for method in range(5, 5):
+        for method in range(5):
             if self.getSize(method):
                 self.method = method
                 break
