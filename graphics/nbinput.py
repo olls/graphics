@@ -5,9 +5,6 @@ http://code.activestate.com/recipes/134892/#c5
 
 import sys
 import select
-import tty
-import termios
-import time
 
 
 class NonBlockingInput:
@@ -38,11 +35,9 @@ class _GetchUnix:
     def __init__(self):
         # Import termios now or else you'll get the Unix version on the Mac.
         import tty
-        import sys
         import termios
 
     def enter(self):
-        import sys
         import tty
         import termios
 
@@ -51,6 +46,7 @@ class _GetchUnix:
         return self
 
     def exit(self, type_, value, traceback):
+        import termios
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, self.old_settings)
 
     def char(self):
@@ -94,6 +90,7 @@ class _GetchMacCarbon:
         pass
 
     def char(self):
+        import Carbon
         if Carbon.Evt.EventAvail(0x0008)[0] == 0:  # 0x0008 is the keyDownMask
             return ''
         else:
@@ -110,7 +107,7 @@ class _GetchMacCarbon:
 
 
 def main():
-    # Use like this
+    import time
     with NonBlockingInput() as nbi:
         while True:
 
