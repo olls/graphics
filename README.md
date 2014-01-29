@@ -46,7 +46,7 @@ Compatibility
 
 This module was written and tested with python3 on Debian with gnome-terminal. It should work with most Linux terminals, but some things might be off.
 - Colours should work if your terminal supports them, otherwise they won't cause any problems.
-- The input module is definitely restricted to Linux.
+- The input module supports Windows, Mac and Unix. Linux works fine and testing is in progress for Windows.
 - In the Windows CMD it doesn't centre properly, colours don't work, it was slow and input doesn't work.
 
 [`console.py`](http://github.com/olls/graphics/blob/master/graphics/console.py) is a small script to determine the terminal size. Works in my gnome-terminal in Debian, probably wont work in all environment. It came from [Stack Overflow](http://stackoverflow.com/a/3051350/1841416).
