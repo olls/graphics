@@ -3,7 +3,7 @@ Python Text Based Graphics Module
 
 This is a console based python3 graphics engine for simple Unicode games or animations.
 
-[`clock.py`](http://github.com/olls/graphics/blob/master/clock.py), [`example.py`](http://github.com/olls/graphics/blob/master/example.py), [`circle.py`](http://github.com/olls/graphics/blob/master/circle.py) and [`game.py`](http://github.com/olls/graphics/blob/master/game.py) are example programs using the module, also see [grit96](http://github.com/grit96)'s [Physics Engine](http://github.com/grit96/physics-engine) which uses this module.
+[`clock.py`](http://github.com/olls/graphics/blob/master/clock.py), [`example.py`](http://github.com/olls/graphics/blob/master/example.py), [`circle.py`](http://github.com/olls/graphics/blob/master/circle.py) and [`game.py`](http://github.com/olls/graphics/blob/master/game.py) are example programs using the module (Note: `<` and `>` are used instead of arrow keys.), also see [grit96](http://github.com/grit96)'s [Physics Engine](http://github.com/grit96/physics-engine) which uses this module.
 
 ![game.py](https://raw2.github.com/olls/graphics/master/game.png "game.py")
 ![road.py](https://raw2.github.com/olls/graphics/master/road.png "road.py")
@@ -57,4 +57,3 @@ This module was written and tested with python3 on Debian with gnome-terminal. I
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/olls/graphics/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
