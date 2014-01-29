@@ -1,3 +1,8 @@
+"""
+Most of this code came from this page:
+http://code.activestate.com/recipes/134892/#c5
+"""
+
 import sys
 import select
 import tty
@@ -66,8 +71,9 @@ class _GetchMacCarbon:
     very helpful in figuring out how to do this.
     """
     def __init__(self):
+        # See if teminal has this (in Unix, it doesn't)
         import Carbon
-        Carbon.Evt # See if teminal has this (in Unix, it doesn't)
+        Carbon.Evt
 
     def enter(self):
         import Carbon
@@ -77,7 +83,7 @@ class _GetchMacCarbon:
         pass
 
     def char(self):
-        if Carbon.Evt.EventAvail(0x0008)[0]==0: # 0x0008 is the keyDownMask
+        if Carbon.Evt.EventAvail(0x0008)[0]==0:  # 0x0008 is the keyDownMask
             return ''
         else:
             # The event contains the following info:
