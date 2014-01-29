@@ -102,7 +102,7 @@ class _GetchMacCarbon:
             # number is converted to an ASCII character with chr() and
             # returned.
 
-            (what, msg, when, where, mod) = Carbon.Evt.GetNextEvent(0x0008)[1]
+            _, msg, _, _, _ = Carbon.Evt.GetNextEvent(0x0008)[1]
             return chr(msg & 0x000000FF)
 
 
