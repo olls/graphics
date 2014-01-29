@@ -78,8 +78,8 @@ class Canvas:
                             pass
 
                         if visible:
-                            char = colors.colorStr(sprite.char((x, y)),
-                                                   sprite.color)
+                            char = console.supportedChars(sprite.char((x, y)))
+                            char = colors.colorStr(char, sprite.color)
                             display[pixelPos[0]][pixelPos[1]] = char
 
         hPad = (
