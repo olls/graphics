@@ -47,8 +47,8 @@ class Canvas:
             Returns the screen as a string, taking
                 the Canvas attributes into account.
         """
+        consoleSize = self.size.getSize()
         # Get new size if fullscreen
-        s = self.size.getSize()
         if self.fullscreen:
             self.width, self.height = self.updateSize()
 
@@ -84,7 +84,7 @@ class Canvas:
 
         hPad = (
             self.center * (
-                int((s[0] -
+                int((consoleSize[0] -
                        ((self.width * 2) - 1) -
                        (4 * self.border)
                     ) / 2) * ' '
@@ -132,17 +132,25 @@ class Canvas:
 
             # Bottom padding:
             (self.center * (
-                '\n' * int((s[1] -
+                '\n' * int((consoleSize[1] -
                             (self.height + (2 * self.border))
                            ) / 2)
             ))
         )
 
-    def testPixel(self, testPixel):
+    def testPixel(self, testPixel, excludedSprites=[]):
         """
-            testPixel = ( int x, int y )
+            testPixel = (int x, int y, [list excludedSprites])
         """
-        for sprite in self.sprites:
+        try:
+            excludedSprites = list(excludedSprites)
+        except TypeError:
+            excludedSprites = [excludedSprites]
+
+        testSprites = [sprite for sprite in self.sprites
+                       if sprite not in excludedSprites]
+
+        for sprite in testSprites:
             for y, row in enumerate(sprite.image.image()):
                 for x, pixel in enumerate(row):
                     if pixel and testPixel[0] == sprite.position[0] + x and\

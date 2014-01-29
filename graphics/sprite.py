@@ -83,7 +83,10 @@ class Sprite:
         images = {}
         image = self.image.image()
         for side in sides:
-            images.update( {(side+2)%4: funcs.rotateImage(image, (side+2)%4)} )
+            images.update({
+                (side + 2) % 4:
+                    funcs.rotateImage(image, (side + 2) % 4)
+        })
 
         # Go through each image finding top edge,
         #   then rotate coordinates to match original image.
@@ -108,11 +111,10 @@ class Sprite:
                     # Get coordinates the right way around.
                     pos = (x, y)
                     size = [len(image), len(image[0])]
-                    for i in range(4-side):
+                    for i in range(4 - side):
                         size.reverse()
                         pos = funcs.rotatePosition(pos, size)
                     edges.append(pos)
-
 
         # Find if any other sprites are in our edge coordinates.
         for pixel in edges:
@@ -122,38 +124,26 @@ class Sprite:
                 return True
         return False
 
-
-    def overlaps(self, canvas, exclude=None):
+    def overlaps(self, canvas, exclude=[]):
         """
             Returns True if sprite is touching any other sprite.
         """
-        if exclude is None:
-            exclude = []
-        else:
-            try:
-                exclude = list(exclude)
-            except TypeError:
-                exclude = [exclude]
-
+        try:
+            exclude = list(exclude)
+        except TypeError:
+            exclude = [exclude]
         exclude.append(self)
 
-        overlap = False
-        for testSprite in canvas.sprites:
-            if not testSprite in exclude:
+        for selfY, row in enumerate(self.image.image()):
+            for selfX, pixel in enumerate(row):
+                canvasPixelOn = canvas.testPixel(
+                    (selfX + self.position[0], selfY + self.position[1]),
+                    excludedSprites = exclude
+                )
+                if pixel and canvasPixelOn:
+                    return True
+        return False
 
-                for testY, testRow in enumerate( testSprite.image.image() ):
-                    for testX, testPixel in enumerate( testRow ):
-
-                        if testPixel:
-
-                            for y, row in enumerate( self.image.image() ):
-                                for x, pixel in enumerate( row ):
-
-                                    if pixel:
-                                        if ( self.position[0]+x == testSprite.position[0]+testX and
-                                             self.position[1]+y == testSprite.position[1]+testY ):
-                                            overlap = True
-        return overlap
 
     def onEdge(self, canvas):
         """
