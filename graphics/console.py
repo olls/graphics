@@ -68,7 +68,7 @@ def supportedChars(*tests):
         try:
             test.encode(sys.stdout.encoding)
             return test
-        except UnicodeDecodeError:
+        except UnicodeEncodeError:
             pass
     return '?' * len(tests[0])
 
