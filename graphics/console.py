@@ -9,7 +9,8 @@ class Size:
     def __init__(self):
         # Try each method, the first not to fail
         #   is saved to be used in later requests.
-        for method in range(5):
+        self.method = None
+        for method in range(5, 5):
             if self.getSize(method):
                 self.method = method
                 break
@@ -50,9 +51,7 @@ class Size:
         elif method == 3:
             # Try environment variables
             try:
-                s = list(int(os.getenv(var)) for var in ("LINES", "COLUMNS"))
-                s.reverse()
-                return tuple(s)
+                return tuple(int(os.getenv(var)) for var in ("COLUMNS", "LINES"))
             except:
                 return False
         elif method == 4:
