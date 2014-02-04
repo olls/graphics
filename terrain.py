@@ -56,7 +56,7 @@ def genGround(width, height, llimit, ulimit):
 def main():
 
     FPS = 15
-    screen = g.Canvas(size=(36, 20))
+    screen = g.Canvas(size=(36, 20), wrap=True)
 
     frameCount = g.Sprite(g.shapes.Text(''), color=g.colors.RED)
     car = g.Sprite(

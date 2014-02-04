@@ -18,11 +18,13 @@ class Canvas:
                  fullscreen = False,
                  background = ' ',
                  center = True,
-                 border = True):
+                 border = True,
+                 wrap = False):
 
         self.center = center
         self.border = border
         self.bChars = console.supportedChars('╭─╮│╰╯', '┌─┐│└┘', '+-+|++')
+        self.wrap = wrap
 
         self.size = console.Size()
         self.fullscreen = bool(fullscreen)
@@ -48,7 +50,7 @@ class Canvas:
                 the Canvas attributes into account.
         """
         consoleSize = self.size.getSize()
-        # Get new size if fullscreen
+        # Get new size if full-screen
         if self.fullscreen:
             self.width, self.height = self.updateSize()
 
@@ -65,14 +67,23 @@ class Canvas:
             image = sprite.image.image()
             for y, row in enumerate(image):
                 for x, pixel in enumerate(row):
-                    if pixel:
-                        pixelPos = [int(sprite.position[1] + y),
-                                    int(sprite.position[0] + x)]
+
+                    pixelPos = [int(sprite.position[0] + x),
+                                int(sprite.position[1] + y)]
+
+                    # Only display pixel if On and
+                    #   within bounds if not wrapping.
+                    if pixel and (
+                        self.withinBounds(pixelPos) or
+                        self.wrap):
+
+                        # Wrap position if wrapping enabled.
+                        pixelPos = self.wrapPos(pixelPos)
 
                         # Test if pixel position is on canvas.
                         visible = True
                         try:
-                            display[pixelPos[0]][pixelPos[1]]
+                            display[pixelPos[1]][pixelPos[0]]
                         except IndexError:
                             visible = False
                             pass
@@ -80,7 +91,7 @@ class Canvas:
                         if visible:
                             char = console.supportedChars(sprite.char((x, y)))
                             char = colors.colorStr(char, sprite.color)
-                            display[pixelPos[0]][pixelPos[1]] = char
+                            display[pixelPos[1]][pixelPos[0]] = char
 
         hPad = (
             self.center * (
@@ -153,14 +164,33 @@ class Canvas:
         for sprite in testSprites:
             for y, row in enumerate(sprite.image.image()):
                 for x, pixel in enumerate(row):
-                    if pixel and testPixel[0] == sprite.position[0] + x and\
-                                  testPixel[1] == sprite.position[1] + y:
+
+                    position = [sprite.position[0] + x,
+                                sprite.position[1] + y]
+
+                    position = self.wrapPos(position)
+                    testPixel = self.wrapPos(testPixel)
+
+                    if pixel and testPixel[0] == position[0] and\
+                                  testPixel[1] == position[1]:
                             return True
         return False
 
     def updateSize(self):
         s = self.size.getSize()
         return int((s[0] / 2) - 5), int(s[1] - 5)
+
+    def withinBounds(self, position):
+        return (position[0] >= 0 and
+                position[0] <= self.width and
+                position[1] >= 0 and
+                position[1] <= self.height)
+
+    def wrapPos(self, position):
+        if self.wrap:
+            position = [position[0] % self.width,
+                        position[1] % self.height]
+        return position
 
     @property
     def border(self):
