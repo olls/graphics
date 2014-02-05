@@ -58,30 +58,30 @@
 
                     <div class="highlight highlight-python">
                         <pre>
-                            <span class="kn">import</span> <span class="nn">graphics</span> <span class="kn">as</span> <span class="nn">g</span>
+<span class="kn">import</span> <span class="nn">graphics</span> <span class="kn">as</span> <span class="nn">g</span>
 
-                            <span class="c"># Create the canvas, 20x20 pixels (characters).</span>
-                            <span class="n">screen</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+<span class="c"># Create the canvas, 20x20 pixels (characters).</span>
+<span class="n">screen</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
 
-                            <span class="c"># Create a circle image, radius 5 pixels.</span>
-                            <span class="n">circleImage</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">shapes</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="c"># Create a circle image, radius 5 pixels.</span>
+<span class="n">circleImage</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">shapes</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
-                            <span class="c"># Create a green sprite at position (7, 7) with the circle image.</span>
-                            <span class="n">circleSprite</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">Sprite</span><span class="p">(</span><span class="n">circleImage</span><span class="p">,</span>
-                            <span class="n">position</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
-                            <span class="n">color</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">GREEN</span><span class="p">)</span>
+<span class="c"># Create a green sprite at position (7, 7) with the circle image.</span>
+<span class="n">circleSprite</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">Sprite</span><span class="p">(</span><span class="n">circleImage</span><span class="p">,</span>
+<span class="n">position</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
+<span class="n">color</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">GREEN</span><span class="p">)</span>
 
-                            <span class="c"># Add the sprite to the canvas.</span>
-                            <span class="n">screen</span><span class="o">.</span><span class="n">sprites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">circleSprite</span><span class="p">)</span>
+<span class="c"># Add the sprite to the canvas.</span>
+<span class="n">screen</span><span class="o">.</span><span class="n">sprites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">circleSprite</span><span class="p">)</span>
 
-                            <span class="c"># Output the canvas to the terminal.</span>
-                            <span class="k">print</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span>
+<span class="c"># Output the canvas to the terminal.</span>
+<span class="k">print</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span>
 
-                            <span class="c"># Increase the circles radius by two.</span>
-                            <span class="n">circleSprite</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">radius</span> <span class="o">+=</span> <span class="mi">2</span>
+<span class="c"># Increase the circles radius by two.</span>
+<span class="n">circleSprite</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">radius</span> <span class="o">+=</span> <span class="mi">2</span>
 
-                            <span class="c"># Output the canvas to the terminal.</span>
-                            <span class="k">print</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span>
+<span class="c"># Output the canvas to the terminal.</span>
+<span class="k">print</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span>
                         </pre>
                     </div>
 
