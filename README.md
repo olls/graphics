@@ -5,9 +5,9 @@ This is a console based python3 graphics engine for simple Unicode games or anim
 
 [`clock.py`](http://github.com/olls/graphics/blob/master/clock.py), [`terrain.py`](http://github.com/olls/graphics/blob/master/terrain.py), [`road.py`](http://github.com/olls/graphics/blob/master/road.py)[`input_example.py`](http://github.com/olls/graphics/blob/master/input_example.py) and [`circle.py`](http://github.com/olls/graphics/blob/master/circle.py) are example programs using the module (Note: `<` and `>` are used instead of arrow keys.), also see [grit96](http://github.com/grit96)'s [Physics Engine](http://github.com/grit96/physics-engine) which uses this module.
 
-![terrain.py](https://raw2.github.com/olls/graphics/master/terrain.png "terrain.py")
-![road.py](https://raw2.github.com/olls/graphics/master/road.png "road.py")
-![clock.py](https://raw2.github.com/olls/graphics/master/clock.png "clock.py")
+![terrain.py](http://olls.github.com/graphics/terrain.png "terrain.py")
+![road.py](http://olls.github.com/graphics/road.png "road.py")
+![clock.py](http://olls.github.com/graphics/clock.png "clock.py")
 
 Usage
 -----
