@@ -80,9 +80,13 @@ def main():
                 player.move(g.RIGHT)
 
             if time.time() - lastFrame >= .05:
+
+                # Increase Score
                 score.image.text = (score.image.text[:7] +
                     str(int(score.image.text[7:]) + 1))
+
                 road.image.move()
+
                 print(screen, end='')
                 lastFrame = time.time()
 
