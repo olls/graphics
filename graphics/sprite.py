@@ -23,8 +23,8 @@ class Sprite:
         self._char = str(char)[0] if char else console.supportedChars('●', 'O')
 
     def __repr__(self):
-        return 'Sprite({!r}, position={!r}, color={!r}, char={!r})'\
-            .format(self.image, self.position, self.color, self._char)
+        return ('Sprite({!r}, position={!r}, color={!r}, char={!r})'
+            .format(self.image, self.position, self.color, self._char))
 
     def char(self, pos):
         try:

@@ -66,8 +66,9 @@ def main():
                 y = 0.8 * center * math.cos(angle)
 
                 for offset, char in enumerate(list(str(n))):
-                    background[int(center - y)][int(center + x + offset)] = \
-                                g.colors.colorStr(char, n % 8)
+                    bac = [slice(int(center - y)),
+                           slice(int(center + x + offset))]
+                    background[bac[0]][bac[1]] = g.colors.colorStr(char, n % 8)
 
             screen.background = background
 

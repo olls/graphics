@@ -45,7 +45,8 @@ class _GetchUnix:
         return self
 
     def exit(self, type_, value, traceback):
-        self.termios.tcsetattr(sys.stdin, self.termios.TCSADRAIN, self.old_settings)
+        self.termios.tcsetattr(sys.stdin,
+            self.termios.TCSADRAIN, self.old_settings)
 
     def char(self):
         if select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], []):

@@ -171,8 +171,8 @@ class Canvas:
                     position = self.wrapPos(position)
                     testPixel = self.wrapPos(testPixel)
 
-                    if pixel and testPixel[0] == position[0] and\
-                                  testPixel[1] == position[1]:
+                    if (pixel and testPixel[0] == position[0] and
+                                  testPixel[1] == position[1]):
                             return True
         return False
 
