@@ -110,7 +110,7 @@ class Vector(Image):
 
 
 class Square(Image):
-    """ A Hollow Box """
+    """ A Solid Box """
     def __init__(self, size):
         """
             size = (int width, int height)
@@ -120,12 +120,12 @@ class Square(Image):
         self.size = [int(size[0]), int(size[1])]
 
     def genImage(self):
-        return [[False for x in range(int(self.size[0]))]
+        return [[True for x in range(int(self.size[0]))]
                 for y in range(int(self.size[1]))]
 
 
 class Box(Image):
-    """ A Solid Box """
+    """ A Hollow Box """
     def __init__(self, size):
         """
             size = (int width, int height)
