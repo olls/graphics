@@ -7,7 +7,7 @@ def main():
     screen = g.Canvas(size=(20, 20))
 
     line = g.Sprite(
-        g.shapes.Box((10, 10)),
+        g.shapes.Vector(0, 10),
         (5, 5)
     )
     screen.sprites.append(line)
@@ -16,7 +16,7 @@ def main():
         while True:
 
             if nbi.char() == ' ':
-                # line.image.angle += 5
+                line.image.angle += 5
                 print(screen)
 
             time.sleep(.01)
