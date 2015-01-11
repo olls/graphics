@@ -9,9 +9,11 @@ from . import shapes
 class Canvas:
     """
         size = (int width, int height)
+        fullscreen = bool
         background = char
         center = bool
         border = bool
+        wrap = bool
     """
     def __init__(self,
                  size = (40, 30),
@@ -39,10 +41,10 @@ class Canvas:
 
     def __repr__(self):
         return ('Canvas(size={!r}, fullscreen={!r}, background={!r}, '
-                'center={!r}, border={!r})'
+                'center={!r}, border={!r}, wrap={!r})'
                ).format(self.size, self.fullscreen,
                         self.background, self.center,
-                        self.border)
+                        self.border, self.wrap)
 
     def __str__(self):
         """
