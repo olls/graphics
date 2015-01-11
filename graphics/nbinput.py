@@ -7,6 +7,9 @@ import sys
 import select
 
 
+UP, DOWN, RIGHT, LEFT = 'A', 'B', 'C', 'D'
+
+
 class NonBlockingInput:
     """
     Gets a single character from standard input. Does not echo to the
@@ -14,24 +17,28 @@ class NonBlockingInput:
     """
     def __init__(self):
         try:
-            self.impl = _GetchWindows()
+            self.impl = _nbiGetchWindows()
         except ImportError:
             try:
-                self.impl = _GetchMacCarbon()
+                self.impl = _nbiGetchMacCarbon()
             except (AttributeError, ImportError):
-                self.impl = _GetchUnix()
+                self.impl = _nbiGetchUnix()
 
     def char(self):
-        return self.impl.char()
+        try:
+            return self.impl.char().replace('\r', '\n').replace('\r\n', '\n')
+        except:
+            return None
 
     def __enter__(self):
-        return self.impl.enter()
+        self.impl.enter()
+        return self
 
     def __exit__(self, type_, value, traceback):
-        return self.impl.exit(type_, value, traceback)
+        self.impl.exit(type_, value, traceback)
 
 
-class _GetchUnix:
+class _nbiGetchUnix:
     def __init__(self):
         # Import termios now or else you'll get the Unix version on the Mac.
         import tty
@@ -42,7 +49,6 @@ class _GetchUnix:
     def enter(self):
         self.old_settings = self.termios.tcgetattr(sys.stdin)
         self.tty.setcbreak(sys.stdin.fileno())
-        return self
 
     def exit(self, type_, value, traceback):
         self.termios.tcsetattr(sys.stdin,
@@ -54,22 +60,27 @@ class _GetchUnix:
         return None
 
 
-class _GetchWindows:
+class _nbiGetchWindows:
     def __init__(self):
         import msvcrt
         self.msvcrt = msvcrt
 
     def enter(self):
-        return self
+        pass
 
     def exit(self, type_, value, traceback):
         pass
 
     def char(self):
-        return self.msvcrt.getch()
+        if self.msvcrt.kbhit():
+            try:
+                return str(self.msvcrt.getch(), encoding='UTF-8')
+            except:
+                pass
+        return None
 
 
-class _GetchMacCarbon:
+class _nbiGetchMacCarbon:
     """
     A function which returns the current ASCII key that is down;
     if no ASCII key is down, the null string is returned.  The
@@ -83,7 +94,7 @@ class _GetchMacCarbon:
         self.Carbon.Evt
 
     def enter(self):
-        return self
+        pass
 
     def exit(self, type_, value, traceback):
         pass
@@ -104,16 +115,51 @@ class _GetchMacCarbon:
             return chr(msg & 0x000000FF)
 
 
+class BlockingInput(NonBlockingInput):
+    """
+    Gets a single character from standard input. Does not echo to the
+        screen.
+    """
+    def __init__(self):
+        try:
+            self.impl = _biGetchWindows()
+        except ImportError:
+            try:
+                self.impl = _biGetchMacCarbon()
+            except (AttributeError, ImportError):
+                self.impl = _biGetchUnix()
+
+
+class _biGetchUnix(_nbiGetchUnix):
+    def char(self):
+        return sys.stdin.read(1)
+
+
+class _biGetchWindows(_nbiGetchWindows):
+    def char(self):
+        try:
+            return str(self.msvcrt.getch(), encoding='UTF-8')
+        except:
+            return None
+
+
+class _biGetchMacCarbon(_nbiGetchMacCarbon):
+    pass
+
+
+def escape_code(bi):
+    # Blocking only
+    first = bi.char()
+    if first == chr(27) and bi.char() == '[':
+        return bi.char()
+    return first
+
+
 def main():
     import time
-    with NonBlockingInput() as nbi:
+    with BlockingInput() as bi:
         while True:
-
-            if nbi.char() == ' ':
-                print('A')
-            else:
-                print('B')
-            time.sleep(.1)
+            print(ord(escape_code(bi)))
 
 
 if __name__ == '__main__':
