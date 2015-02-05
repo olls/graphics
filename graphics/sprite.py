@@ -67,7 +67,7 @@ class Sprite:
             None = All
 
             This works by creating a list of the image rotated so all the
-                requested sizes are facing up, then it finds the top edge for
+                requested sides are facing up, then it finds the top edge for
                 each image and rotates the coordinates back to the original
                 image.
         """
