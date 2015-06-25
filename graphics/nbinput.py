@@ -11,10 +11,12 @@ UP, DOWN, RIGHT, LEFT = 'A', 'B', 'C', 'D'
 
 
 class NonBlockingInput:
+
     """
     Gets a single character from standard input. Does not echo to the
         screen.
     """
+
     def __init__(self):
         try:
             self.impl = _nbiGetchWindows()
@@ -39,6 +41,7 @@ class NonBlockingInput:
 
 
 class _nbiGetchUnix:
+
     def __init__(self):
         # Import termios now or else you'll get the Unix version on the Mac.
         import tty
@@ -52,7 +55,7 @@ class _nbiGetchUnix:
 
     def exit(self, type_, value, traceback):
         self.termios.tcsetattr(sys.stdin,
-            self.termios.TCSADRAIN, self.old_settings)
+                               self.termios.TCSADRAIN, self.old_settings)
 
     def char(self):
         if select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], []):
@@ -61,6 +64,7 @@ class _nbiGetchUnix:
 
 
 class _nbiGetchWindows:
+
     def __init__(self):
         import msvcrt
         self.msvcrt = msvcrt
@@ -81,12 +85,14 @@ class _nbiGetchWindows:
 
 
 class _nbiGetchMacCarbon:
+
     """
     A function which returns the current ASCII key that is down;
     if no ASCII key is down, the null string is returned.  The
     page http://www.mactech.com/macintosh-c/chap02-1.html was
     very helpful in figuring out how to do this.
     """
+
     def __init__(self):
         # See if teminal has this (in Unix, it doesn't)
         import Carbon
@@ -100,7 +106,8 @@ class _nbiGetchMacCarbon:
         pass
 
     def char(self):
-        if self.Carbon.Evt.EventAvail(0x0008)[0] == 0:  # 0x0008 is the keyDownMask
+        # 0x0008 is the keyDownMask
+        if self.Carbon.Evt.EventAvail(0x0008)[0] == 0:
             return ''
         else:
             # The event contains the following info:
@@ -116,10 +123,12 @@ class _nbiGetchMacCarbon:
 
 
 class BlockingInput(NonBlockingInput):
+
     """
     Gets a single character from standard input. Does not echo to the
         screen.
     """
+
     def __init__(self):
         try:
             self.impl = _biGetchWindows()
@@ -131,11 +140,13 @@ class BlockingInput(NonBlockingInput):
 
 
 class _biGetchUnix(_nbiGetchUnix):
+
     def char(self):
         return sys.stdin.read(1)
 
 
 class _biGetchWindows(_nbiGetchWindows):
+
     def char(self):
         try:
             return str(self.msvcrt.getch(), encoding='UTF-8')

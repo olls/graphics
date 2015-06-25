@@ -83,7 +83,7 @@ def main():
 
                 # Increase Score
                 score.image.text = (score.image.text[:7] +
-                    str(int(score.image.text[7:]) + 1))
+                                    str(int(score.image.text[7:]) + 1))
 
                 road.image.move()
 

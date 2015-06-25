@@ -5,6 +5,7 @@ import graphics as g
 
 
 class Car(g.shapes.Image):
+
     def __init__(self):
         super(Car, self).__init__()
 
@@ -20,14 +21,14 @@ def main():
     touchMeter = g.Sprite(g.shapes.Text(''), color=g.colors.RED)
     mover = g.Sprite(
         Car(),
-        color = g.colors.WHITE
+        color=g.colors.WHITE
     )
 
     gridImg = ([[False, True, False, False] * 9] + ([[False] * 36]) * 3) * 5
     grid = g.Sprite(
         g.shapes.CustImage(gridImg),
-        color = g.colors.GREEN,
-        position = (0, 1)
+        color=g.colors.GREEN,
+        position=(0, 1)
     )
 
     screen.sprites.append(touchMeter)

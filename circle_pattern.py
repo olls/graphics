@@ -10,8 +10,8 @@ def main():
         size = rand.randint(1, int(min(canvas.width / 4, canvas.height / 2)))
         circle = g.Sprite(
             g.shapes.Circle(size, filled=True),
-            position = (rand.randint(0, canvas.width - 1),
-                        rand.randint(0, canvas.height - 1))
+            position=(rand.randint(0, canvas.width - 1),
+                      rand.randint(0, canvas.height - 1))
         )
         canvas.sprites.append(circle)
         if circle.onEdge(canvas) or circle.touching(canvas):

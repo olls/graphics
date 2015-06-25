@@ -5,6 +5,7 @@ import graphics as g
 
 
 class Car(g.shapes.Image):
+
     def __init__(self, length=5):
         super(Car, self).__init__()
         self.length = length
@@ -12,8 +13,8 @@ class Car(g.shapes.Image):
     def genImage(self):
         l = self.length
         return [[0] + [1 for i in range(2, l)] + [0],
-                 [1 for i in range(l)],
-                 [0, 1] + [0 for i in range(4, l)] + [1, 0]]
+                [1 for i in range(l)],
+                [0, 1] + [0 for i in range(4, l)] + [1, 0]]
 
 
 def genGround(width, height, llimit, ulimit):
@@ -61,7 +62,7 @@ def main():
     frameCount = g.Sprite(g.shapes.Text(''), color=g.colors.RED)
     car = g.Sprite(
         Car(),
-        color = g.colors.WHITE
+        color=g.colors.WHITE
     )
 
     llimit = screen.height
@@ -73,7 +74,7 @@ def main():
 
     ground = g.Sprite(
         g.shapes.CustImage(grndTerrain),
-        color = g.colors.GREEN
+        color=g.colors.GREEN
     )
 
     screen.sprites.append(frameCount)

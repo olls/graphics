@@ -6,6 +6,7 @@ from . import funcs
 
 
 class Image:
+
     def __init__(self):
         self.direction = 0
 
@@ -41,7 +42,9 @@ class Image:
 
 
 class Vector(Image):
+
     """ A Straight Line """
+
     def __init__(self, angle, length):
         """
             angle = float range(0, 360)
@@ -57,7 +60,7 @@ class Vector(Image):
         y = int(self.length * math.cos(math.radians(self.angle)))
 
         image = [[False for xPos in range(abs(x) + 1)]
-                        for yPos in range(abs(y) + 1)]
+                 for yPos in range(abs(y) + 1)]
 
         yMirror = False
         xMirror = False
@@ -110,7 +113,9 @@ class Vector(Image):
 
 
 class Square(Image):
+
     """ A Solid Box """
+
     def __init__(self, size):
         """
             size = (int width, int height)
@@ -125,7 +130,9 @@ class Square(Image):
 
 
 class Box(Image):
+
     """ A Hollow Box """
+
     def __init__(self, size):
         """
             size = (int width, int height)
@@ -158,7 +165,9 @@ class Box(Image):
 
 
 class Circle(Image):
+
     """ A Circle """
+
     def __init__(self, radius, filled=False):
         """
             radius = int
@@ -172,7 +181,7 @@ class Circle(Image):
         r = int(self.radius)
 
         image = [[False for x in range((r * 2) + 1)]
-                  for y in range((r * 2) + 1)]
+                 for y in range((r * 2) + 1)]
 
         for x in range(r):
 
@@ -202,7 +211,9 @@ class Circle(Image):
 
 
 class Text(Image):
+
     """ A text string """
+
     def __init__(self, text=''):
         super(Text, self).__init__()
         self.text = text
@@ -228,6 +239,7 @@ class Text(Image):
 
 
 class CustImage(Image):
+
     def __init__(self, image=None):
         super(CustImage, self).__init__()
         self.custImage = image

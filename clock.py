@@ -13,7 +13,7 @@ def main():
     # Clock Face
     circle = g.Sprite(
         g.shapes.Circle(0),
-        color = g.colors.CYAN
+        color=g.colors.CYAN
     )
     textTime = g.Sprite(
         g.shapes.Text()
@@ -24,16 +24,16 @@ def main():
     # Hands
     second = g.Sprite(
         g.shapes.Vector(0, 0),
-        color = g.colors.RED,
-        char = chr(0x25CB)
+        color=g.colors.RED,
+        char=chr(0x25CB)
     )
     minute = g.Sprite(
         g.shapes.Vector(0, 0),
-        color = g.colors.YELLOW
+        color=g.colors.YELLOW
     )
     hour = g.Sprite(
         g.shapes.Vector(0, 0),
-        color = g.colors.YELLOW
+        color=g.colors.YELLOW
     )
     screen.sprites.append(second)
     screen.sprites.append(minute)
@@ -56,7 +56,7 @@ def main():
 
             # Generate background
             background = [[' ' for x in range(size)]
-                               for y in range(size)]
+                          for y in range(size)]
 
             hours = 12
             for n in range(1, hours + 1):
@@ -81,11 +81,11 @@ def main():
             s = int((t / 1) % 60)
             textTime.image.text = '{:2}:{:02}:{:02}'.format(h, m, s)
             textTime.position = (center - (len(textTime.image.text) / 2),
-                                (3 / 4) * size)
+                                 (3 / 4) * size)
 
             for hand, secPerRev, length in [(second, 60, 0.9),
-                                     (minute, 3600, 0.75),
-                                     (hour, 43200, 0.5)]:
+                                            (minute, 3600, 0.75),
+                                            (hour, 43200, 0.5)]:
                 hand.image.length = center * length
 
                 # +180 and -angle are to compensate for

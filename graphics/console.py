@@ -4,6 +4,7 @@ import struct
 
 
 class Size:
+
     def __init__(self):
         # Try each method, the first not to fail
         #   is saved to be used in later requests.
@@ -24,8 +25,9 @@ class Size:
                     import termios
                     import fcntl
                     s = list(struct.unpack("hh",
-                        fcntl.ioctl(fd, termios.TIOCGWINSZ, "1234")
-                    ))
+                                           fcntl.ioctl(
+                                               fd, termios.TIOCGWINSZ, "1234")
+                                           ))
                     s.reverse()
                     return tuple(s)
                 except:
@@ -38,8 +40,9 @@ class Size:
                 fd = os.open(os.ctermid(), os.O_RDONLY)
                 try:
                     s = list(struct.unpack("hh",
-                        fcntl.ioctl(fd, termios.TIOCGWINSZ, "1234")
-                    ))
+                                           fcntl.ioctl(
+                                               fd, termios.TIOCGWINSZ, "1234")
+                                           ))
                     s.reverse()
                     return tuple(s)
                 finally:

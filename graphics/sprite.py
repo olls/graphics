@@ -8,6 +8,7 @@ from . import funcs
 
 
 class Sprite:
+
     def __init__(self, image, position=(0, 0), color=None, char=None):
         """
             image = Image() instance
@@ -24,7 +25,7 @@ class Sprite:
 
     def __repr__(self):
         return ('Sprite({!r}, position={!r}, color={!r}, char={!r})'
-            .format(self.image, self.position, self.color, self._char))
+                .format(self.image, self.position, self.color, self._char))
 
     def char(self, pos):
         try:
@@ -86,7 +87,7 @@ class Sprite:
             images.update({
                 (side + 2) % 4:
                     funcs.rotateImage(image, (side + 2) % 4)
-        })
+            })
 
         # Go through each image finding top edge,
         #   then rotate coordinates to match original image.
@@ -138,7 +139,7 @@ class Sprite:
             for selfX, pixel in enumerate(row):
                 canvasPixelOn = canvas.testPixel(
                     (selfX + self.position[0], selfY + self.position[1]),
-                    excludedSprites = exclude
+                    excludedSprites=exclude
                 )
                 if pixel and canvasPixelOn:
                     return True

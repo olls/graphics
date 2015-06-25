@@ -7,6 +7,7 @@ from . import shapes
 
 
 class Canvas:
+
     """
         size = (int width, int height)
         fullscreen = bool
@@ -15,8 +16,9 @@ class Canvas:
         border = bool
         wrap = bool
     """
+
     def __init__(self,
-                 size = (40, 30),
+                 size=(40, 30),
                  fullscreen = False,
                  background = ' ',
                  center = True,
@@ -42,9 +44,9 @@ class Canvas:
     def __repr__(self):
         return ('Canvas(size={!r}, fullscreen={!r}, background={!r}, '
                 'center={!r}, border={!r}, wrap={!r})'
-               ).format(self.size, self.fullscreen,
-                        self.background, self.center,
-                        self.border, self.wrap)
+                ).format(self.size, self.fullscreen,
+                         self.background, self.center,
+                         self.border, self.wrap)
 
     def __str__(self):
         """
@@ -59,7 +61,7 @@ class Canvas:
         # Generate screen
         if isinstance(self.background, str):
             display = [[str(self.background) for x in range(self.width)]
-                        for y in range(self.height)]
+                       for y in range(self.height)]
         else:
             display = copy.deepcopy(self.background)
 
@@ -76,8 +78,8 @@ class Canvas:
                     # Only display pixel if On and
                     #   within bounds if not wrapping.
                     if pixel and (
-                        self.withinBounds(pixelPos) or
-                        self.wrap):
+                            self.withinBounds(pixelPos) or
+                            self.wrap):
 
                         # Wrap position if wrapping enabled.
                         pixelPos = self.wrapPos(pixelPos)
@@ -98,9 +100,9 @@ class Canvas:
         hPad = (
             self.center * (
                 int((consoleSize[0] -
-                       ((self.width * 2) - 1) -
-                       (4 * self.border)
-                    ) / 2) * ' '
+                     ((self.width * 2) - 1) -
+                     (4 * self.border)
+                     ) / 2) * ' '
             )
         )
 
@@ -147,7 +149,7 @@ class Canvas:
             (self.center * (
                 '\n' * int((consoleSize[1] -
                             (self.height + (2 * self.border))
-                           ) / 2)
+                            ) / 2)
             ))
         )
 
@@ -174,8 +176,8 @@ class Canvas:
                     testPixel = self.wrapPos(testPixel)
 
                     if (pixel and testPixel[0] == position[0] and
-                                  testPixel[1] == position[1]):
-                            return True
+                            testPixel[1] == position[1]):
+                        return True
         return False
 
     def updateSize(self):
