@@ -9,6 +9,18 @@ This is a console based python3 graphics engine for simple Unicode games or anim
 ![road.py](http://oliverfaircliff.com/~olls/readme-imgs/graphics/road.png "road.py")
 ![clock.py](http://oliverfaircliff.com/~olls/readme-imgs/graphics/clock.png "clock.py")
 
+Installation
+------------
+
+Install using `setup.py`:
+
+```
+python3 setup.py install
+```
+
+Or install from PyPI: [pypi.python.org/pypi/graphics](https://pypi.python.org/pypi/graphics).
+
+
 Usage
 -----
 
